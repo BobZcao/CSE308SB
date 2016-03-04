@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <div class="header"></div>
+    <body>
+
+        <div class="navigation"></div>
+
+        <div class="container" style="margin-top:80px">
+            <div class="row">
+                <div class="col-lg-3" style="margin-top:20px">
+                    <h2>Filter search by:</h2> 
+
+                    <div class="panel-group" id="accordion" style="margin-top:40px">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Subject</a>
+                                </h4>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <span> <a href=#> Fiction</a></span><br>
+                                    <span> <a href=#>Mystery</a></span><br>
+                                    <span> <a href=#> Literature</a></span><br>
+                                    <span> <a href=#>Romance</a></span><br>
+                                    <span> <a href=#> Historical Fiction</a></span><br>
+                                    <span> <a href=#>Humor</a></span><br>
+                                    <span> <a href=#> More...</a></span><br>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse"  href="#collapse2">Publisher</a>
+                                </h4>
+                            </div>
+                            <div id="collapse2" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                     <span> <a href=#> KensingTon</a></span><br>
+                                    <span> <a href=#>St. Martin's Press</a></span><br>
+                                    <span> <a href=#> Baker Publishing Group</a></span><br>
+                                    <span> <a href=#>Allison & Rusby</a></span><br>
+                                    <span> <a href=#> Oasis Audio</a></span><br>
+                                    <span> <a href=#>Scriber</a></span><br>
+                                    <span> <a href=#> More...</a></span><br>
+                                </div>
+                            </div>
+                        </div>
+                  
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse"  href="#collapse4">Language</a>
+                                </h4>
+                            </div>
+                            <div id="collapse4" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                      <span> <a href=#> English</a></span><br>
+                                    <span> <a href=#>Spanish</a></span><br>
+                                    <span> <a href=#> Germany</a></span><br>
+                                    <span> <a href=#>Chinese</a></span><br>
+                                    <span> <a href=#> French</a></span><br>
+                                    <span> <a href=#>Japanese</a></span><br>
+                                    <span> <a href=#> More...</a></span><br>
+                                </div>
+                            </div>
+                        </div>
+                  
+                    </div> 
+                </div>
+                <div class="col-lg-8" style="font-size:150%;">
+                    <h2>Book Title</h2>
+                    <Span>Sort by:</Span>
+                    <select style="margin-right: 40%">
+                        <option value="relevancy">Relevancy</option>
+                        <option value=" titleAtZ">Title A-Z</option>
+                        <option value="titleZtA">Title Z-A</option>
+                        <option value=" authorAtZ">Author A-Z</option>
+                        <option value="authorZtA">Author Z-A</option>
+                        <option value="release_date">Release Date</option>
+                        <option value="added_to_site">Added to Site </option>
+                        <option value="most_popuLAR">Most Popular</option>
+
+                    </select>
+                    <button type="button" onclick="cover()" class="btn btn-primary"><span class="glyphicon glyphicon-th">Cover</span></button>
+
+                    <button type="button" onclick="list()" class="btn btn-primary"><span class="glyphicon glyphicon-th-list">List</span></button><br><br><br>
+                    <div class="cover">
+                        <div class="col-lg-4 col-md-3 col-xs-6 thumb">
+                            <a class="thumbnail" href="#">
+                                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-3 col-xs-6 thumb">
+                            <a class="thumbnail" href="#">
+                                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-3 col-xs-6 thumb">
+                            <a class="thumbnail" href="#">
+                                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-3 col-xs-6 thumb">
+                            <a class="thumbnail" href="#">
+                                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-3 col-xs-6 thumb">
+                            <a class="thumbnail" href="#">
+                                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-3 col-xs-6 thumb">
+                            <a class="thumbnail" href="#">
+                                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="list" style="display:none;">
+                        <div class="row">
+                            <div class="col-lg-4" style="margin-top:20px">
+                                <img class="img-responsive" src="http://placehold.it/300x400" alt="" style="float:right;width:150px" >
+                                <button class="btn btn-default" style="margin-top: 10px; width: 100px; margin-left:100px;">Sample</button>
+                                </div>      
+                                    <div class="col-lg-8"  >
+                                        <h3>Book Title</h3>
+                                        <p>By <a href="#">Author xxx</a></p>
+                                        <button type="button" style="width:200px" class="btn btn-primary btn-lg btn-block">Borrow</button>
+                                        <button type="button" style="width:200px" class="btn btn-warning btn-lg btn-block">Add to Wish List</button>
+
+
+                                        <h4>Description</h4>
+                                        <p>Microsoft PowerPivot is a free add-on to Excel from Microsoft that allows users to produce new kinds of reports.
+                                         
+                                       
+                                    </div>
+                            
+                            </div>
+                             <hr> 
+                            <div class="row">
+                            <div class="col-lg-4" style="margin-top:20px">
+                                <img class="img-responsive" src="http://placehold.it/300x400" alt="" style="float:right;width:150px" >
+                                <button class="btn btn-default" style="margin-top: 10px; width: 100px; margin-left:100px;">Sample</button>
+                                </div>      
+                                    <div class="col-lg-8" >
+                                        <h3>Book Title</h3>
+                                        <p>By <a href="#">Author xxx</a></p>
+                                        <button type="button" style="width:200px" class="btn btn-primary btn-lg btn-block">Borrow</button>
+                                        <button type="button" style="width:200px" class="btn btn-warning btn-lg btn-block">Add to Wish List</button>
+
+
+                                        <h4>Description</h4>
+                                        <p>Microsoft PowerPivot is a free add-on to Excel from Microsoft that allows users to produce new kinds of reports.
+                                       
+                                       
+                                    </div>
+                                 
+                            </div>
+
+                                
+                            </div>
+
+
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="footer" style="margin-top: 20px"></div>
+
+
+                    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                    <!-- Include all compiled plugins (below), or include individual files as needed -->
+                    <script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+
+                    <!-- Customized js files -->
+                    <script src="bootstrap-3.3.6-dist/js/script.js"></script>
+                    <script>
+                        function list() {
+                            $(".list").css("display", "inline");
+                            $(".cover").css("display", "none");
+                        }
+                        function cover() {
+                            $(".cover").css("display", "inline");
+                            $(".list").css("display", "none");
+                        }
+                    </script>
+                    </body>
+                    </html>
