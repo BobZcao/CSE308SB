@@ -5,6 +5,7 @@ $(document).ready(function(){
   $('.searchbar').load("searchbar.html");
   $('.gallery').load("gallery.html");
   $('.footer').load("footer.html");
+  $('.nav_afterlogin').load("nav_afterlogin.html");
   
   /*this part is the mem login panel. the corresponding panel is goint to be
    *loaded when you click each tab.
