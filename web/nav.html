@@ -6,180 +6,238 @@ and open the template in the editor.
 -->
 <html>
     <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.html">Silly Bee Library</a>
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Silly Bee Library</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                <ul class="nav navbar-nav">
+                    <li class="dropdown mega-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <span class="glyphicon glyphicon-chevron-down"></span></a>
+                        <ul class="dropdown-menu mega-dropdown-menu row">
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">Subject</li>
+
+                                    <li><a href="display_page.html">Business</a></li>
+                                    <li><a href="#">Fiction</a></li>
+                                    <li><a href="#">Nonfiction</a></li>
+                                    <li><a href="#">History</a></li>
+                                    <li><a href="#">Religion</a></li>
+                                    <li><a href="#">Education</a></li>
+                                    <li><a href="#">Science</a></li>
+                                    <li><a href="#">Medic</a></li>
+                                    <li><a href="#">More...</a></li>
+
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">Genre</li>
+                                    <li><a href="#">Novel</a></li>
+                                    <li><a href="#">Drama</a></li>
+                                    <li><a href="#">Poetry</a></li>
+                                    <li><a href="#">Comedy</a></li>
+                                    <li><a href="#">Tragedy</a></li>
+                                    <li><a href="#">Short story</a></li>
+                                    <li><a href="#">Epic</a></li>
+                                    <li><a href="#">More...</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </li>
+                    <li class="active"><a href="about.html">About<span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-user login"></span> Login</a></li>                        
+                    <li><a href="#" data-toggle="modal" data-target="#signup-modal">Sign up</a></li>
+                </ul>
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <!-- BEGIN # MODAL LOGIN -->
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true"
+         style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Begin # DIV Form -->
+                <div id="div-forms">
+
+                    <!-- Begin # Login Form -->
+                    <form id="login-form" action="member_login.html" method="post">
+                        <div class="modal-body">
+
+                            <input id="login_username" class="form-control" type="text"
+                                   name="lg_username" placeholder="Username" required> <input
+                                   id="login_password" class="form-control" type="password"
+                                   name="lg_password" placeholder="Password" required>
+                            <div class="checkbox">
+                                <label> <input type="checkbox"> Remember me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+                            </div>
+
+                        </div>
+                    </form>
+                    <!-- End # Login Form -->
                 </div>
+                <!-- End # DIV Form -->
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            </div>
+        </div>
+    </div>
 
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown mega-dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <span class="glyphicon glyphicon-chevron-down"></span></a>
-                            <ul class="dropdown-menu mega-dropdown-menu row">
-                                <li class="col-sm-3">
-                                    <ul>
-                                        <li class="dropdown-header">Subject</li>
-                                        
-                                        <li><a href="display_page.html">Business</a></li>
-                                        <li><a href="#">Fiction</a></li>
-                                        <li><a href="#">Nonfiction</a></li>
-                                        <li><a href="#">History</a></li>
-                                        <li><a href="#">Religion</a></li>
-                                        <li><a href="#">Education</a></li>
-                                        <li><a href="#">Science</a></li>
-                                        <li><a href="#">Medic</a></li>
-                                        <li><a href="#">More...</a></li>
-                                        
-                                    </ul>
-                                </li>
-                                <li class="col-sm-3">
-                                    <ul>
-                                        <li class="dropdown-header">Genre</li>
-                                        <li><a href="#">Novel</a></li>
-                                        <li><a href="#">Drama</a></li>
-                                        <li><a href="#">Poetry</a></li>
-                                       <li><a href="#">Comedy</a></li>
-                                        <li><a href="#">Tragedy</a></li>
-                                        <li><a href="#">Short story</a></li>
-                                        <li><a href="#">Epic</a></li>
-                                        <li><a href="#">More...</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
 
-                        </li>
-                        <li class="active"><a href="about.html">About<span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-user login"></span> Login</a></li>                        
-                        <li><a href="#" data-toggle="modal" data-target="#signup-modal">Sign up</a></li>
-                    </ul>
+    <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true"
+         style=" display: none">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
-    
-	<!-- BEGIN # MODAL LOGIN -->
-	<div class="modal fade" id="login-modal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true"
-		style="display: none;">
-		<div class="modal-dialog">
-			<div class="modal-content">
+                <!-- Begin # DIV Form -->
+                <div id="div-forms">
 
-				<!-- Begin # DIV Form -->
-				<div id="div-forms">
+                    <!-- Begin | Register Form -->
+                    <form id="register-form" action=""
+                          method="post" >
+                        <div class="modal-body">
+                            <div style="font-size:20px;">
+                                <Span><Strong>Sign up as:</Strong></Span>
+                                <select style="margin-right: 40%" id="selectSign" onchange="selectSignIn();">
+                                    <option value="Member">Member</option>
+                                    <option value="Faculty">Faculty</option>
+                                    <option value="Publisher">Publisher</option>
 
-					<!-- Begin # Login Form -->
-					<form id="login-form" action="member_login.html" method="post">
-						<div class="modal-body">
 
-							<input id="login_username" class="form-control" type="text"
-								name="lg_username" placeholder="Username" required> <input
-								id="login_password" class="form-control" type="password"
-								name="lg_password" placeholder="Password" required>
-							<div class="checkbox">
-								<label> <input type="checkbox"> Remember me
-								</label>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<div>
-								<button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
-							</div>
-							
-						</div>
-					</form>
-					<!-- End # Login Form -->
+                                </select>
                                 </div>
-				<!-- End # DIV Form -->
+                            </br>
+                                <div class="member">
+                                  
+                                    <input id="register_username" class="form-control" type="text"
+                                           placeholder="Username" name= "reg_username" required> 
+                                    <input
+                                        id="register_password" class="form-control" type="password"
+                                        placeholder="Password" name= "reg_password" required> 
+                                    <input name="reg_password_confirm"
+                                           id="register_confirm_password" class="form-control"
+                                           type="password" placeholder="Confirm Password" required>
+                                    <input id="register_email"  name="reg_email" class="form-control" type="text"
+                                           placeholder="E-Mail" required>
+                                    <input id="first_name" name="reg_firstname"
+                                           class="form-control" type="text" placeholder="First Name"
+                                           required> 
 
-			</div>
-		</div>
-	</div>
+                                    <!--<input type="text" class="form-control" id="reg_ssn" name="reg_ssn" placeholder="SSN"
+                                           required>-->
+
+                                    <input id="last_name" class="form-control" name="reg_lastname"
+                                           type="text" placeholder="Last Name" required>
+                                    <input id="ssn" class="form-control" name="ssn" 
+                                           type="text" placeholder="SSN" required style="display:none">
+                                    <input name="reg_address"
+                                           id="address" class="form-control" type="text"
+                                           placeholder="Address" required>
+                                    <input id="city" name="reg_city"
+                                           class="form-control" type="text" placeholder="City" required>
+                                    <input id="state" class="form-control" type="text" name="reg_state"
+                                           placeholder="State" required> 
+                                    <input id="zipcode" name="reg_zipcode"
+                                           class="form-control" type="text" placeholder="Zipcode" required>
+                                    <input id="telephone" class="form-control" type="text" name="reg_telephone"
+                                           placeholder="Telephone" required>
+                                    <!-- <input
+                                             id="credit_card_number" class="form-control" type="text"
+                                             placeholder="Credit Card Number" name="reg_cardnum" required>-->
+                                </div>  
+                                <div class="publisher" style="display:none">
+                                    <input id="register_username" class="form-control" type="text"
+                                           placeholder="Username" name= "pub_username" required> 
+                                    <input
+                                        id="pub_password" class="form-control" type="password"
+                                        placeholder="Password" name= "pub_password" required> 
+                                    <input name="pub_password_confirm"
+                                           id="register_confirm_password" class="form-control"
+                                           type="password" placeholder="Confirm Password" required>
+                                    <input id="company_name"  name="company_name" class="form-control" type="text"
+                                           placeholder="Company name" required>
+                                    <input id="pub_address" name="pub_address"
+                                           class="form-control" type="text" placeholder="Address"
+                                           required> 
+                                    <input
+                                        id="pub_email" class="form-control" type="text"
+                                        placeholder="Email" name= "pub_email" required> 
+                                    <input name="pub_phone"
+                                           id="pub_phone" class="form-control"
+                                           type="text" placeholder="Phone" required>
+
+                                </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div>
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block">Sign up</button>
+                                    </div>
+
+                                </div>
+                                </form>
+                                <!-- End | Register Form -->
+
+                            </div>
+                            <!-- End # DIV Form -->
+
+                        </div>
+                </div>
+            </div>
 
 
-<div class="modal fade" id="signup-modal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true"
-		style=" display: none">
-		<div class="modal-dialog">
-			<div class="modal-content">
+            <script>
+                function selectSignIn() {
+                    var result = document.getElementById("selectSign").value;
+                    if (result=="Member") {
+                        $(".member").css("display", "inline");
+                        $("#ssn").css("display", "none");
+                        $(".publisher").css("display", "none");
+                    }
+                    if (result=="Faculty") {
+                        $(".member").css("display", "inline");
+                        $("#ssn").css("display", "inline");
+                        $(".publisher").css("display", "none");
+                    }
+                    if (result=="Publisher") {
+                        $(".member").css("display", "none");
+                        $("#ssn").css("display", "none");
+                        $(".publisher").css("display", "inline");
+                    }
+                }
+            </script>
+            <!-- jQuery -->
+            <script src="js/jquery.js"></script>
 
-				<!-- Begin # DIV Form -->
-				<div id="div-forms">
+            <!-- Bootstrap Core JavaScript -->
+            <script src="js/bootstrap.min.js"></script>
 
-					<!-- Begin | Register Form -->
-					<form id="register-form" action=""
-						method="post" >
-						<div class="modal-body">
-							<input id="register_username" class="form-control" type="text"
-								placeholder="Username" name= "reg_username" required> 
-                                                        <input
-								id="register_password" class="form-control" type="password"
-								placeholder="Password" name= "reg_password" required> 
-                                                        <input name="reg_password_confirm"
-								id="register_confirm_password" class="form-control"
-								type="password" placeholder="Confirm Password" required>
-							<input id="register_email"  name="reg_email" class="form-control" type="text"
-								placeholder="E-Mail" required>
-                                                        <input id="first_name" name="reg_firstname"
-								class="form-control" type="text" placeholder="First Name"
-								required> 
-                                                      
-						<!--<input type="text" class="form-control" id="reg_ssn" name="reg_ssn" placeholder="SSN"
-                                                       required>-->
-					
-                                                        <input id="last_name" class="form-control" name="reg_lastname"
-								type="text" placeholder="Last Name" required>
-                                                        <input name="reg_address"
-								id="address" class="form-control" type="text"
-								placeholder="Address" required>
-                                                        <input id="city" name="reg_city"
-								class="form-control" type="text" placeholder="City" required>
-							<input id="state" class="form-control" type="text" name="reg_state"
-								placeholder="State" required> 
-                                                        <input id="zipcode" name="reg_zipcode"
-								class="form-control" type="text" placeholder="Zipcode" required>
-							<input id="telephone" class="form-control" type="text" name="reg_telephone"
-								placeholder="Telephone" required>
-                                                       <!-- <input
-								id="credit_card_number" class="form-control" type="text"
-								placeholder="Credit Card Number" name="reg_cardnum" required>-->
+            <!-- Customized JS -->
+            <script src="js/popup.js"></script>
 
-						</div>
-						<div class="modal-footer">
-							<div>
-								<button type="submit" class="btn btn-primary btn-lg btn-block">Sign up</button>
-							</div>
-			
-						</div>
-					</form>
-					<!-- End | Register Form -->
-
-				</div>
-				<!-- End # DIV Form -->
-
-			</div>
-		</div>
-	</div>
-
-	<!-- jQuery -->
-	<script src="js/jquery.js"></script>
-
-	<!-- Bootstrap Core JavaScript -->
-	<script src="js/bootstrap.min.js"></script>
-
-	<!-- Customized JS -->
-	<script src="js/popup.js"></script>
-    
-</html>
+            </html>

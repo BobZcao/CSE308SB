@@ -19,9 +19,8 @@ and open the template in the editor.
                 <div class="col-lg-4">
                     <h2>Book Title</h2>
                     <p>By <a href="#">Author xxx</a></p>
-                    <button type="button" class="btn btn-primary btn-lg btn-block">Place a Hold</button>
+                    <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#borrow-modal">Borrow</button>
                     <button type="button" class="btn btn-warning btn-lg btn-block">Add to Wish List</button>
-                    <p>Sorry, this book is temporarily unavailable.</p>
 
                     <h4>Description</h4>
                     <p>Microsoft PowerPivot is a free add-on to Excel from Microsoft that allows users to produce new kinds of reports and analyses that were simply impossible before, and this book is the first to tackle DAX formulas, the core capability of PowerPivot, from the perspective of the Excel audience. Written by the world's foremost PowerPivot blogger and practitioner, the book's concepts and approach are introduced in a simple, step-by-step manner tailored to the learning style of Excel users everywhere. The techniques presented allow users to produce, in hours or even minutes,  </p>
@@ -103,12 +102,12 @@ and open the template in the editor.
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
-                            <button class="btn btn-default">Rate</button>
+                            <button class="btn btn-default" data-toggle="modal" data-target="#rate-modal">Rate</button>
                         </p>
                     </div>
 
                     <div class="detailBox">
-                        
+
                         <div class="actionBox">
                             <ul class="commentList">
                                 <li>
@@ -149,12 +148,100 @@ and open the template in the editor.
                             </form>
                         </div>
                     </div>
-                    
-                    
-                    
+
+
+
                 </div>
             </div>
 
+        </div>
+
+        <!-- BEGIN # MODAL BORROW -->
+        <div class="modal fade" id="borrow-modal" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel" aria-hidden="true"
+             style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Begin # DIV Form -->
+                    <div id="div-forms">
+
+                        <!-- Begin # Login Form -->
+                        <form id="borrow-form" action="#" method="post">
+                            <div class="modal-body">
+                                <p>Sorry, this book is temporarily unavailable.</p>
+                                <p>Do you want to place a hold on this book?</p>
+                                <label class="radio-inline"><input type="radio" name="optradio">Yes</label>
+                                <label class="radio-inline"><input type="radio" name="optradio">No</label>
+                            </div>
+                            <div class="modal-footer">
+                                <div>
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block">submit</button>
+                                </div>
+
+                            </div>
+                        </form>
+                        <!-- End # Login Form -->
+                    </div>
+                    <!-- End # DIV Form -->
+
+                </div>
+            </div>
+        </div>
+
+        <!-- BEGIN # MODAL RATE -->
+        <div class="modal fade" id="rate-modal" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel" aria-hidden="true"
+             style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Begin # DIV Form -->
+                    <div id="div-forms">
+
+                        <!-- Begin # Login Form -->
+                        <form id="rate-form" action="#" method="post">
+                            <div class="modal-body">                                                   
+                                
+                                <label class="radio" style="padding-left: 20px"><input type="radio" name="optradio">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </label>
+                                <label class="radio" style="padding-left: 20px"><input type="radio" name="optradio">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </label>
+                                <label class="radio" style="padding-left: 20px"><input type="radio" name="optradio">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </label>
+                                <label class="radio" style="padding-left: 20px"><input type="radio" name="optradio">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>                                 
+                                </label>
+                                <label class="radio" style="padding-left: 20px"><input type="radio" name="optradio">
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </label>
+                            </div>
+                            <div class="modal-footer">
+                                <div>
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block">submit</button>
+                                </div>
+
+                            </div>
+                        </form>
+                        <!-- End # Login Form -->
+                    </div>
+                    <!-- End # DIV Form -->
+
+                </div>
+            </div>
         </div>
 
         <div class="footer" style="margin-top: 20px"></div>
