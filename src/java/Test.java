@@ -18,7 +18,7 @@ public class Test {
 //          for (User user : userList) {
 //               System.out.println(user.Name);
 //          }
-        Person p = new Person("Cao","Zhi");
+        Person p = new Person("000", "Cao","Zhi");
         em.getTransaction().begin();
         em.persist(p);
         em.getTransaction().commit();
