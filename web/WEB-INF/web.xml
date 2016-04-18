@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <!--- Servlet definition -->
+    <!--- constains the declaration of a web application's servlet context initialization parameters.-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/applicationContext.xml</param-value>
+        <param-value>/WEB-INF/Login-servlet.xml</param-value>
     </context-param>
+    
+     <!---customize the file name and location for the servlet-->
     <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
     </listener>
+    
+    <!---contains the declarative data of a servlet -->
     <servlet>
-        <servlet-name>dispatcher</servlet-name>
+        <servlet-name>Login</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
+    
+   <!---defines a mapping between a servlet and a url pattern-->
     <servlet-mapping>
-        <servlet-name>dispatcher</servlet-name>
+        <servlet-name>Login</servlet-name>
         <url-pattern>*.htm</url-pattern>
     </servlet-mapping>
+
     <session-config>
         <session-timeout>
-            30
+            60
         </session-timeout>
     </session-config>
     <welcome-file-list>
         <welcome-file>redirect.jsp</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

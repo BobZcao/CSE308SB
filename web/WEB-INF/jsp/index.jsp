@@ -2,18 +2,29 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Welcome to Spring Web MVC project</title>
-    </head>
+<html> 
+    <div class="header"></div>
 
     <body>
-        <p>Hello! This is the default welcome page for a Spring Web MVC project.</p>
-        <p><i>To display a different welcome page for this project, modify</i>
-            <tt>index.jsp</tt> <i>, or create your own welcome page then change
-                the redirection in</i> <tt>redirect.jsp</tt> <i>to point to the new
-                welcome page and also update the welcome-file setting in</i>
-            <tt>web.xml</tt>.</p>
+
+        <div class="navigation"></div>
+
+        <div class="banner"></div>
+
+        <div class="container" style="margin-top:40px">
+            <div class="searchbar"></div>
+            <div class="gallery"></div>
+        </div>
+
+        <div class="footer"></div>
+        
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+        <!-- Customized js files -->
+        
+        <script src="bootstrap-3.3.6-dist/js/script.js"></script>
+
     </body>
 </html>
