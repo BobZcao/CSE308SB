@@ -6,14 +6,18 @@
 package Person;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -24,34 +28,73 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
-    @NamedQuery(name = "Person.findByFirstName", query = "SELECT p FROM Person p WHERE p.firstName = :firstName"),
+    @NamedQuery(name = "Person.findById", query = "SELECT p FROM Person p WHERE p.id = :id"),
     @NamedQuery(name = "Person.findByLastName", query = "SELECT p FROM Person p WHERE p.lastName = :lastName"),
-    @NamedQuery(name = "Person.findById", query = "SELECT p FROM Person p WHERE p.id = :id")})
+    @NamedQuery(name = "Person.findByFirstName", query = "SELECT p FROM Person p WHERE p.firstName = :firstName"),
+    @NamedQuery(name = "Person.findByDateOfBirth", query = "SELECT p FROM Person p WHERE p.dateOfBirth = :dateOfBirth"),
+    @NamedQuery(name = "Person.findByStreet", query = "SELECT p FROM Person p WHERE p.street = :street"),
+    @NamedQuery(name = "Person.findByCity", query = "SELECT p FROM Person p WHERE p.city = :city"),
+    @NamedQuery(name = "Person.findByState", query = "SELECT p FROM Person p WHERE p.state = :state"),
+    @NamedQuery(name = "Person.findByZipCode", query = "SELECT p FROM Person p WHERE p.zipCode = :zipCode"),
+    @NamedQuery(name = "Person.findByEmail", query = "SELECT p FROM Person p WHERE p.email = :email")})
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Id
     @Basic(optional = false)
-    @Column(name = "firstName")
-    private String firstName;
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "lastName")
     private String lastName;
-    @Id
     @Basic(optional = false)
-    @Column(name = "Id")
-    private String id;
+    @Column(name = "firstName")
+    private String firstName;
+    @Column(name = "dateOfBirth")
+    private String dateOfBirth;
+    @Column(name = "street")
+    private String street;
+    @Column(name = "city")
+    private String city;
+    @Column(name = "state")
+    private String state;
+    @Column(name = "zipCode")
+    private Integer zipCode;
+    @Lob
+    @Column(name = "telephone")
+    private String telephone;
+    @Column(name = "email")
+    private String email;
+    @OneToMany(mappedBy = "personId")
+    private Collection<Account> accountCollection;
 
     public Person() {
+        
     }
 
-    public Person(String id) {
+    public Person(Integer id) {
         this.id = id;
     }
-    
-   
-    public Person(String id, String firstName, String lastName) {
+
+    public Person(Integer id, String lastName, String firstName) {
         this.id = id;
+        this.lastName = lastName;
         this.firstName = firstName;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
@@ -63,20 +106,69 @@ public class Person implements Serializable {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public String getId() {
-        return id;
+    public String getStreet() {
+        return street;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public Integer getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(Integer zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @XmlTransient
+    public Collection<Account> getAccountCollection() {
+        return accountCollection;
+    }
+
+    public void setAccountCollection(Collection<Account> accountCollection) {
+        this.accountCollection = accountCollection;
     }
 
     @Override

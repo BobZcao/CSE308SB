@@ -3,6 +3,7 @@
   <persistence-unit name="Person" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>Person.Person</class>
+    <class>Person.Account</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://mysql2.cs.stonybrook.edu:3306/zcao?zeroDateTimeBehavior=convertToNull"/>
