@@ -8,6 +8,7 @@ package DB;
 import Model.Book.Book;
 import Model.Book.Borrow;
 import Model.Person.Member;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -17,32 +18,42 @@ import javax.persistence.Persistence;
  * @author Tian
  */
 public class BookManager {
-    private static final String PERSISTENCE_BOOK="Book";
-    private static EntityManagerFactory bookFactory=Persistence.createEntityManagerFactory(PERSISTENCE_BOOK);
-    private static final String PERSISTENCE_BORROW="Borrow";
-    private static EntityManagerFactory borrowFactory=Persistence.createEntityManagerFactory(PERSISTENCE_BORROW);
-    
-    
-    public static void persistBook(Book book){
-        EntityManager em = bookFactory.createEntityManager();
+
+    private static final String PERSISTENCE_UNIT_NAME = "DB";
+    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+
+    public static void persistBook(Book book) {
+        EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         em.persist(book);
         em.getTransaction().commit();
         em.close();
     }
-    public static Book getBookByIsbn(String isbn){
-        EntityManager em = bookFactory.createEntityManager();
-        Book book=em.find(Book.class, isbn);
+
+    public static Book getBookByIsbn(String isbn) {
+        EntityManager em = factory.createEntityManager();
+        Book book = em.find(Book.class, isbn);
         em.close();
         return book;
     }
-    public static void persistBorrow(Borrow borrow){
-        EntityManager em = borrowFactory.createEntityManager();
+
+    public static void persistBorrow(Borrow borrow) {
+        EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         em.persist(borrow);
         em.getTransaction().commit();
         em.close();
         persistBook(borrow.getBook1());
         PersonManager.persistAccount(borrow.getAccount());
+    }
+
+    public static List<Book> searchBook(String s) {
+        EntityManager em = factory.createEntityManager();
+        List<Book> resultList = em.createNamedQuery(
+                "Book.findAll")
+                .setMaxResults(10)
+                .getResultList();
+        em.close();
+        return resultList;
     }
 }

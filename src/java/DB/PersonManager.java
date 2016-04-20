@@ -15,15 +15,14 @@ import javax.persistence.Persistence;
 
 public class PersonManager {
     //injected database connection
-    private static final String PERSISTENCE_UNIT_NAME = "Person";
+    private static final String PERSISTENCE_UNIT_NAME = "DB";
     private static EntityManagerFactory factory;
-    private static final String PERSISTENCE_ACCOUNT= "Account";
-    private static EntityManagerFactory accountFactory=Persistence.createEntityManagerFactory(PERSISTENCE_ACCOUNT);
     
     //Stores a new member;
     public static void persistMember(Member member){
-        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        EntityManager em = factory.createEntityManager();
+        factory=Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em = factory.createEntityManager(); 
+
         //We store a member object as a person object and an account object
         //first create a person
         Person person = new Person();
@@ -52,7 +51,8 @@ public class PersonManager {
     }
 
     static void persistAccount(Account account) {
-        EntityManager em=accountFactory.createEntityManager();
+        factory=Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em=factory.createEntityManager();
         em.getTransaction().begin();
         em.persist(account);
         em.getTransaction().commit();

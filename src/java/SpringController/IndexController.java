@@ -1,6 +1,7 @@
 
 package SpringController;
 
+import DB.BookManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,11 +14,11 @@ indicate all the handling methods on this controller are realtive to the /index 
 
 @Controller
 @RequestMapping("/index")
-public class HelloController {
+public class IndexController {
     
     @RequestMapping(method = RequestMethod.GET)
     public String printHello(ModelMap model){
-        
+        model.addAttribute("resultBookList",BookManager.searchBook(""));
         return "index";
     }
 }

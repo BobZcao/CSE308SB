@@ -2,4 +2,3 @@
 <Context path="">
   <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="zcao" password="108816413" type="javax.sql.DataSource" url="jdbc:mysql://mysql2.cs.stonybrook.edu:3306/zcao?zeroDateTimeBehavior=convertToNull" username="zcao"/>
 </Context>
-<Context path="/CSE308SB"/>

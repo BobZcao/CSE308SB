@@ -14,7 +14,7 @@
 
         <div class="container" style="margin-top:40px">
             <div class="searchbar"></div>
-            <div class="gallery"></div>
+            <c:import url="gallery.jsp"/>
         </div>
 
         <div class="footer"></div>
