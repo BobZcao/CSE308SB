@@ -39,9 +39,18 @@ public class MemberLoginController {
     @RequestMapping(value = "/index.htm",method = RequestMethod.POST)
     public String login(Model model, LoginBean loginBean){
         Account account  = PersonDBManager.getAccount(loginBean);
-        model.addAttribute("model", account);
-        return "index";
+        
+        if(account!=null){
+            model.addAttribute("account", account);
+            return "index";
+        }
+        
+        else{
+            return "loginPage";
+        }
+        
     }
+    
     
 //    @RequestMapping(value = "/login", method = RequestMethod.POST)
 //    public ModelAndView executeLogin(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("loginBean") LoginBean loginBean) {

@@ -51,8 +51,6 @@ public class PersonDBManager {
         em.getTransaction().begin();
         em.persist(person);
         em.getTransaction().commit();
-        
-        
         em.close();
     }
     
@@ -62,20 +60,17 @@ public class PersonDBManager {
         em.getTransaction().begin();
         em.persist(account);
         em.getTransaction().commit();
-      
         em.close();
     }
     
     public static Account getAccount(LoginBean loginBean){
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager em = factory.createEntityManager();
-        
-        Account account = new Account();
+  
         String userName = loginBean.getUserName();
         String password = loginBean.getPassword();
         //get the person object
-        account = em.find(Account.class, userName);
-        
+        Account account = em.find(Account.class, userName);
         return account;
     }
           
