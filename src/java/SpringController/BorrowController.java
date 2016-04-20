@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class BorrowController  {
-    @RequestMapping(value="borrow")
+    @RequestMapping(value="/borrow")
     public String borrowBook(ModelMap map,@RequestParam("isbn")String isbn){
         Book book=BookManager.getBookByIsbn(isbn);
         Account account=(Account) map.get("account");
