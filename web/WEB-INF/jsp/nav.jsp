@@ -77,7 +77,7 @@ and open the template in the editor.
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="#" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-user login"></span> Login</a></li>                        
                             <li>
-                                <a href=""  onclick = "location.href = 'registrationPage.htm'" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-user login"></span> Sign up</a>
+                                <a onclick = "location.href = 'registrationPage.htm'"><span class="glyphicon glyphicon-user login"></span> Sign up</a>
                             </li>
                         </ul>
 
