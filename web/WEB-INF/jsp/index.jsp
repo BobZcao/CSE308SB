@@ -6,9 +6,9 @@
     <div class="header"></div>
 
     <body>
-
+        
         <div class="navigation"></div>
-
+       
         <div class="banner"></div>
 
         <div class="container" style="margin-top:40px">

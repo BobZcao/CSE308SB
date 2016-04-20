@@ -7,7 +7,7 @@
     <!--- constains the declaration of a web application's servlet context initialization parameters.-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/Login-servlet.xml</param-value>
+        <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
     </context-param>
     
      <!---customize the file name and location for the servlet-->
@@ -19,14 +19,14 @@
     
     <!---contains the declarative data of a servlet -->
     <servlet>
-        <servlet-name>Login</servlet-name>
+        <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
     
    <!---defines a mapping between a servlet and a url pattern-->
     <servlet-mapping>
-        <servlet-name>Login</servlet-name>
+        <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.htm</url-pattern>
     </servlet-mapping>
 
