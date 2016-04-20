@@ -5,7 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <!--
@@ -14,7 +13,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <div class="header"></div>
+    <c:import url="header.html"/>
     <body>
 
         <c:import url="nav.jsp"/>
@@ -141,7 +140,7 @@ and open the template in the editor.
 
             </div>
 
-            <div class="footer" style="margin-top: 20px"></div>
+            <c:import url="footer.html"/>
 
 
             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

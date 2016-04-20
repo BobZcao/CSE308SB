@@ -7,7 +7,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <div class="header"></div>
+    <c:import url="header.html"/>
     <body>
 
         <c:import url="nav.jsp"/>
@@ -15,17 +15,17 @@ and open the template in the editor.
         <div class="container" style="margin-top:80px">
             <div class="row">
                 <div class="col-lg-4" style="margin-top:20px">
-                    <img class="img-responsive" src="http://placehold.it/300x400" alt="">
+                    <img class="img-responsive" src="${book.imageUrl}" alt="">
                     <button class="btn btn-default" style="margin-top: 10px; width: 200px; margin-left:50px;">Sample</button>
                 </div>
                 <div class="col-lg-4">
-                    <h2>Book Title</h2>
-                    <p>By <a href="#">Author xxx</a></p>
-                    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href='success.html';">Borrow</button>
+                    <h2>${book.title}</h2>
+                    <p>By <a href="#">${book.author}</a></p>
+                    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'borrow.htm?isbn=${book.isbn}';">Borrow</button>
                     <button type="button" class="btn btn-warning btn-lg btn-block"  >Add to Wish List</button>
 
                     <h4>Description</h4>
-                    <p>Microsoft PowerPivot is a free add-on to Excel from Microsoft that allows users to produce new kinds of reports and analyses that were simply impossible before, and this book is the first to tackle DAX formulas, the core capability of PowerPivot, from the perspective of the Excel audience. Written by the world's foremost PowerPivot blogger and practitioner, the book's concepts and approach are introduced in a simple, step-by-step manner tailored to the learning style of Excel users everywhere. The techniques presented allow users to produce, in hours or even minutes,  </p>
+                    <p>${book.description}</p>
 
                 </div>
 
@@ -38,55 +38,33 @@ and open the template in the editor.
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Available Found</a>
-                                </h4>
-                            </div>
-                            <div id="collapse1" class="panel-collapse collapse in">
-                                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Subject</a>
                                 </h4>
                             </div>
                             <div id="collapse2" class="panel-collapse collapse">
-                                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                <div class="panel-body"><p>${book.subjects}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">About the Author</a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Library copies</a>
                                 </h4>
                             </div>
                             <div id="collapse3" class="panel-collapse collapse">
-                                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                <div class="panel-body">${book.licenses}
                                 </div>
                             </div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Title Information</a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Available</a>
                                 </h4>
                             </div>
                             <div id="collapse3" class="panel-collapse collapse">
-                                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Digital Right Information</a>
-                                </h4>
-                            </div>
-                            <div id="collapse3" class="panel-collapse collapse">
-                                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                <div class="panel-body">${book.avaliable}
                                 </div>
                             </div>
                         </div>
@@ -204,7 +182,7 @@ and open the template in the editor.
                         <!-- Begin # Login Form -->
                         <form id="rate-form" action="#" method="post">
                             <div class="modal-body">                                                   
-                                
+
                                 <label class="radio" style="padding-left: 20px"><input type="radio" name="optradio">
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -246,7 +224,7 @@ and open the template in the editor.
             </div>
         </div>
 
-        <div class="footer" style="margin-top: 20px"></div>
+        <c:import url="footer.html"/>
 
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
