@@ -248,4 +248,15 @@ public class Book implements Serializable {
         BookManager.persistBorrow(borrow);
         return true;
     }
+    public synchronized boolean returnBook(Account account) {
+        
+        Borrow borrow= new Borrow();
+        account.setBookBorrowed(account.getBookBorrowed()-1);
+        borrow.setAccount(account);
+        borrow.setBook1(this);
+        borrow.setDateReturn(new Date());
+        this.avaliable+=1;
+        BookManager.persistReturn(borrow);
+        return true;
+    }
 }

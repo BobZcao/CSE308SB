@@ -7,6 +7,8 @@ package DB;
 
 import Model.Book.Book;
 import Model.Book.Borrow;
+import Model.Book.BorrowPK;
+import Model.Person.Account;
 import Model.Person.Member;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -36,16 +38,8 @@ public class BookManager {
         em.close();
         return book;
     }
-
-    public static void persistBorrow(Borrow borrow) {
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(borrow);
-        em.getTransaction().commit();
-        em.close();
-        persistBook(borrow.getBook1());
-        PersonManager.persistAccount(borrow.getAccount());
-    }
+          
+    
 
     public static List<Book> searchBook(String s) {
         EntityManager em = factory.createEntityManager();
@@ -55,5 +49,28 @@ public class BookManager {
                 .getResultList();
         em.close();
         return resultList;
+    }
+
+     public static void persistReturn(Borrow borrow){
+        EntityManager em = factory.createEntityManager();
+        BorrowPK borrowPK=new BorrowPK();
+        borrowPK.setBook(borrow.getBook1().getIsbn());
+        borrowPK.setUser(borrow.getAccount().getUserName());
+        Borrow borrowFind=em.find(Borrow.class,borrowPK);
+        em.getTransaction().begin();
+        em.persist(borrowFind);
+        em.getTransaction().commit();
+        em.close();
+        persistBook(borrow.getBook1());
+        PersonManager.persistAccount(borrow.getAccount());
+    }   
+    public static void persistBorrow(Borrow borrow){
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(borrow);
+        em.getTransaction().commit();
+        em.close();
+        persistBook(borrow.getBook1());
+        PersonManager.persistAccount(borrow.getAccount());
     }
 }

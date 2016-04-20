@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package SpringController;
-
 import DB.BookManager;
 import Model.Book.Book;
 import Model.Person.Account;
