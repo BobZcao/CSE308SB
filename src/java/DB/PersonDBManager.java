@@ -5,6 +5,7 @@
  */
 package DB;
 import Person.*;
+import ViewBean.LoginBean;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -65,5 +66,17 @@ public class PersonDBManager {
         em.close();
     }
     
+    public static Account getAccount(LoginBean loginBean){
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em = factory.createEntityManager();
+        
+        Account account = new Account();
+        String userName = loginBean.getUserName();
+        String password = loginBean.getPassword();
+        //get the person object
+        account = em.find(Account.class, userName);
+        
+        return account;
+    }
           
 }
