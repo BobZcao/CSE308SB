@@ -26,6 +26,6 @@ public class BorrowController  {
         Book book=BookManager.getBookByIsbn(isbn);
         Account account=(Account) map.get("account");
         book.borrow(account);
-        return "index";
+        return "member_login";
     }  
 }

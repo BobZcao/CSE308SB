@@ -7,6 +7,7 @@ package SpringController;
 
 
 import DB.PersonManager;
+import Model.Person.Account;
 import Model.Person.Member;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ public class MemeberRegisterController {
     public String initRegisterForm(Model model){
         Member member = new Member();
         model.addAttribute("member", member);
+        
         return "registrationPage";
     }
     
@@ -32,8 +34,8 @@ public class MemeberRegisterController {
     @RequestMapping(value= "/registrationSuccessPage.htm",method = RequestMethod.POST)
     public String submitRegisterForm(Model model, Member member){
         model.addAttribute("memeber", member);
-        
         PersonManager.persistMember(member);
+        Account account=new Account();
         
         return "registrationSuccessPage";
     }
