@@ -21,7 +21,7 @@ public class Member {
     private String city;
     private String state;
     private String zipCode;
-    private int telephone;
+    private String telephone;
     
     public Member(){
     
@@ -64,7 +64,7 @@ public class Member {
         return zipCode;
     }
 
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
@@ -108,7 +108,7 @@ public class Member {
         this.zipCode = zipCode;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
    

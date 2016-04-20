@@ -30,7 +30,7 @@ public class PersonDBManager {
         person.setLastName(member.getLastName());
         person.setState(member.getState());
         person.setStreet(member.getStreet());
-        person.setTelephone(Integer.toString(member.getTelephone()));
+        person.setTelephone(member.getTelephone());
         person.setZipCode(Integer.parseInt(member.getZipCode()));
         
         persistPerson(person);
@@ -69,8 +69,9 @@ public class PersonDBManager {
   
         String userName = loginBean.getUserName();
         String password = loginBean.getPassword();
-        //get the person object
+        
         Account account = em.find(Account.class, userName);
+        
         return account;
     }
           

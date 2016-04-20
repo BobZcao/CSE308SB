@@ -22,14 +22,9 @@ public class RegistrationValidator implements Validator{
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "passwordConf", "valid.passwordConf");
         if (!member.getPassword().equals(member.getPasswordConf())) {
             errors.rejectValue("passwordConf", "valid.passwordConfDiff");
-        }
-        
+        }   
     }
-
  
-    
-    
-    
     @Override
     public boolean supports(Class<?> paramClass) {
        return Member.class.equals(paramClass);
