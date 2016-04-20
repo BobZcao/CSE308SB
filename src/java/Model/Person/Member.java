@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Person;
+package Model.Person;
+
+import Model.Person.Person;
 
 /**
  *
@@ -33,6 +35,7 @@ public class Member {
     public String getPassword() {
         return password;
     }
+
     public String getPasswordConf(){
         return passwordConf;
     }
@@ -75,11 +78,9 @@ public class Member {
     public void setPassword(String password) {
         this.password = password;
     }
-    
     public void setPasswordConf(String passwordConf){
         this.passwordConf = passwordConf;
     }
-    
     public void setEmail(String email) {
         this.email = email;
     }

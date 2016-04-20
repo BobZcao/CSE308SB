@@ -6,8 +6,8 @@
 package SpringController;
 
 
-import DB.PersonDBManager;
-import Person.Member;
+import DB.PersonManager;
+import Model.Person.Member;
 import validator.RegistrationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,6 +40,7 @@ public class MemeberRegisterController {
     public String initRegisterForm(Model model){
         Member member = new Member();
         model.addAttribute("member", member);
+        
         return "registrationPage";
     }
     
@@ -53,7 +54,7 @@ public class MemeberRegisterController {
         else{
            model.addAttribute("memeber", member);
            
-           PersonDBManager.persistMember(member);
+           PersonManager.persistMember(member);
         }
         return "registrationSuccessPage";
     }

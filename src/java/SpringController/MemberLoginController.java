@@ -5,8 +5,8 @@
  */
 package SpringController;
 
-import DB.PersonDBManager;
-import Person.Account;
+import DB.PersonManager;
+import Model.Person.Account;
 import ViewBean.LoginBean;
 
 import org.springframework.stereotype.Controller;
@@ -30,11 +30,11 @@ public class MemberLoginController {
 
     @RequestMapping(value = "/index.htm",method = RequestMethod.POST)
     public String login(Model model, LoginBean loginBean){
-        Account account  = PersonDBManager.getAccount(loginBean);
+        Account account  = PersonManager.getAccount(loginBean);
         
         if(account!=null){
             model.addAttribute("account", account);
-            return "index";
+            return "loginSuccessfulPage";
         }
         
         else{

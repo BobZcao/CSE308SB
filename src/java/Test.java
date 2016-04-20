@@ -1,5 +1,4 @@
 import java.util.List;
-import Person.Person;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

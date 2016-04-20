@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package DB;
-import Person.*;
+import Model.Person.*;
 import ViewBean.LoginBean;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,7 +12,7 @@ import javax.persistence.Persistence;
 
 
 
-public class PersonDBManager {
+public class PersonManager {
     //injected database connection
     private static final String PERSISTENCE_UNIT_NAME = "DB";
     

@@ -1,14 +1,15 @@
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 
-<html> 
-    <c:import url="header.html"/>
-
-    <body>
-
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+<html>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -66,19 +67,20 @@
                 </ul>
                 <c:choose>
 
-                    <c:when test=" ${account.userName!=null}">
+                    <c:when test=" ${empty account.userName}">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="#"><span class="glyphicon glyphicon-user"></span> ${account.userName}</a></li>                        
                             <li><a href="logOut">Log out</a></li>
                         </ul>
                     </c:when>
                     <c:otherwise>
-                    <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" onclick = "location.href='loginPage.htm'"><span class="glyphicon glyphicon-user login"></span> Login</a></li>                        
                     <li>
                         <a href="#"  onclick = "location.href='registrationPage.htm'" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-user login"></span> Sign up</a>
-                    </li>
+                        </li>
                 </ul>
+
                     </c:otherwise>
                 </c:choose>
             </div><!-- /.navbar-collapse -->
@@ -119,22 +121,35 @@
         </div>
     </div>
 
-        <div class="banner"></div>
 
-        <div class="container" style="margin-top:40px">
-            <div class="searchbar"></div>
-            <c:import url="gallery.jsp"/>
-        </div>
 
-        <c:import url="footer.html"/>
+    <script>
+        function selectSignIn() {
+            var result = document.getElementById("selectSign").value;
+            if (result == "Member") {
+                $(".member").css("display", "inline");
+                $("#ssn").css("display", "none");
+                $(".publisher").css("display", "none");
+            }
+            if (result == "Faculty") {
+                $(".member").css("display", "inline");
+                $("#ssn").css("display", "inline");
+                $(".publisher").css("display", "none");
+            }
+            if (result == "Publisher") {
+                $(".member").css("display", "none");
+                $("#ssn").css("display", "none");
+                $(".publisher").css("display", "inline");
+            }
+        }
+    </script>
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
 
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-        <!-- Customized js files -->
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
 
-        <script src="bootstrap-3.3.6-dist/js/script.js"></script>
+    <!-- Customized JS -->
+    <script src="js/popup.js"></script>
 
-    </body>
 </html>
