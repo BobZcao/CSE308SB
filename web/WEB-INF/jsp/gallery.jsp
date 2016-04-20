@@ -15,7 +15,7 @@
         </div>
         <c:forEach var="book" items="${resultBookList}">
             <div class="col-lg-4 col-md-3 col-xs-6 thumb">
-                <a class="thumbnail" href="#">
+                <a class="thumbnail" href="/view?isbn=${book.isbn}">
                     <img class="img-responsive" src="${book.imageUrl}" alt="" width="150" height="200">
                 </a>
             </div>
