@@ -26,6 +26,7 @@ public class MemeberRegisterController {
     public String initRegisterForm(Model model){
         Member member = new Member();
         model.addAttribute("member", member);
+        
         return "registrationPage";
     }
     
