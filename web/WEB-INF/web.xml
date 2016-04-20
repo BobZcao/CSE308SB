@@ -29,9 +29,7 @@
         <servlet-name>Login</servlet-name>
         <url-pattern>*.htm</url-pattern>
     </servlet-mapping>
-    
-     
-    
+
     <session-config>
         <session-timeout>
             60

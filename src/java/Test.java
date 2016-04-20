@@ -18,10 +18,10 @@ public class Test {
 //          for (User user : userList) {
 //               System.out.println(user.Name);
 //          }
-        Person p = new Person(11, "Cao","Zhi");
+        //Person p = new Person(11, "Cao","Zhi");
         
         em.getTransaction().begin();
-        em.persist(p);
+        //em.persist(p);
         em.getTransaction().commit();
 
           // Create new user

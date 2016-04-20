@@ -6,18 +6,17 @@
 package Person;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -41,13 +40,12 @@ public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
     @Column(name = "lastName")
     private String lastName;
-    @Basic(optional = false)
     @Column(name = "firstName")
     private String firstName;
     @Column(name = "dateOfBirth")
@@ -65,21 +63,12 @@ public class Person implements Serializable {
     private String telephone;
     @Column(name = "email")
     private String email;
-    @OneToMany(mappedBy = "personId")
-    private Collection<Account> accountCollection;
 
     public Person() {
-        
     }
 
     public Person(Integer id) {
         this.id = id;
-    }
-
-    public Person(Integer id, String lastName, String firstName) {
-        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
     }
 
     public Integer getId() {
@@ -160,15 +149,6 @@ public class Person implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    @XmlTransient
-    public Collection<Account> getAccountCollection() {
-        return accountCollection;
-    }
-
-    public void setAccountCollection(Collection<Account> accountCollection) {
-        this.accountCollection = accountCollection;
     }
 
     @Override

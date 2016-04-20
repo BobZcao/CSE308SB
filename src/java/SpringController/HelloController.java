@@ -24,10 +24,11 @@ public class HelloController {
     @RequestMapping(method = RequestMethod.GET)
     public String printHello(ModelMap model){
 //        model.addAttribute("message", "Hello Spring MVC Framework");
-//        System.out.println("test success");
+        System.out.println("test success");
 
         /*return the a string which contains the name of the 
         view to ve used to render the model. the simple index view in the /WEB-INF/jsp/index*/
+        
         return "index";
     }
 }
