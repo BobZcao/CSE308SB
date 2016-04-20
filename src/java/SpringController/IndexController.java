@@ -8,6 +8,7 @@ package SpringController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import DB.BookManager;
 
 /**
  *
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
     @RequestMapping(value = "/index")
     public String intiIndex(Model model){
+       model.addAttribute("resultBookList",BookManager.searchBook("")); 
+        
         return "index";
     }
 }

@@ -26,6 +26,6 @@ public class ReturnBookController {
         Book book=BookManager.getBookByIsbn(isbn);
         Account account=(Account) map.get("account");
         book.returnBook(account);
-        return "index";
+        return "member_login";
     }  
 }

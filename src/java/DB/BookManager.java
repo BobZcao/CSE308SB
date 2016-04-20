@@ -10,6 +10,7 @@ import Model.Book.Borrow;
 import Model.Book.BorrowPK;
 import Model.Person.Account;
 import Model.Person.Member;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -31,7 +32,7 @@ public class BookManager {
         em.persist(book);
         em.getTransaction().commit();
         em.close();
-    }
+    }  
     public static Book getBookByIsbn(String isbn){
         EntityManager em = bookFactory.createEntityManager();
         Book book=em.find(Book.class, isbn);
@@ -50,8 +51,7 @@ public class BookManager {
         em.close();
         persistBook(borrow.getBook1());
         PersonManager.persistAccount(borrow.getAccount());
-    }
-    
+    }   
     public static void persistBorrow(Borrow borrow){
         EntityManager em = borrowFactory.createEntityManager();
         em.getTransaction().begin();
@@ -60,5 +60,13 @@ public class BookManager {
         em.close();
         persistBook(borrow.getBook1());
         PersonManager.persistAccount(borrow.getAccount());
+    }  
+    public static List<Book> searchBook(String s){
+          EntityManager em = bookFactory.createEntityManager();       
+          List<Book> resultList=em.createQuery(
+        "SELECT * FROM Book " )
+        .setMaxResults(10)
+        .getResultList();
+        return  resultList;
     }
 }
