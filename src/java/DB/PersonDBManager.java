@@ -11,24 +11,18 @@ import javax.persistence.Persistence;
 
 
 
-public class DBManager {
+public class PersonDBManager {
     //injected database connection
-    private static final String PERSISTENCE_UNIT_NAME = "Person";
+    private static final String PERSISTENCE_UNIT_NAME_PERSON = "Person";
+    private static final String PERSISTENCE_UNIT_NAME_ACCOUNT = "Account";
     private static EntityManagerFactory factory;
     
     //Stores a new member;
     public static void persistMember(Member member){
-        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        EntityManager em = factory.createEntityManager();
+        
         //We store a member object as a person object and an account object
         //first create a person
         Person person = new Person();
-        
-//        em.getTransaction().begin();
-//        em.persist(person);
-//        em.getTransaction().commit();
-//        em.close();
-        
         person.setCity(member.getCity());
         person.setEmail(member.getEmail());
         person.setFirstName(member.getFirstName());
@@ -38,12 +32,36 @@ public class DBManager {
         person.setTelephone(Integer.toString(member.getTelephone()));
         person.setZipCode(Integer.parseInt(member.getZipCode()));
         
-        System.out.println(person);
-       
+        persistPerson(person);
+        
+        Account account = new Account();
+        account.setPasswords(member.getPassword());
+        account.setUserName(member.getUserName());
+        account.setPersonId(person);
+        
+        persistAccount(account);
+        
+    }
+    
+    //helper method for persistMember, persistFaculty, persistAdministrator
+    public static void persistPerson(Person person){
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME_PERSON);
+        EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         em.persist(person);
-       em.getTransaction().commit();
+        em.getTransaction().commit();
         
+        
+        em.close();
+    }
+    
+    public static void persistAccount(Account account){
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME_PERSON);
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(account);
+        em.getTransaction().commit();
+      
         em.close();
     }
     

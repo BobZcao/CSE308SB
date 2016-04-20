@@ -6,7 +6,7 @@
 package SpringController;
 
 
-import DB.DBManager;
+import DB.PersonDBManager;
 import Person.Member;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +33,7 @@ public class MemeberRegisterController {
     public String submitRegisterForm(Model model, Member member){
         model.addAttribute("memeber", member);
         
-        DBManager.persistMember(member);
+        PersonDBManager.persistMember(member);
         
         return "registrationSuccessPage";
     }

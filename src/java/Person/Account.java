@@ -56,6 +56,7 @@ public class Account implements Serializable {
     private Person personId;
 
     public Account() {
+    
     }
 
     public Account(String userName) {
