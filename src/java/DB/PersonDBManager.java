@@ -13,8 +13,8 @@ import javax.persistence.Persistence;
 
 public class PersonDBManager {
     //injected database connection
-    private static final String PERSISTENCE_UNIT_NAME_PERSON = "Person";
-    private static final String PERSISTENCE_UNIT_NAME_ACCOUNT = "Account";
+    private static final String PERSISTENCE_UNIT_NAME = "DB";
+    
     private static EntityManagerFactory factory;
     
     //Stores a new member;
@@ -38,14 +38,14 @@ public class PersonDBManager {
         account.setPasswords(member.getPassword());
         account.setUserName(member.getUserName());
         account.setPersonId(person);
-        
+        account.setLevels(1);
         persistAccount(account);
         
     }
     
     //helper method for persistMember, persistFaculty, persistAdministrator
     public static void persistPerson(Person person){
-        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME_PERSON);
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         em.persist(person);
@@ -56,7 +56,7 @@ public class PersonDBManager {
     }
     
     public static void persistAccount(Account account){
-        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME_PERSON);
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         em.persist(account);

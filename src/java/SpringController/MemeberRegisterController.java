@@ -8,10 +8,17 @@ package SpringController;
 
 import DB.PersonDBManager;
 import Person.Member;
+import validator.RegistrationValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 
 /**
@@ -20,6 +27,14 @@ import org.springframework.ui.Model;
  */
 @Controller
 public class MemeberRegisterController {
+    @Autowired
+    @Qualifier("formValidator")
+    private RegistrationValidator validator;
+    
+    @InitBinder
+    private void initBinder(WebDataBinder binder){
+        binder.setValidator(validator);
+    }
     
    @RequestMapping(value = "/registrationPage.htm", method = RequestMethod.GET)
     public String initRegisterForm(Model model){
@@ -30,11 +45,16 @@ public class MemeberRegisterController {
     
     
     @RequestMapping(value= "/registrationSuccessPage.htm",method = RequestMethod.POST)
-    public String submitRegisterForm(Model model, Member member){
-        model.addAttribute("memeber", member);
-        
-        PersonDBManager.persistMember(member);
-        
+    public String submitRegisterForm(Model model, @Validated Member member, BindingResult result ){
+      
+        if(result.hasErrors()){
+            return "registrationPage";
+        }
+        else{
+           model.addAttribute("memeber", member);
+           
+           PersonDBManager.persistMember(member);
+        }
         return "registrationSuccessPage";
     }
     

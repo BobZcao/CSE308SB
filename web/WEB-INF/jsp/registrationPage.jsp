@@ -32,16 +32,24 @@
                                   
                                     <form:input path = "userName" class="form-control" 
                                            placeholder="Username" name= "reg_username" />
+                                   <form:errors path = "userName" cssStyle="color:#ff0000;"/>
                                    
                                     <form:input path = "password"
                                         id="register_password" class="form-control" type="password"
                                         placeholder="Password" name= "reg_password" /> 
-
+                                    <form:errors path = "password" cssStyle="color:#ff0000;"/>
                                     
-
+                                    <form:input path = "passwordConf"
+                                           name="pub_password_confirm"
+                                           id="register_confirm_password" class="form-control"
+                                           type="password" placeholder="Confirm Password" />
+                                    <form:errors path = "passwordConf" cssStyle="color:#ff0000;"/>
+                                    
                                     <form:input path ="email" id="register_email"  name="reg_email" class="form-control" type="text"
                                            placeholder="E-Mail" />
-
+                                    <form:errors path = "email" cssStyle="color:#ff0000;"/>
+                                    
+                                    
                                     <form:input path = "firstName" id="first_name" name="reg_firstname"
                                            class="form-control"  placeholder="First Name"
                                            /> 

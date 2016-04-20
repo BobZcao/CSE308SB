@@ -13,6 +13,7 @@ public class Member {
     
     private String userName;
     private String password;
+    private String passwordConf;
     private String email;
     private String firstName;
     private String lastName;
@@ -32,7 +33,9 @@ public class Member {
     public String getPassword() {
         return password;
     }
-
+    public String getPasswordConf(){
+        return passwordConf;
+    }
     public String getEmail() {
         return email;
     }
@@ -72,7 +75,11 @@ public class Member {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    
+    public void setPasswordConf(String passwordConf){
+        this.passwordConf = passwordConf;
+    }
+    
     public void setEmail(String email) {
         this.email = email;
     }
