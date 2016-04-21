@@ -13,12 +13,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  *
  * @author Joey
  */
 @Controller
+@SessionAttributes("account")
 public class MemberLoginController {
     
     @RequestMapping(value = "/loginPage.htm", method = RequestMethod.GET)
@@ -29,12 +31,14 @@ public class MemberLoginController {
     }
 
     @RequestMapping(value = "/index.htm",method = RequestMethod.POST)
+
     public String login(Model model, LoginBean loginBean){
         Account account  = PersonManager.getAccount(loginBean);
         
         if(account!=null){
             model.addAttribute("account", account);
-            return "loginSuccessfulPage";
+            System.out.print(account.getUserName());
+            return "index";
         }
         
         else{
