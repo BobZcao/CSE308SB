@@ -9,7 +9,8 @@ import ViewBean.LoginBean;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 
 public class PersonManager {
@@ -19,7 +20,7 @@ public class PersonManager {
     private static EntityManagerFactory factory;
     
     //Stores a new member;
-    public static void persistMember(Member member){
+    public static void persistMember(Member member) throws NoSuchAlgorithmException{
         
         //We store a member object as a person object and an account object
         //first create a person
@@ -36,10 +37,14 @@ public class PersonManager {
         persistPerson(person);
         
         Account account = new Account();
-        account.setPasswords(member.getPassword());
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] pass = md.digest(member.getPassword().getBytes());
+        //Will change database later
+        account.setPasswords(pass.toString());
         account.setUserName(member.getUserName());
         account.setPersonId(person);
         account.setLevels(1);
+        
         persistAccount(account);
         
     }
