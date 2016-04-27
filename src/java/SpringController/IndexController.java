@@ -15,7 +15,7 @@ indicate all the handling methods on this controller are realtive to the /index 
 @Controller
 public class IndexController {
     
-    @RequestMapping(value="/index")
+    @RequestMapping(value="/index",method = RequestMethod.GET)
     public String printHello(ModelMap model){
         model.addAttribute("resultBookList",BookManager.searchBook(""));
         return "index";

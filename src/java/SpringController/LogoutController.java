@@ -18,6 +18,6 @@ public class LogoutController {
     @RequestMapping(value="logout")
     public String logoutAccount(HttpSession session){
         session.removeAttribute("account");
-        return "index";
+        return "forward:/index.htm";
     }
 }
