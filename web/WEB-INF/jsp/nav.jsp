@@ -67,17 +67,17 @@ and open the template in the editor.
                 </ul>
                 <c:choose>
 
-                    <c:when test=" ${empty account.userName}">
+                    <c:when test="${not empty account.userName}">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="#"><span class="glyphicon glyphicon-user"></span> ${account.userName}</a></li>                        
-                            <li><a href="logOut">Log out</a></li>
+                            <li><a href="logout.htm">Log out</a></li>
                         </ul>
                     </c:when>
                     <c:otherwise>
                         <ul class="nav navbar-nav navbar-right">
                     <li><a href="#" onclick = "location.href='loginPage.htm'"><span class="glyphicon glyphicon-user login"></span> Login</a></li>                        
                     <li>
-                        <a href="#"  onclick = "location.href='registrationPage.htm'" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-user login"></span> Sign up</a>
+                        <a href="#"  onclick = "location.href='registrationPage.htm'"><span class="glyphicon glyphicon-user login"></span> Sign up</a>
                         </li>
                 </ul>
 
