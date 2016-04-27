@@ -5,6 +5,7 @@
  */
 package SpringController;
 
+import DB.BookManager;
 import DB.PersonManager;
 import Model.Person.Account;
 import ViewBean.LoginBean;
@@ -37,6 +38,7 @@ public class MemberLoginController {
         
         if(account!=null){
             model.addAttribute("account", account);
+            model.addAttribute("resultBookList",BookManager.searchBook(""));
             System.out.print(account.getUserName());
             return "index";
         }

@@ -7,6 +7,7 @@ package SpringController;
 import DB.BookManager;
 import Model.Book.Book;
 import Model.Person.Account;
+import ViewBean.LoginBean;
 import java.util.Map;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,8 @@ public class BorrowController  {
         Map modelMap = model.asMap();
         Account account=(Account) modelMap.get("account");
         if(account == null){
+            LoginBean loginBean = new LoginBean();
+            model.addAttribute("loginBean", loginBean);
             return "loginPage";
         }
         book.borrow(account);
