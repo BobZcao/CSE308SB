@@ -17,7 +17,7 @@
 
                     <div class="col-md-12">
                         <div  style="font-size:150%;">
-                            <form:form action="index.htm" method="POST" id="loginForm" commandName="loginBean" >
+                            <form:form action="login.htm" method="POST" id="loginForm" commandName="loginBean" >
                                 <div class="modal-body">
                                     <!-- div style="font-size:20px;">
                                         <Span><Strong>Sign up as:</Strong></Span>
