@@ -9,23 +9,30 @@ import DB.BookManager;
 import Model.Person.Account;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Tian
+ * @author code
  */
 @Entity
 @Table(name = "book")
@@ -41,11 +48,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Book.findBySample", query = "SELECT b FROM Book b WHERE b.sample = :sample"),
     @NamedQuery(name = "Book.findByPublishDate", query = "SELECT b FROM Book b WHERE b.publishDate = :publishDate"),
     @NamedQuery(name = "Book.findBySeries", query = "SELECT b FROM Book b WHERE b.series = :series"),
-    @NamedQuery(name = "Book.findByAvaliable", query = "SELECT b FROM Book b WHERE b.avaliable = :avaliable"),
+    @NamedQuery(name = "Book.findByAvailable", query = "SELECT b FROM Book b WHERE b.available = :available"),
     @NamedQuery(name = "Book.findByLicenses", query = "SELECT b FROM Book b WHERE b.licenses = :licenses"),
     @NamedQuery(name = "Book.findByImageUrl", query = "SELECT b FROM Book b WHERE b.imageUrl = :imageUrl"),
     @NamedQuery(name = "Book.findByHoldNum", query = "SELECT b FROM Book b WHERE b.holdNum = :holdNum"),
-    @NamedQuery(name = "Book.findByPublisher", query = "SELECT b FROM Book b WHERE b.publisher = :publisher")})
+    @NamedQuery(name = "Book.findByPublisher", query = "SELECT b FROM Book b WHERE b.publisher = :publisher"),
+    @NamedQuery(name = "Book.findByBanned", query = "SELECT b FROM Book b WHERE b.banned = :banned")})
 public class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,13 +66,13 @@ public class Book implements Serializable {
     @Size(max = 255)
     @Column(name = "author")
     private String author;
-    @Size(max = 255)
+    @Size(max = 20000)
     @Column(name = "description")
     private String description;
-    @Size(max = 50)
+    @Size(max = 255)
     @Column(name = "subjects")
     private String subjects;
-    @Size(max = 50)
+    @Size(max = 100)
     @Column(name = "title")
     private String title;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -79,8 +87,8 @@ public class Book implements Serializable {
     @Size(max = 50)
     @Column(name = "series")
     private String series;
-    @Column(name = "avaliable")
-    private Integer avaliable;
+    @Column(name = "available")
+    private Integer available;
     @Column(name = "licenses")
     private Integer licenses;
     @Size(max = 255)
@@ -88,9 +96,22 @@ public class Book implements Serializable {
     private String imageUrl;
     @Column(name = "holdNum")
     private Integer holdNum;
-    @Size(max = 20)
+    @Size(max = 255)
     @Column(name = "publisher")
     private String publisher;
+    @Column(name = "banned")
+    private Integer banned;
+    @JoinTable(name = "favorbook", joinColumns = {
+        @JoinColumn(name = "book", referencedColumnName = "isbn")}, inverseJoinColumns = {
+        @JoinColumn(name = "user", referencedColumnName = "userName")})
+    @ManyToMany
+    private Collection<Account> accountCollection;
+    @ManyToMany(mappedBy = "bookCollection1")
+    private Collection<Account> accountCollection1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book1")
+    private Collection<Comments> commentsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book1")
+    private Collection<Borrow> borrowCollection;
 
     public Book() {
     }
@@ -171,12 +192,12 @@ public class Book implements Serializable {
         this.series = series;
     }
 
-    public Integer getAvaliable() {
-        return avaliable;
+    public Integer getAvailable() {
+        return available;
     }
 
-    public void setAvaliable(Integer avaliable) {
-        this.avaliable = avaliable;
+    public void setAvailable(Integer available) {
+        this.available = available;
     }
 
     public Integer getLicenses() {
@@ -211,6 +232,50 @@ public class Book implements Serializable {
         this.publisher = publisher;
     }
 
+    public Integer getBanned() {
+        return banned;
+    }
+
+    public void setBanned(Integer banned) {
+        this.banned = banned;
+    }
+
+    @XmlTransient
+    public Collection<Account> getAccountCollection() {
+        return accountCollection;
+    }
+
+    public void setAccountCollection(Collection<Account> accountCollection) {
+        this.accountCollection = accountCollection;
+    }
+
+    @XmlTransient
+    public Collection<Account> getAccountCollection1() {
+        return accountCollection1;
+    }
+
+    public void setAccountCollection1(Collection<Account> accountCollection1) {
+        this.accountCollection1 = accountCollection1;
+    }
+
+    @XmlTransient
+    public Collection<Comments> getCommentsCollection() {
+        return commentsCollection;
+    }
+
+    public void setCommentsCollection(Collection<Comments> commentsCollection) {
+        this.commentsCollection = commentsCollection;
+    }
+
+    @XmlTransient
+    public Collection<Borrow> getBorrowCollection() {
+        return borrowCollection;
+    }
+
+    public void setBorrowCollection(Collection<Borrow> borrowCollection) {
+        this.borrowCollection = borrowCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -237,13 +302,13 @@ public class Book implements Serializable {
     }
     
     public synchronized boolean borrow(Account account) {
-        if(this.avaliable<=0) return false;
+        if(this.available<=0) return false;
         if(account.getBookBorrowed()>=account.MAX) return false;
         Borrow borrow= new Borrow();
         borrow.setAccount(account);
         borrow.setBook1(this);
         borrow.setDateBorrow(new Date());
-        this.avaliable-=1;
+        this.available-=1;
         account.setBookBorrowed(account.getBookBorrowed()+1);
         BookManager.persistBorrow(borrow);
         return true;
@@ -255,7 +320,7 @@ public class Book implements Serializable {
         borrow.setAccount(account);
         borrow.setBook1(this);
         borrow.setDateReturn(new Date());
-        this.avaliable+=1;
+        this.available+=1;
         BookManager.persistReturn(borrow);
         return true;
     }
