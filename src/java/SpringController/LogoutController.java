@@ -18,10 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class LogoutController {
     @RequestMapping(value="logout")
-    public String logoutAccount(HttpSession session, Model model){
+    public String logoutAccount(HttpSession session){
         SearchBean searchBean = new SearchBean();
-        model.addAttribute("searchBean", searchBean);
-        session.removeAttribute("account");
-        return "index";
+        
+        return "forward:index.htm";
     }
 }
