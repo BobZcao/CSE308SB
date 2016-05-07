@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Tian
+ * @author code
  */
 @Entity
 @Table(name = "borrow")
@@ -135,7 +135,7 @@ public class Borrow implements Serializable {
 
     @Override
     public String toString() {
-        return "Model.Person.Borrow[ borrowPK=" + borrowPK + " ]";
+        return "Model.Book.Borrow[ borrowPK=" + borrowPK + " ]";
     }
     
 }

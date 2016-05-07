@@ -8,6 +8,7 @@ package SpringController;
 
 import DB.PersonManager;
 import Model.Person.Member;
+import java.security.NoSuchAlgorithmException;
 import validator.RegistrationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -46,8 +47,8 @@ public class MemeberRegisterController {
     
     
     @RequestMapping(value= "/registrationSuccessPage.htm",method = RequestMethod.POST)
-    public String submitRegisterForm(Model model, @Validated Member member, BindingResult result ){
-      
+    public String submitRegisterForm(Model model, @Validated Member member, BindingResult result ) throws NoSuchAlgorithmException{
+        
         if(result.hasErrors()){
             return "registrationPage";
         }

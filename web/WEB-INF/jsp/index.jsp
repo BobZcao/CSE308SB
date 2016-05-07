@@ -18,7 +18,7 @@
                     </c:when>
                     <c:otherwise>
                     <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" onclick = "location.href='loginPage.htm'"><span class="glyphicon glyphicon-user login"></span> Login</a></li>                        
+                    <li><a href="#" onclick = "location.href='loginPage.htm'"><span class="glyphicon glyphicon-user login"></span>Log in</a></li>                        
                     <li>
                         <a href="#"  onclick = "location.href='registrationPage.htm'" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-user login"></span> Sign up</a>
                     </li>
@@ -66,7 +66,8 @@
         <div class="banner"></div>
 
         <div class="container" style="margin-top:40px">
-            <div class="searchbar"></div>
+            <c:import url="searchbar.jsp"/>
+<!--            <div class="searchbar"></div>-->
             <c:import url="gallery.jsp"/>
         </div>
 

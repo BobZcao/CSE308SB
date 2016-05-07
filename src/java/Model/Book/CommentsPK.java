@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Tian
+ * @author code
  */
 @Embeddable
 public class CommentsPK implements Serializable {
@@ -101,7 +101,7 @@ public class CommentsPK implements Serializable {
 
     @Override
     public String toString() {
-        return "Model.Person.CommentsPK[ user=" + user + ", book=" + book + ", commentTime=" + commentTime + " ]";
+        return "Model.Book.CommentsPK[ user=" + user + ", book=" + book + ", commentTime=" + commentTime + " ]";
     }
     
 }

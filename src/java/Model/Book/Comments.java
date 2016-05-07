@@ -16,11 +16,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Tian
+ * @author code
  */
 @Entity
 @Table(name = "comments")
@@ -36,8 +37,9 @@ public class Comments implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CommentsPK commentsPK;
+    @Size(max = 255)
     @Column(name = "contents")
-    private Character contents;
+    private String contents;
     @JoinColumn(name = "user", referencedColumnName = "userName", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Account account;
@@ -64,11 +66,11 @@ public class Comments implements Serializable {
         this.commentsPK = commentsPK;
     }
 
-    public Character getContents() {
+    public String getContents() {
         return contents;
     }
 
-    public void setContents(Character contents) {
+    public void setContents(String contents) {
         this.contents = contents;
     }
 
@@ -110,7 +112,7 @@ public class Comments implements Serializable {
 
     @Override
     public String toString() {
-        return "Model.Person.Comments[ commentsPK=" + commentsPK + " ]";
+        return "Model.Book.Comments[ commentsPK=" + commentsPK + " ]";
     }
     
 }

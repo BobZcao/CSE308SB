@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Tian
+ * @author code
  */
 @Embeddable
 public class BorrowPK implements Serializable {
@@ -80,7 +80,7 @@ public class BorrowPK implements Serializable {
 
     @Override
     public String toString() {
-        return "Model.Person.BorrowPK[ user=" + user + ", book=" + book + " ]";
+        return "Model.Book.BorrowPK[ user=" + user + ", book=" + book + " ]";
     }
     
 }
