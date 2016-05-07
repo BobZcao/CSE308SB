@@ -8,6 +8,7 @@ package SpringController;
 import DB.PersonManager;
 import Model.Person.Account;
 import ViewBean.LoginBean;
+import ViewBean.SearchBean;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -35,7 +36,8 @@ public class MemberLoginController {
     @RequestMapping(value = "/index.htm",method = RequestMethod.POST)
     public String login(Model model, LoginBean loginBean){
         Account account  = PersonManager.getAccount(loginBean);
-        
+        SearchBean searchBean = new SearchBean();
+        model.addAttribute("searchBean", searchBean);
         if(account!=null){
             model.addAttribute("account", account);
             System.out.print(account.getUserName());
