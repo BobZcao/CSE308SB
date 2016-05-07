@@ -5,14 +5,22 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>  
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+      <div class="row" style="text-align: center">
+        <div class="col-lg-12">
+            <form:form action="display_page.htm" method="POST" class="navbar-form page-header" role="search" id="search" commandName= "searchBean">
+                <div class="form-group" style="width: 50%">
+                    
+                    <form:input path = "keywords" type="text"
+                                name = "keywords" class="form-control" 
+                                placeholder="Search" style="width:100%"/>
+                    
+                </div>
+                <button type="submit" value="Submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> 
+            </form:form>
+            <a href="advanced_search.htm">Advanced Search </a>
+        </div>
+    </div>
 </html>

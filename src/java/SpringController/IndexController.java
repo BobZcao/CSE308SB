@@ -3,6 +3,7 @@ package SpringController;
 
 import DB.BookManager;
 import Model.Person.Account;
+import ViewBean.SearchBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +21,8 @@ public class IndexController {
 //@RequestMapping(method = RequestMethod.GET)
   @RequestMapping(value = "/index")
     public String printHello(ModelMap model){
+        SearchBean searchBean = new SearchBean();
+        model.addAttribute("searchBean", searchBean);
         model.addAttribute("resultBookList",BookManager.searchBook(""));
         return "index";
     }

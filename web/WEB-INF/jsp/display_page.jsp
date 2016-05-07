@@ -100,7 +100,7 @@ and open the template in the editor.
 
                     <button type="button" onclick="list()" class="btn btn-primary"><span class="glyphicon glyphicon-th-list">List</span></button><br><br><br>
                     <div class="cover">
-                        <c:forEach var="book" items="${resultSet}">
+                        <c:forEach var="book" items="${searchBookList}">
                             <div class="col-lg-4 col-md-3 col-xs-6 thumb">
                                 <a class="thumbnail" href="#">
                                     <img class="img-responsive" src="${book.imageUrl}" alt="">
@@ -109,7 +109,7 @@ and open the template in the editor.
                         </c:forEach>
                     </div>
                     <div class="list" style="display:none;">
-                        <c:forEach var="book" items="${resultSet}">
+                        <c:forEach var="book" items="${searchBookList}">
                             <div class="row">
                                 <div class="col-lg-4" style="margin-top:20px">
                                     <img class="img-responsive" src="${book.imageUrl}" alt="" style="float:right;width:150px" >

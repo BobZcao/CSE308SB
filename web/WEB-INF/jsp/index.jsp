@@ -66,7 +66,8 @@
         <div class="banner"></div>
 
         <div class="container" style="margin-top:40px">
-            <div class="searchbar"></div>
+            <c:import url="searchbar.jsp"/>
+<!--            <div class="searchbar"></div>-->
             <c:import url="gallery.jsp"/>
         </div>
 

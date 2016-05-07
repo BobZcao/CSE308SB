@@ -6,14 +6,11 @@
 package Model.Person;
 
 import Model.Book.Book;
-import Model.Book.Borrow;
-import Model.Book.Comments;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,10 +18,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Tian
+ * @author code
  */
 @Entity
 @Table(name = "account")
@@ -43,14 +38,34 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
     @NamedQuery(name = "Account.findByUserName", query = "SELECT a FROM Account a WHERE a.userName = :userName"),
+    @NamedQuery(name = "Account.findByPasswords", query = "SELECT a FROM Account a WHERE a.passwords = :passwords"),
+    @NamedQuery(name = "Account.findByLastName", query = "SELECT a FROM Account a WHERE a.lastName = :lastName"),
+    @NamedQuery(name = "Account.findByFirstName", query = "SELECT a FROM Account a WHERE a.firstName = :firstName"),
+    @NamedQuery(name = "Account.findByDateOfBirth", query = "SELECT a FROM Account a WHERE a.dateOfBirth = :dateOfBirth"),
+    @NamedQuery(name = "Account.findByStreet", query = "SELECT a FROM Account a WHERE a.street = :street"),
+    @NamedQuery(name = "Account.findByCity", query = "SELECT a FROM Account a WHERE a.city = :city"),
+    @NamedQuery(name = "Account.findByState", query = "SELECT a FROM Account a WHERE a.state = :state"),
+    @NamedQuery(name = "Account.findByZipCode", query = "SELECT a FROM Account a WHERE a.zipCode = :zipCode"),
+    @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email"),
     @NamedQuery(name = "Account.findByBalance", query = "SELECT a FROM Account a WHERE a.balance = :balance"),
     @NamedQuery(name = "Account.findByLevels", query = "SELECT a FROM Account a WHERE a.levels = :levels"),
     @NamedQuery(name = "Account.findByCreditCard", query = "SELECT a FROM Account a WHERE a.creditCard = :creditCard"),
-    @NamedQuery(name = "Account.findByPasswords", query = "SELECT a FROM Account a WHERE a.passwords = :passwords"),
     @NamedQuery(name = "Account.findByMessageId", query = "SELECT a FROM Account a WHERE a.messageId = :messageId"),
-    @NamedQuery(name = "Account.findByBookBorrowed", query = "SELECT a FROM Account a WHERE a.bookBorrowed = :bookBorrowed")})
+    @NamedQuery(name = "Account.findByFont", query = "SELECT a FROM Account a WHERE a.font = :font"),
+    @NamedQuery(name = "Account.findByContrast", query = "SELECT a FROM Account a WHERE a.contrast = :contrast"),
+    @NamedQuery(name = "Account.findByAgeContent", query = "SELECT a FROM Account a WHERE a.ageContent = :ageContent")})
 public class Account implements Serializable {
-
+    public static final int MAX=10;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "userName")
+    private String userName;
+    @Size(max = 50)
+    @Column(name = "passwords")
+    private String passwords;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -83,6 +98,15 @@ public class Account implements Serializable {
     @Size(max = 20)
     @Column(name = "email")
     private String email;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "balance")
+    private BigDecimal balance;
+    @Column(name = "levels")
+    private Integer levels;
+    @Column(name = "creditCard")
+    private Integer creditCard;
+    @Column(name = "messageId")
+    private Integer messageId;
     @Column(name = "font")
     private Integer font;
     @Column(name = "contrast")
@@ -96,41 +120,18 @@ public class Account implements Serializable {
         @JoinColumn(name = "book", referencedColumnName = "isbn")})
     @ManyToMany
     private Collection<Book> bookCollection1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-    private Collection<Comments> commentsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-    private Collection<Borrow> borrowCollection;
-    public static final int MAX=10;
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "userName")
-    private String userName;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "balance")
-    private BigDecimal balance;
-    @Column(name = "levels")
-    private Integer levels;
-    @Column(name = "creditCard")
-    private Integer creditCard;
-    @Size(max = 20)
-    @Column(name = "passwords")
-    private String passwords;
-    @Column(name = "messageId")
-    private Integer messageId;
-    @Column(name = "bookBorrowed")
-    private Integer bookBorrowed;
-    @JoinColumn(name = "personId", referencedColumnName = "id")
-    @ManyToOne
-    private Person personId;
 
     public Account() {
     }
 
     public Account(String userName) {
         this.userName = userName;
+    }
+
+    public Account(String userName, String lastName, String firstName) {
+        this.userName = userName;
+        this.lastName = lastName;
+        this.firstName = firstName;
     }
 
     public String getUserName() {
@@ -141,85 +142,12 @@ public class Account implements Serializable {
         this.userName = userName;
     }
 
-    public BigDecimal getBalance() {
-        return balance;
-    }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
-    }
-
-    public Integer getLevels() {
-        return levels;
-    }
-
-    public void setLevels(Integer levels) {
-        this.levels = levels;
-    }
-
-    public Integer getCreditCard() {
-        return creditCard;
-    }
-
-    public void setCreditCard(Integer creditCard) {
-        this.creditCard = creditCard;
-    }
-
     public String getPasswords() {
         return passwords;
     }
 
     public void setPasswords(String passwords) {
         this.passwords = passwords;
-    }
-
-    public Integer getMessageId() {
-        return messageId;
-    }
-
-    public void setMessageId(Integer messageId) {
-        this.messageId = messageId;
-    }
-
-    public Integer getBookBorrowed() {
-        return bookBorrowed;
-    }
-
-    public void setBookBorrowed(Integer bookBorrowed) {
-        this.bookBorrowed = bookBorrowed;
-    }
-
-    public Person getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(Person personId) {
-        this.personId = personId;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (userName != null ? userName.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Account)) {
-            return false;
-        }
-        Account other = (Account) object;
-        if ((this.userName == null && other.userName != null) || (this.userName != null && !this.userName.equals(other.userName))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Model.Person.Account[ userName=" + userName + " ]";
     }
 
     public String getLastName() {
@@ -294,6 +222,38 @@ public class Account implements Serializable {
         this.email = email;
     }
 
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public Integer getLevels() {
+        return levels;
+    }
+
+    public void setLevels(Integer levels) {
+        this.levels = levels;
+    }
+
+    public Integer getCreditCard() {
+        return creditCard;
+    }
+
+    public void setCreditCard(Integer creditCard) {
+        this.creditCard = creditCard;
+    }
+
+    public Integer getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(Integer messageId) {
+        this.messageId = messageId;
+    }
+
     public Integer getFont() {
         return font;
     }
@@ -336,22 +296,29 @@ public class Account implements Serializable {
         this.bookCollection1 = bookCollection1;
     }
 
-    @XmlTransient
-    public Collection<Comments> getCommentsCollection() {
-        return commentsCollection;
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (userName != null ? userName.hashCode() : 0);
+        return hash;
     }
 
-    public void setCommentsCollection(Collection<Comments> commentsCollection) {
-        this.commentsCollection = commentsCollection;
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Account)) {
+            return false;
+        }
+        Account other = (Account) object;
+        if ((this.userName == null && other.userName != null) || (this.userName != null && !this.userName.equals(other.userName))) {
+            return false;
+        }
+        return true;
     }
 
-    @XmlTransient
-    public Collection<Borrow> getBorrowCollection() {
-        return borrowCollection;
-    }
-
-    public void setBorrowCollection(Collection<Borrow> borrowCollection) {
-        this.borrowCollection = borrowCollection;
+    @Override
+    public String toString() {
+        return "Model.Person.Account[ userName=" + userName + " ]";
     }
     
 }

@@ -303,25 +303,25 @@ public class Book implements Serializable {
     
     public synchronized boolean borrow(Account account) {
         if(this.available<=0) return false;
-        if(account.getBookBorrowed()>=account.MAX) return false;
+        //if(account.getBookBorrowed()>=account.MAX) return false;
         Borrow borrow= new Borrow();
         borrow.setAccount(account);
         borrow.setBook1(this);
         borrow.setDateBorrow(new Date());
         this.available-=1;
-        account.setBookBorrowed(account.getBookBorrowed()+1);
+        //account.setBookBorrowed(account.getBookBorrowed()+1);
         BookManager.persistBorrow(borrow);
         return true;
     }
     public synchronized boolean returnBook(Account account) {
         
         Borrow borrow= new Borrow();
-        account.setBookBorrowed(account.getBookBorrowed()-1);
+       // account.setBookBorrowed(account.getBookBorrowed()-1);
         borrow.setAccount(account);
         borrow.setBook1(this);
         borrow.setDateReturn(new Date());
         this.available+=1;
-        BookManager.persistReturn(borrow);
+       // BookManager.persistReturn(borrow);
         return true;
     }
 }

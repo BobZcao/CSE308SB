@@ -64,7 +64,7 @@ and open the template in the editor.
                                 </h4>
                             </div>
                             <div id="collapse4" class="panel-collapse collapse">
-                                <div class="panel-body">${book.avaliable}
+                                <div class="panel-body">${book.available}
                                 </div>
                             </div>
                         </div>

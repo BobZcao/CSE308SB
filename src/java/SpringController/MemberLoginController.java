@@ -33,7 +33,6 @@ public class MemberLoginController {
     }
 
     @RequestMapping(value = "/index.htm",method = RequestMethod.POST)
-
     public String login(Model model, LoginBean loginBean){
         Account account  = PersonManager.getAccount(loginBean);
         
