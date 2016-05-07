@@ -104,6 +104,24 @@ public class BookManager {
         searchResult = resultList;
         return resultList;
     }
+    
+    public static List<Book> AuthorSearch(String s){
+        EntityManager em = factory.createEntityManager();
+        
+        List<Book> resultList = null;
+        
+        String searchQuery = "select c from Book c where (c.author like '%" + s +"%')";
+        
+        resultList = em.createQuery(searchQuery, Book.class).getResultList();
+        em.close();
+        searchResult = resultList;
+        return resultList;
+    }
+    
+    
+
+    
+    
    
      public static void persistReturn(Borrow borrow){
         EntityManager em = factory.createEntityManager();
