@@ -9,11 +9,15 @@ import DB.BookManager;
 import Model.Person.Account;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -22,6 +26,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -49,6 +54,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Book.findByBanned", query = "SELECT b FROM Book b WHERE b.banned = :banned"),
     @NamedQuery(name = "Book.findByFormat", query = "SELECT b FROM Book b WHERE b.format = :format")})
 public class Book implements Serializable {
+
+    @JoinTable(name = "favorbook", joinColumns = {
+        @JoinColumn(name = "book", referencedColumnName = "isbn")}, inverseJoinColumns = {
+        @JoinColumn(name = "user", referencedColumnName = "userName")})
+    @ManyToMany
+    private Collection<Account> accountCollection;
+    @ManyToMany(mappedBy = "bookCollection1")
+    private Collection<Account> accountCollection1;
+    @JoinTable(name = "recommend", joinColumns = {
+        @JoinColumn(name = "book", referencedColumnName = "isbn")}, inverseJoinColumns = {
+        @JoinColumn(name = "user", referencedColumnName = "userName")})
+    @ManyToMany
+    private Collection<Account> accountCollection2;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -281,6 +299,33 @@ public class Book implements Serializable {
         this.available+=1;
        // BookManager.persistReturn(borrow);
         return true;
+    }
+
+    @XmlTransient
+    public Collection<Account> getAccountCollection() {
+        return accountCollection;
+    }
+
+    public void setAccountCollection(Collection<Account> accountCollection) {
+        this.accountCollection = accountCollection;
+    }
+
+    @XmlTransient
+    public Collection<Account> getAccountCollection1() {
+        return accountCollection1;
+    }
+
+    public void setAccountCollection1(Collection<Account> accountCollection1) {
+        this.accountCollection1 = accountCollection1;
+    }
+
+    @XmlTransient
+    public Collection<Account> getAccountCollection2() {
+        return accountCollection2;
+    }
+
+    public void setAccountCollection2(Collection<Account> accountCollection2) {
+        this.accountCollection2 = accountCollection2;
     }
     
 }
