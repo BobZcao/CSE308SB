@@ -9,26 +9,19 @@ import DB.BookManager;
 import Model.Person.Account;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -53,7 +46,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Book.findByImageUrl", query = "SELECT b FROM Book b WHERE b.imageUrl = :imageUrl"),
     @NamedQuery(name = "Book.findByHoldNum", query = "SELECT b FROM Book b WHERE b.holdNum = :holdNum"),
     @NamedQuery(name = "Book.findByPublisher", query = "SELECT b FROM Book b WHERE b.publisher = :publisher"),
-    @NamedQuery(name = "Book.findByBanned", query = "SELECT b FROM Book b WHERE b.banned = :banned")})
+    @NamedQuery(name = "Book.findByBanned", query = "SELECT b FROM Book b WHERE b.banned = :banned"),
+    @NamedQuery(name = "Book.findByFormat", query = "SELECT b FROM Book b WHERE b.format = :format")})
 public class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -101,17 +95,9 @@ public class Book implements Serializable {
     private String publisher;
     @Column(name = "banned")
     private Integer banned;
-    @JoinTable(name = "favorbook", joinColumns = {
-        @JoinColumn(name = "book", referencedColumnName = "isbn")}, inverseJoinColumns = {
-        @JoinColumn(name = "user", referencedColumnName = "userName")})
-    @ManyToMany
-    private Collection<Account> accountCollection;
-    @ManyToMany(mappedBy = "bookCollection1")
-    private Collection<Account> accountCollection1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book1")
-    private Collection<Comments> commentsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book1")
-    private Collection<Borrow> borrowCollection;
+    @Size(max = 20)
+    @Column(name = "format")
+    private String format;
 
     public Book() {
     }
@@ -240,40 +226,12 @@ public class Book implements Serializable {
         this.banned = banned;
     }
 
-    @XmlTransient
-    public Collection<Account> getAccountCollection() {
-        return accountCollection;
+    public String getFormat() {
+        return format;
     }
 
-    public void setAccountCollection(Collection<Account> accountCollection) {
-        this.accountCollection = accountCollection;
-    }
-
-    @XmlTransient
-    public Collection<Account> getAccountCollection1() {
-        return accountCollection1;
-    }
-
-    public void setAccountCollection1(Collection<Account> accountCollection1) {
-        this.accountCollection1 = accountCollection1;
-    }
-
-    @XmlTransient
-    public Collection<Comments> getCommentsCollection() {
-        return commentsCollection;
-    }
-
-    public void setCommentsCollection(Collection<Comments> commentsCollection) {
-        this.commentsCollection = commentsCollection;
-    }
-
-    @XmlTransient
-    public Collection<Borrow> getBorrowCollection() {
-        return borrowCollection;
-    }
-
-    public void setBorrowCollection(Collection<Borrow> borrowCollection) {
-        this.borrowCollection = borrowCollection;
+    public void setFormat(String format) {
+        this.format = format;
     }
 
     @Override
@@ -324,4 +282,5 @@ public class Book implements Serializable {
        // BookManager.persistReturn(borrow);
         return true;
     }
+    
 }

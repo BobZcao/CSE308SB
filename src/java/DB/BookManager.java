@@ -120,9 +120,6 @@ public class BookManager {
     
     
 
-    
-    
-   
      public static void persistReturn(Borrow borrow){
         EntityManager em = factory.createEntityManager();
         BorrowPK borrowPK=new BorrowPK();
