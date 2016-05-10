@@ -20,7 +20,6 @@ public class SearchBean {
     private String format = "";
     private String language = "";
     private String addedToSite = "";
-   
     private String publisher = "";
     private String award = "";
     private String readingLevelRange = "";

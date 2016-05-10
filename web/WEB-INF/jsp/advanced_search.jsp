@@ -21,10 +21,11 @@
                 <div class="content-container clearfix">
 
                     <div class="col-md-12">
-                        <form:form action = "display_page.htm" method = "POST" commandName="searchBean">
+                        <form:form action = "display_page_advanced.htm" method = "POST" commandName="searchBean_advanced">
                             <div class="form-group">
                                 <form:input path = "title" type="text"
-                                            class="form-control" placeholder="Title" />
+                                name = "title" class="form-control" 
+                                placeholder="Title" style="width:100%" />
                             </div>
                             
                             <div class="form-group">
@@ -81,9 +82,7 @@
                                 
                               
 
-                            <div class="btn-send">
-                                <a href="display_page.html" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-send"></span> Search</a>
-                            </div>
+                             <button type="submit" value="Submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> 
                         </form:form>
                     </div>
 
