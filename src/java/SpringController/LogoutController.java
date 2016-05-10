@@ -20,7 +20,7 @@ public class LogoutController {
     @RequestMapping(value="logout")
     public String logoutAccount(HttpSession session){
         SearchBean searchBean = new SearchBean();
-        
+        session.removeAttribute("account");
         return "forward:index.htm";
     }
 }

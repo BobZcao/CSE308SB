@@ -40,6 +40,11 @@ public class PersonManager {
         account.setPasswords(pass.toString());
         account.setUserName(member.getUserName());
         account.setLevels(1);
+        account.setFont(member.getFont());
+        account.setAgeContent(member.getAgeContent());
+        account.setContrast(member.getContrast());
+        account.setLendingPeriod(member.getLendingPeriod());
+        
         
         persistAccount(account);
         

@@ -7,16 +7,25 @@ package SpringController;
 
 import DB.PersonManager;
 import Model.Person.Account;
+import Model.Person.Member;
 import ViewBean.LoginBean;
 import ViewBean.SearchBean;
+import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import validator.RegistrationValidator;
 
 /**
  *
@@ -40,7 +49,10 @@ public class MemberLoginController {
         if(account!=null){
             model.addAttribute("account", account);
             System.out.print(account.getUserName());
-            return "forward:index.htm";
+        
+            return "member_login";
+            
+            
         }
         
         else{
@@ -49,4 +61,4 @@ public class MemberLoginController {
         
     }
     
-}
+    }
