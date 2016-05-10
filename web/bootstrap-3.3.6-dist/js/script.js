@@ -72,11 +72,8 @@ $(document).ready(function () {
         $('.faculty_panel').load("faculty_panel/manage_books.html");
     });
 
-
-    $('#datetimepicker10').datetimepicker({
-        viewMode: 'years',
-        format: 'MM/YYYY'
-    });
+    
+    
     
       
       

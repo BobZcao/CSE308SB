@@ -25,7 +25,9 @@ public class SearchController {
     
     @RequestMapping(value = "/display_page.htm")
     public String search(Model model, SearchBean searchBean){
+        //if the search is the simple search that contains the keyword only
         model.addAttribute("searchBookList", BookManager.basicSearch(searchBean.getKeywords()));
+        
         return "display_page";
     }
     

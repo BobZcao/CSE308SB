@@ -15,7 +15,7 @@
                     
                     <form:input path = "keywords" type="text"
                                 name = "keywords" class="form-control" 
-                                placeholder="Search" style="width:100%"/>
+                                placeholder="Search" style="width:100%" required="required"/>
                     
                 </div>
                 <button type="submit" value="Submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> 
