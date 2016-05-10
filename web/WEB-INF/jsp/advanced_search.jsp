@@ -9,11 +9,11 @@
 <!DOCTYPE html>
 <html>
 
-    <div class="header"></div>
+    <c:import url="header.html"/>
 
     <body>
 
-        <div class="navigation"></div>
+        <c:import url="nav.jsp"/>
 
         <div class="tab-pane" id="search" >
 
