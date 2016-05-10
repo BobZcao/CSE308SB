@@ -32,7 +32,10 @@ public class SearchController {
         List<String> subjectsList = null;
         //find all kinds of subjects in our book db
         subjectsList = BookManager.generateSubjectsList();
+        String[] levelRange = {"child","teen","adult"};
+    
         model.addAttribute("subjectsList", subjectsList);
+        model.addAttribute("levelRange", levelRange);
         return "advanced_search";
         
     }

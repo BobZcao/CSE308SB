@@ -12,21 +12,22 @@ import java.util.Date;
  * @author code
  */
 public class SearchBean {
-    private String keywords = "";
-
-    private String ISBN = "";
-    
-    private String author = "";
-    
-    private String subjects = "";
-    
     private String title = "";
-    //need to be improved
-    private Date publishDate;
-    
+    private String ISBN = "";
+    private String author = "";
+    private String addedDate = "";
+    private String subjects = "";
+    private String format = "";
+    private String language = "";
+
+   
+    private String publisher = "";
+    private String award = "";
+    private String readingLevelRange = "";
+    private String keywords = "";
     private String series = "";
     
-    private String publisher = "";
+    
     
     public String getISBN() {
         return ISBN;
@@ -44,8 +45,8 @@ public class SearchBean {
         return title;
     }
 
-    public Date getPublishDate() {
-        return publishDate;
+    public String getAddedDate() {
+        return addedDate;
     }
 
     public String getSeries() {
@@ -72,8 +73,8 @@ public class SearchBean {
         this.title = title;
     }
 
-    public void setPublishDate(Date publishDate) {
-        this.publishDate = publishDate;
+    public void setAddedDate(String addedDate) {
+        this.addedDate = addedDate;
     }
 
     public void setSeries(String series) {
@@ -92,6 +93,39 @@ public class SearchBean {
     public void setKeywords(String keywords){
         this.keywords = keywords;
     }
+    
+     public String getFormat() {
+        return format;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public String getAward() {
+        return award;
+    }
+
+    public String getReadingLevelRange() {
+        return readingLevelRange;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public void setAward(String award) {
+        this.award = award;
+    }
+
+    public void setReadingLevelRange(String readingLevelRange) {
+        this.readingLevelRange = readingLevelRange;
+    }
+    
     
     
 }
