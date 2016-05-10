@@ -19,7 +19,7 @@ public class SearchBean {
     private String subjects = "";
     private String format = "";
     private String language = "";
-
+    private String addedToSite = "";
    
     private String publisher = "";
     private String award = "";
@@ -125,7 +125,14 @@ public class SearchBean {
     public void setReadingLevelRange(String readingLevelRange) {
         this.readingLevelRange = readingLevelRange;
     }
-    
+
+    public String getAddedToSite() {
+        return addedToSite;
+    }
+
+    public void setAddedToSite(String addedToSite) {
+        this.addedToSite = addedToSite;
+    }
     
     
 }

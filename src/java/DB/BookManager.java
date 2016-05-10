@@ -47,7 +47,6 @@ public class BookManager {
         List<String> subjectsList = null;
         EntityManager em = factory.createEntityManager();
         String[] subjects = null;
-        int count = 0;
         //find all kinds of subjects of the book 
         subjectsList = em.createQuery("select c.subjects from Book c", String.class).getResultList();
         //after get all the subjects, make all the element unique, delete multiple same element.
@@ -68,7 +67,52 @@ public class BookManager {
         
         return subjectsList;
     }
-
+    public static List<String> generateLanguageList(){
+        List<String> languageList = null;
+        EntityManager em = factory.createEntityManager();
+        languageList = em.createQuery("select c.language from Book c", String.class).getResultList();
+        Set<String>  languageSet = new LinkedHashSet<String>();
+        for(String a: languageList){
+            languageSet.add(a);
+        }
+        languageList = new ArrayList<String>();
+        for(String c: languageSet){
+            languageList.add(c);
+        }
+        return languageList;
+        
+    }
+    
+    public static List<String> generateSelectionList(String query){
+        List<String> selectionList = null;
+        EntityManager em = factory.createEntityManager();
+        String[] selection = null;
+        selectionList = em.createQuery(query, String.class).getResultList();
+        Set<String>  selectionSet = new LinkedHashSet<String>();
+       
+        for(String c: selectionList){
+            if(c!=null){
+            selection = c.split(",");
+            
+            for(String a: selection){
+                selectionSet.add(a);
+            
+            }
+            
+            }
+        }
+        
+       
+        selectionList = new ArrayList<String>();
+        
+        for(String c: selectionSet){
+            selectionList.add(c);
+        }
+        
+        return selectionList;
+    }
+    
+    
     public static List<Book> searchBook(String s) {
         EntityManager em = factory.createEntityManager();
         List<Book> resultList = em.createNamedQuery(
