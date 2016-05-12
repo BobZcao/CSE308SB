@@ -102,7 +102,7 @@ and open the template in the editor.
                     <div class="cover">
                         <c:forEach var="book" items="${searchBookList}">
                             <div class="col-lg-4 col-md-3 col-xs-6 thumb">
-                                <a class="thumbnail" href="#">
+                                <a class="thumbnail" href="/view.htm?isbn=${book.isbn}">
                                     <img class="img-responsive" src="${book.imageUrl}" alt="">
                                 </a>
                             </div>
@@ -112,11 +112,15 @@ and open the template in the editor.
                         <c:forEach var="book" items="${searchBookList}">
                             <div class="row">
                                 <div class="col-lg-4" style="margin-top:20px">
-                                    <img class="img-responsive" src="${book.imageUrl}" alt="" style="float:right;width:150px" >
+                                    <a class="thumbnail" href="/view.htm?isbn=${book.isbn}">
+                                        <img class="img-responsive" src="${book.imageUrl}" alt="" style="float:right;width:150px" >
+                                    </a>
                                     <button class="btn btn-default" style="margin-top: 10px; width: 100px; margin-left:100px;">Sample</button>
                                 </div>      
                                 <div class="col-lg-8"  >
-                                    <h3>${book.title}</h3>
+                                    <a href="/view.htm?isbn=${book.isbn}">
+                                        <h3>${book.title}</h3>
+                                    </a>
                                     <p>By <a href="#">${book.author}</a></p>
                                     <button type="button" style="width:200px" class="btn btn-primary btn-lg btn-block">Borrow</button>
                                     <button type="button" style="width:200px" class="btn btn-warning btn-lg btn-block">Add to Wish List</button>

@@ -320,5 +320,5 @@ public class Account implements Serializable {
     public String toString() {
         return "Model.Person.Account[ userName=" + userName + " ]";
     }
-    
-}
+
+    }

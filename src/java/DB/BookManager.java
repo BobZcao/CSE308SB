@@ -67,7 +67,7 @@ public class BookManager {
         }
         
         return subjectsList;
-    }
+            }
 
     public static List<Book> searchBook(String s) {
         EntityManager em = factory.createEntityManager();
@@ -117,7 +117,7 @@ public class BookManager {
         em.close();
         persistBook(borrow.getBook1());
         PersonManager.persistAccount(borrow.getAccount());
-    }   
+    }
     public static void persistBorrow(Borrow borrow){
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
