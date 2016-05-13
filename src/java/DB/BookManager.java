@@ -29,6 +29,9 @@ public class BookManager {
     private static EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 
     public static List<Book> searchResult = null;
+    public static int cursor = 0;
+    //record the current set of books on the page
+    public static List<Book> currentPageBookList = null;
 
     public static void persistBook(Book book) {
         EntityManager em = factory.createEntityManager();
@@ -108,13 +111,88 @@ public class BookManager {
         selectionList = new ArrayList<String>();
 
         for (String c : selectionSet) {
-            
+
             selectionList.add(c);
         }
 
         return selectionList;
     }
 
+    public static List<Book> getNextSetBook() {
+
+        int count = 0;
+        //each time try to get 20 books. if not enough, get the rest
+        if (searchResult != null && cursor != searchResult.size()) {
+            currentPageBookList = new ArrayList<Book>();
+            while (cursor != searchResult.size() && count != 21) {
+
+                currentPageBookList.add(searchResult.get(cursor));
+                cursor++;
+                count++;
+            }
+        }
+        return currentPageBookList;
+    }
+
+    public static List<Book> getPreviousSetBook() {
+
+        int count = 21;
+        //check if the page is the first page
+        if (searchResult != null && cursor != 21 && !(searchResult.size()<=21)) {
+            //check whether the previous dead end
+            int num = currentPageBookList.size();
+            currentPageBookList = new ArrayList<Book>();
+
+            cursor = cursor - num;
+
+            while (cursor != 0 && count != 0) {
+                currentPageBookList.add(searchResult.get(cursor - count));
+                count--;
+            }
+        }
+
+        return currentPageBookList;
+    }
+
+    public static List<Book> getLastSetBook(){
+        //move the cursor to the end
+        cursor = searchResult.size();
+        //find the reminder of searchResult
+        int rem = searchResult.size() % 21;
+        currentPageBookList = new ArrayList<Book>();
+        int count = 0;
+        if(rem!=0){
+            //the last page have less than 21 books
+            count = rem;
+        }
+        else{
+            count = 21;
+        }
+        
+        while(count!=0){
+                currentPageBookList.add(searchResult.get(cursor- count));
+                count--;
+            }
+        return currentPageBookList;
+    }
+    
+    public static List<Book> getFirstSetBook(){
+        int count = 0;
+        currentPageBookList = new ArrayList<Book>();
+        if(searchResult.size() <=21){
+            cursor = searchResult.size();
+            count = searchResult.size();
+        }
+        else{
+            cursor = 21;
+            count = 21;
+        }
+        while(count!=0){
+            currentPageBookList.add(searchResult.get(cursor-count));
+            count--;
+        }
+        return currentPageBookList;
+    }
     public static List<Book> searchBook(String s) {
         EntityManager em = factory.createEntityManager();
         List<Book> resultList = em.createNamedQuery(
@@ -126,6 +204,8 @@ public class BookManager {
     }
 
     public static List<Book> basicSearch(String s) {
+        //reset cursor
+        cursor = 0;
         EntityManager em = factory.createEntityManager();
         //dicide a string into multiple small strings 
 
@@ -152,6 +232,8 @@ public class BookManager {
     }
 
     public static List<Book> advancedSearch(SearchBean searchBean) {
+        //reset cursor 
+        cursor = 0;
         EntityManager em = factory.createEntityManager();
         List<Book> resultList = null;
         String searchQuery = "select c from Book c where ";
@@ -220,14 +302,16 @@ public class BookManager {
 
         return resultList;
     }
-    public static String solveSpecial (String s){
+
+    public static String solveSpecial(String s) {
         String k = s;
         int i = s.indexOf("\'");
-        if(i!=-1&&i!=0){
-            k = s.substring(0,i) + "\'" + s.substring(i,s.length());
+        if (i != -1 && i != 0) {
+            k = s.substring(0, i) + "\'" + s.substring(i, s.length());
         }
         return k;
     }
+
     public static List<Book> AuthorSearch(String s) {
         EntityManager em = factory.createEntityManager();
 

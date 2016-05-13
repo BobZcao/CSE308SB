@@ -21,7 +21,9 @@ and open the template in the editor.
             <div class="row">
                 <div class="col-lg-3" style="margin-top:20px">
                     <h2>Filter search by:</h2> 
-
+                    <span> <a href=#>All Titles</a></span><br>
+                    <span> <a href=#>Available now</a></span><br>
+                    <span> <a href=#>additional titles to recommend</a></span><br>
                     <div class="panel-group" id="accordion" style="margin-top:40px">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -102,7 +104,7 @@ and open the template in the editor.
                     <div class="cover">
                         <c:forEach var="book" items="${searchBookList}">
                             <div class="col-lg-4 col-md-3 col-xs-6 thumb">
-                                <a class="thumbnail" href="#">
+                                <a class="thumbnail" href="view.htm?isbn=${book.isbn}">
                                     <img class="img-responsive" src="${book.imageUrl}" alt="">
                                 </a>
                             </div>
@@ -112,7 +114,9 @@ and open the template in the editor.
                         <c:forEach var="book" items="${searchBookList}">
                             <div class="row">
                                 <div class="col-lg-4" style="margin-top:20px">
-                                    <img class="img-responsive" src="${book.imageUrl}" alt="" style="float:right;width:150px" >
+                                    <a class="thumbnail" href="view.htm?isbn=${book.isbn}">
+                                        <img class="img-responsive" src="${book.imageUrl}" alt="" style="width:220px" >
+                                    </a>
                                     <button class="btn btn-default" style="margin-top: 10px; width: 100px; margin-left:100px;">Sample</button>
                                 </div>      
                                 <div class="col-lg-8"  >
@@ -127,38 +131,32 @@ and open the template in the editor.
                             <hr> 
                         </c:forEach>
 
-
                     </div>
-                  
-
 
                 </div>
-                
-                 
-
 
             </div>
         </div>
-        
-         <div>
-                        <ul class="pager" style="margin-top:20px">
-                             <li><a href="#">Next</a></li>
-                            <li><a href="#">Previous</a></li>
-                             <li><a href="#">Last</a></li>
-                              <li><a href="#">First</a></li>
-                        </ul>
-         </div>
-            <c:import url="footer.html"/>
+
+        <div>
+            <ul class="pager" style="margin-top:20px">
+                <li><a href="display_page_next.htm">Next</a></li>
+                <li><a href="display_page_previous.htm">Previous</a></li>
+                <li><a href="display_page_last.htm">Last</a></li>
+                <li><a href="display_page_first.htm">First</a></li>
+            </ul>
+        </div>
+        <c:import url="footer.html"/>
 
 
-            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-            <!-- Include all compiled plugins (below), or include individual files as needed -->
-            <script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 
-            <!-- Customized js files -->
-            <script src="bootstrap-3.3.6-dist/js/script.js"></script>
-            <script>
+        <!-- Customized js files -->
+        <script src="bootstrap-3.3.6-dist/js/script.js"></script>
+        <script>
                         function list() {
                             $(".list").css("display", "inline");
                             $(".cover").css("display", "none");
@@ -167,6 +165,6 @@ and open the template in the editor.
                             $(".cover").css("display", "inline");
                             $(".list").css("display", "none");
                         }
-            </script>
+        </script>
     </body>
 </html>
