@@ -5,11 +5,14 @@
  */
 package Model.Book;
 
+import Model.Person.Account;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -19,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Tian
+ * @author code
  */
 @Entity
 @Table(name = "borrow")
@@ -41,6 +44,12 @@ public class Borrow implements Serializable {
     @Column(name = "dateReturn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateReturn;
+    @JoinColumn(name = "user", referencedColumnName = "userName", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Account account;
+    @JoinColumn(name = "book", referencedColumnName = "isbn", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Book book1;
 
     public Borrow() {
     }
@@ -75,6 +84,22 @@ public class Borrow implements Serializable {
 
     public void setDateReturn(Date dateReturn) {
         this.dateReturn = dateReturn;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Book getBook1() {
+        return book1;
+    }
+
+    public void setBook1(Book book1) {
+        this.book1 = book1;
     }
 
     @Override

@@ -9,6 +9,7 @@ import java.util.LinkedHashSet;
 import Model.Book.Book;
 import Model.Book.Borrow;
 import Model.Book.BorrowPK;
+import Model.Person.Account;
 import ViewBean.SearchBean;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,25 +31,32 @@ public class BookManager {
     //books that are availiable now
     public static List<Book> booksAvailableNow = null;
     //books to be recommended
-    public static List<Book> booksToRecommend = null;
+    public static List<Book> additionalTitles = null;
     //books with all Title
+    public static List<Book> booksWithAllTitle = null;
+    //current book List
     public static List<Book> searchResult = null;
     public static int cursor = 0;
     //record the current set of books on the page
     public static List<Book> currentPageBookList = null;
 
-    public static List<Book> getBooksWithAllTitle(){
+    public static List<Book> getBooksWithAllTitle() {
+        booksWithAllTitle = filterSearchResultByAllTitles();
+        searchResult = booksWithAllTitle;
         return searchResult;
     }
-    
-    public static List<Book> getBooksAvailableNow(){
-        return booksAvailableNow;
+
+    public static List<Book> getBooksAvailableNow() {
+        booksAvailableNow = filterSearchResultByAvailableNow();
+        searchResult = booksAvailableNow;
+        return searchResult;
     }
-    
-    public static List<Book> getBooksToRecommend(){
-        return booksToRecommend;
+
+    public static List<Book> getAdditionalTitles() {
+        searchResult = additionalTitles;
+        return searchResult;
     }
-    
+
     public static void persistBook(Book book) {
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
@@ -56,6 +64,7 @@ public class BookManager {
         em.getTransaction().commit();
         em.close();
     }
+
     public static void mergeBook(Book book) {
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
@@ -249,11 +258,12 @@ public class BookManager {
 
         resultList = em.createQuery(searchQuery, Book.class).getResultList();
         em.close();
-        searchResult = resultList;
+        additionalTitles = resultList;
+        //filter the list to with all titles
+        
+        searchResult = filterSearchResultByAllTitles();
         //after get books with all titles, get all books that are available
-       
-            
-      
+
         return resultList;
     }
 
@@ -324,8 +334,35 @@ public class BookManager {
 
         resultList = em.createQuery(searchQuery, Book.class).getResultList();
         em.close();
-        searchResult = resultList;
+        additionalTitles = resultList;
+        
+        searchResult = filterSearchResultByAllTitles();
+        
+        return resultList;
+    }
 
+//    public static List<Book> filterSearchResultByAvailiableNow() {
+//        
+//    }
+    // get books that are in the lib, remove the books that are not in the lib
+    public static List<Book> filterSearchResultByAllTitles(){
+         List<Book> resultList = new ArrayList<Book>();
+         for(int i =0; i<additionalTitles.size();i++){
+             if(additionalTitles.get(i).getLicenses()!=0){
+                 resultList.add(additionalTitles.get(i));
+             }
+         }
+         return resultList;
+    }
+    
+    public static List<Book> filterSearchResultByAvailableNow(){
+        List<Book> resultList = new ArrayList<Book>();
+        for(int i =0; i<additionalTitles.size();i++){
+            if(additionalTitles.get(i).getLicenses()!=0 && additionalTitles.get(i).getAvailable()!=0){
+                resultList.add(additionalTitles.get(i));
+            }
+        }
+        
         return resultList;
     }
 
@@ -364,15 +401,16 @@ public class BookManager {
 //        persistBook(borrow.getBook1());
 //        PersonManager.persistAccount(borrow.getAccount());
     }
-    
-    public static void persistBorrow(Borrow borrow){
+
+    public static void persistBorrow(Borrow borrow) {
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         em.persist(borrow);
         em.getTransaction().commit();
         em.close();
     }
-    public static void refreshBorrow(Borrow borrow){
+
+    public static void refreshBorrow(Borrow borrow) {
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         em.refresh(borrow);
@@ -440,7 +478,7 @@ public class BookManager {
     public static List<Borrow> searchBorrowList(String userName) {
         EntityManager em = factory.createEntityManager();
         List<Borrow> resultList = null;
-      String searchQuery = "select b.* from Borrow b, Book bk where (b.user='" + userName + "' and b.book=bk.isbn and b.dateReturn >now())";
+        String searchQuery = "select b.* from Borrow b, Book bk where (b.user='" + userName + "' and b.book=bk.isbn and b.dateReturn >now())";
         resultList = em.createNativeQuery(searchQuery, Borrow.class).getResultList();
 
         em.close();
@@ -456,21 +494,19 @@ public class BookManager {
         return resultList;
     }
 
-    public static void renewBook(Account account, String isbn,Date date) {
+    public static void renewBook(Account account, String isbn, Date date) {
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
-         BorrowPK borrowPK = new BorrowPK();
-         borrowPK.setBook(isbn);
-         borrowPK.setUser(account.getUserName());
-           borrowPK.setDateBorrow(date);
-         
-         
+        BorrowPK borrowPK = new BorrowPK();
+        borrowPK.setBook(isbn);
+        borrowPK.setUser(account.getUserName());
+        borrowPK.setDateBorrow(date);
+
         Borrow borrowFind = em.find(Borrow.class, borrowPK);
-         
+
         em.persist(borrowFind);
         em.getTransaction().commit();
         em.close();
-        
-      
+
     }
 }

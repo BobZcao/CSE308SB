@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Tian
+ * @author code
  */
 @Embeddable
 public class BorrowPK implements Serializable {

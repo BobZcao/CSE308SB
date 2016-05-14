@@ -21,9 +21,9 @@ and open the template in the editor.
             <div class="row">
                 <div class="col-lg-3" style="margin-top:20px">
                     <h2>Filter search by:</h2> 
-                    <span> <a href=#>All Titles</a></span><br>
-                    <span> <a href=#>Available now</a></span><br>
-                    <span> <a href=#>additional titles to recommend</a></span><br>
+                    <span> <a href="display_page_filterByAllTitle.htm">All Titles</a></span><br>
+                    <span> <a href="display_page_filterByAvailableNow.htm">Available now</a></span><br>
+                    <span> <a href="display_page_filterByAdditionalTitle.htm">additional titles to recommend</a></span><br>
                     <div class="panel-group" id="accordion" style="margin-top:40px">
                         <div class="panel panel-default">
                             <div class="panel-heading">
