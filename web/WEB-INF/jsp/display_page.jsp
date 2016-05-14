@@ -113,7 +113,7 @@ and open the template in the editor.
                             <div class="row">
                                 <div class="col-lg-4" style="margin-top:20px">
                                     <a class="thumbnail" href="/view.htm?isbn=${book.isbn}">
-                                        <img class="img-responsive" src="${book.imageUrl}" alt="" style="float:right;width:150px" >
+                                        <img class="img-responsive" src="${book.imageUrl}" alt="" style="width:220px" >
                                     </a>
                                     <button class="btn btn-default" style="margin-top: 10px; width: 100px; margin-left:100px;">Sample</button>
                                 </div>      

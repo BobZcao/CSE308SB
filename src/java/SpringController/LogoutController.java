@@ -21,6 +21,6 @@ public class LogoutController {
     public String logoutAccount(HttpSession session){
         SearchBean searchBean = new SearchBean();
         session.removeAttribute("account");
-        return "forward:/index.htm";
+        return "forward:index.htm";
     }
 }
