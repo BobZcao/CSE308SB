@@ -5,6 +5,7 @@
  */
 package SpringController;
 
+import DB.BookManager;
 import DB.PersonManager;
 import Model.Person.Account;
 import Model.Person.Member;
@@ -32,7 +33,7 @@ import validator.RegistrationValidator;
  * @author Joey
  */
 @Controller
-@SessionAttributes("account")
+@SessionAttributes({"account","checkedOutBookList","borrowList"})
 public class MemberLoginController {
     
     @RequestMapping(value = "/loginPage.htm", method = RequestMethod.GET)
@@ -49,7 +50,9 @@ public class MemberLoginController {
         if(account!=null){
             model.addAttribute("account", account);
             System.out.print(account.getUserName());
-        
+            model.addAttribute("checkedOutBookList",BookManager.searchCheckedOutBook(account.getUserName()));
+//            model.addAttribute("wishList",BookManager.searchWishBookList(account.getUserName()));
+            model.addAttribute("borrowList",BookManager.searchBorrowList(account.getUserName()));
             return "member_login";
             
             

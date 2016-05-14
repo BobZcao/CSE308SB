@@ -32,7 +32,7 @@ public class PersonManager {
         account.setState(member.getState());
         account.setStreet(member.getStreet());
         account.setTelephone(member.getTelephone());
-        account.setZipCode(Integer.parseInt(member.getZipCode()));
+        account.setZipCode(member.getZipCode());
         
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         byte[] pass = md.digest(member.getPassword().getBytes());
@@ -71,5 +71,30 @@ public class PersonManager {
         
         return account;
     }
+     public static void updateAccount(Member member) throws NoSuchAlgorithmException {
           
+        EntityManager em = factory.createEntityManager();
+        
+       
+        em.getTransaction().begin();
+        Account ac = em.find(Account.class, member.getUserName());
+         MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] pass = md.digest(member.getPassword().getBytes());
+         ac.setCity(member.getCity());
+         ac.setState(member.getState());
+         ac.setStreet(member.getStreet());
+         ac.setContrast(member.getContrast());
+         ac.setFont(member.getFont());
+         ac.setLendingPeriod(member.getLendingPeriod());
+         ac.setAgeContent(member.getAgeContent());
+         ac.setEmail(member.getEmail());
+         ac.setPasswords(pass.toString());
+         ac.setTelephone(member.getTelephone());
+         ac.setZipCode(member.getZipCode());
+         ac.setFirstName(member.getFirstName());
+         ac.setLastName(member.getLastName());   
+        em.getTransaction().commit();
+        em.close();
+        
+    }      
 }
