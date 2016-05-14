@@ -27,12 +27,28 @@ public class BookManager {
 
     private static final String PERSISTENCE_UNIT_NAME = "DB";
     private static EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-
+    //books that are availiable now
+    public static List<Book> booksAvailableNow = null;
+    //books to be recommended
+    public static List<Book> booksToRecommend = null;
+    //books with all Title
     public static List<Book> searchResult = null;
     public static int cursor = 0;
     //record the current set of books on the page
     public static List<Book> currentPageBookList = null;
 
+    public static List<Book> getBooksWithAllTitle(){
+        return searchResult;
+    }
+    
+    public static List<Book> getBooksAvailableNow(){
+        return booksAvailableNow;
+    }
+    
+    public static List<Book> getBooksToRecommend(){
+        return booksToRecommend;
+    }
+    
     public static void persistBook(Book book) {
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
@@ -138,7 +154,7 @@ public class BookManager {
 
         int count = 21;
         //check if the page is the first page
-        if (searchResult != null && cursor != 21 && !(searchResult.size()<=21)) {
+        if (searchResult != null && cursor != 21 && !(searchResult.size() <= 21)) {
             //check whether the previous dead end
             int num = currentPageBookList.size();
             currentPageBookList = new ArrayList<Book>();
@@ -154,45 +170,44 @@ public class BookManager {
         return currentPageBookList;
     }
 
-    public static List<Book> getLastSetBook(){
+    public static List<Book> getLastSetBook() {
         //move the cursor to the end
         cursor = searchResult.size();
         //find the reminder of searchResult
         int rem = searchResult.size() % 21;
         currentPageBookList = new ArrayList<Book>();
         int count = 0;
-        if(rem!=0){
+        if (rem != 0) {
             //the last page have less than 21 books
             count = rem;
-        }
-        else{
+        } else {
             count = 21;
         }
-        
-        while(count!=0){
-                currentPageBookList.add(searchResult.get(cursor- count));
-                count--;
-            }
-        return currentPageBookList;
-    }
-    
-    public static List<Book> getFirstSetBook(){
-        int count = 0;
-        currentPageBookList = new ArrayList<Book>();
-        if(searchResult.size() <=21){
-            cursor = searchResult.size();
-            count = searchResult.size();
-        }
-        else{
-            cursor = 21;
-            count = 21;
-        }
-        while(count!=0){
-            currentPageBookList.add(searchResult.get(cursor-count));
+
+        while (count != 0) {
+            currentPageBookList.add(searchResult.get(cursor - count));
             count--;
         }
         return currentPageBookList;
     }
+
+    public static List<Book> getFirstSetBook() {
+        int count = 0;
+        currentPageBookList = new ArrayList<Book>();
+        if (searchResult.size() <= 21) {
+            cursor = searchResult.size();
+            count = searchResult.size();
+        } else {
+            cursor = 21;
+            count = 21;
+        }
+        while (count != 0) {
+            currentPageBookList.add(searchResult.get(cursor - count));
+            count--;
+        }
+        return currentPageBookList;
+    }
+
     public static List<Book> searchBook(String s) {
         EntityManager em = factory.createEntityManager();
         List<Book> resultList = em.createNamedQuery(
@@ -228,6 +243,10 @@ public class BookManager {
         resultList = em.createQuery(searchQuery, Book.class).getResultList();
         em.close();
         searchResult = resultList;
+        //after get books with all titles, get all books that are available
+       
+            
+      
         return resultList;
     }
 
