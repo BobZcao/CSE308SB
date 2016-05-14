@@ -7,15 +7,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
-   <c:import url="header.html"/>
+    <c:import url="header.html"/>
 
     <body>
 
-       <c:import url="nav.jsp"/>
-              
+        <c:import url="nav.jsp"/>
+
 
 
         <div class="container" style="margin-top:40px">
@@ -23,17 +24,58 @@
                 <div class="col-lg-2" style="margin-top: 40px">
                     <div class="list-group">
                         <h4>My Account</h4>
-                        <a href="#" class="list-group-item">Checked Out</a>
+                        <a href="checkout.htm" class="list-group-item">Checked Out</a>
                         <a href="mem_profile.htm" class="list-group-item">Profile</a>
-                        <a href="#" class="list-group-item">On Hold</a>
-                        <a href="#" class="list-group-item">Wish List</a>
-                        <a href="#" class="list-group-item">Rated books</a>
+                        <a href="onHold.htm" class="list-group-item">On Hold</a>
+                        <a href="wishList.htm" class="list-group-item">Wish List</a>
+                        <a href="ratedBooks.htm" class="list-group-item">Rated Books</a>
+                        <a href="borrowHistory.htm" class="list-group-item">Borrow History</a>
                     </div>
+                </div>
+                <div class="col-lg-10 " style="margin-top: 40px;margin-bottom: 20px">
+                    <h4>Checked Out</h4>  
+                    <table>
+                        <tr>
+                        <div class="col-lg-3"><th>Book</th></div>
+                        <div class="col-lg-3"><th>Borrow Date</th>
+                            <div class="col-lg-3" >  <th>Due</th></div>
+                            <div class="col-lg-3" >  <th></th></div>
+
+                            </tr>
+
+                            <c:forEach var="book" items="${checkedOutBookList}">
+                                <tr><td>
+
+                                        <a  href="view.htm?isbn=${book.isbn}">
+                                            ${book.title}
+           <!--                                <img class="img-responsive" src="${book.imageUrl}" alt="" width="110" height="150">-->
+
+                                        </a>
+
+                                    </td>
+
+                                    <c:forEach var="borrow" items="${borrowList}">
+                                        <c:if test="${book.isbn==borrow.borrowPK.book}">
+                                 
+                                            <td>  <fmt:formatDate type="both"  value="${borrow.borrowPK.dateBorrow}"/>  </td>
+                                            <td>  <fmt:formatDate type="both"  value="${borrow.dateReturn}"/>  </td>
+                                            <td>   
+                                                <button type="submit" value = "Submit"  onclick="location.href = 'return.htm?isbn=${book.isbn}'" class="btn btn-primary  btn-block" >Return</button>
+                                            </td>
+                                            <td>   
+                                                <button type="submit" value = "Submit"  onclick="location.href = 'renew.htm?isbn=${book.isbn} & date=${borrow.borrowPK.dateBorrow}'" class="btn btn-primary  btn-block" >Renew</button>
+                                            </td>
+                                        </c:if>
+                                    </c:forEach>
+
+
+                                </tr>
+                            </c:forEach>
+                    </table>
                 </div>
 
 
-          
-               
+
 
             </div>
 
@@ -48,6 +90,12 @@
         <script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 
         <!-- Customized js files -->
+        <style>
+            th, td{
+                padding: 10px;
+            }
+
+        </style>
         <script src="bootstrap-3.3.6-dist/js/script.js"></script>
     </body>
 </html>

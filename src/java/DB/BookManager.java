@@ -4,17 +4,20 @@
  * and open the template in the editor.
  */
 package DB;
+
 import java.util.LinkedHashSet;
 import Model.Book.Book;
 import Model.Book.Borrow;
 import Model.Book.BorrowPK;
 import ViewBean.SearchBean;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -375,5 +378,99 @@ public class BookManager {
         em.refresh(borrow);
         em.getTransaction().commit();
         em.close();
+    }
+
+    public static List<Book> searchCheckedOutBook(String userName) {
+        EntityManager em = factory.createEntityManager();
+        List<Book> resultList = null;
+        String searchQuery = "select bk.* from Borrow b, Book bk where (b.user='" + userName + "' and b.book=bk.isbn and b.dateReturn >now())";
+        resultList = em.createNativeQuery(searchQuery, Book.class).getResultList();
+        em.close();
+        return resultList;
+
+    }
+
+    public static List<Book> searchWishBookList(String userName) {
+        EntityManager em = factory.createEntityManager();
+        List<Book> resultList = null;
+        String searchQuery = "select b.* from book b,favorbook fb where (fb.user='" + userName + "' and fb.book=b.isbn)";
+        resultList = em.createNativeQuery(searchQuery, Book.class).getResultList();
+        em.close();
+        return resultList;
+    }
+
+    public static List<Book> searchWishAvailableBookList(String userName) {
+        EntityManager em = factory.createEntityManager();
+        List<Book> resultList = null;
+        String searchQuery = "select b.* from book b,favorbook fb where (fb.user='" + userName + "' and fb.book=b.isbn and b.available > 0)";
+        resultList = em.createNativeQuery(searchQuery, Book.class).getResultList();
+        em.close();
+        return resultList;
+    }
+
+    public static List<Book> searchOnHoldBookList(String userName) {
+        EntityManager em = factory.createEntityManager();
+        List<Book> resultList = null;
+        String searchQuery = "select bk from Hold b, Book bk where (b.holdPK.user='" + userName + "' and b.holdPK.book=bk.isbn)";
+        resultList = em.createQuery(searchQuery, Book.class).getResultList();
+        em.close();
+        return resultList;
+    }
+
+    public static List<Book> searchRatedBookList(String userName) {
+        EntityManager em = factory.createEntityManager();
+
+        List<Book> resultList = null;
+        String searchQuery = "select b.* from book b,rating rt where (rt.user='" + userName + "' and rt.book=b.isbn)";
+        resultList = em.createNativeQuery(searchQuery, Book.class).getResultList();
+        em.close();
+        return resultList;
+
+    }
+
+    public static List<Book> searchBorrowHistoryList(String userName) {
+        EntityManager em = factory.createEntityManager();
+        List<Book> resultList = null;
+        String searchQuery = "select bk.* from Borrow b, Book bk where (b.user='" + userName + "' and b.book=bk.isbn and b.dateReturn <now())";
+        resultList = em.createNativeQuery(searchQuery, Book.class).getResultList();
+        em.close();
+        return resultList;
+    }
+
+    public static List<Borrow> searchBorrowList(String userName) {
+        EntityManager em = factory.createEntityManager();
+        List<Borrow> resultList = null;
+      String searchQuery = "select b.* from Borrow b, Book bk where (b.user='" + userName + "' and b.book=bk.isbn and b.dateReturn >now())";
+        resultList = em.createNativeQuery(searchQuery, Borrow.class).getResultList();
+
+        em.close();
+        return resultList;
+    }
+
+    public static List<Borrow> searchBorrowHistoryBorrowList(String userName) {
+        EntityManager em = factory.createEntityManager();
+        List<Borrow> resultList = null;
+        String searchQuery = "select b.* from Borrow b, Book bk where (b.user='" + userName + "' and b.book=bk.isbn and b.dateReturn <now())";
+        resultList = em.createNativeQuery(searchQuery, Borrow.class).getResultList();
+        em.close();
+        return resultList;
+    }
+
+    public static void renewBook(Account account, String isbn,Date date) {
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+         BorrowPK borrowPK = new BorrowPK();
+         borrowPK.setBook(isbn);
+         borrowPK.setUser(account.getUserName());
+           borrowPK.setDateBorrow(date);
+         
+         
+        Borrow borrowFind = em.find(Borrow.class, borrowPK);
+         
+        em.persist(borrowFind);
+        em.getTransaction().commit();
+        em.close();
+        
+      
     }
 }

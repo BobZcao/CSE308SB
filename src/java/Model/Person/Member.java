@@ -11,7 +11,7 @@ package Model.Person;
  *
  * @author code
  */
-public class Member {
+public class Member extends Account{
     
     private String userName;
     private String password;
@@ -22,45 +22,16 @@ public class Member {
     private String street;
     private String city;
     private String state;
-    private String zipCode;
+    private Integer zipCode;
     private String telephone;
-    private int font;
-
-    public int getFont() {
-        return font;
-    }
-
-    public void setFont(int font) {
-        this.font = font;
-    }
-
-    public int getContrast() {
-        return contrast;
-    }
-
-    public void setContrast(int contrast) {
-        this.contrast = contrast;
-    }
-
-    public int getLendingPeriod() {
-        return lendingPeriod;
-    }
-
-    public void setLendingPeriod(int lendingPeriod) {
-        this.lendingPeriod = lendingPeriod;
-    }
-
-    public String getAgeContent() {
-        return ageContent;
-    }
-
-    public void setAgeContent(String ageContent) {
-        this.ageContent = ageContent;
-    }
-    private int contrast;
-    private int lendingPeriod;
+    private Integer font;
     private String ageContent;
+    private Integer contrast;
+    private Integer lendingPeriod;
     
+
+   
+ 
     public Member(){
     
     }
@@ -99,7 +70,7 @@ public class Member {
         return state;
     }
 
-    public String getZipCode() {
+    public Integer getZipCode() {
         return zipCode;
     }
 
@@ -141,12 +112,42 @@ public class Member {
         this.state = state;
     }
 
-    public void setZipCode(String zipCode) {
+    public void setZipCode(Integer zipCode) {
         this.zipCode = zipCode;
     }
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
-   
+    public Integer getFont() {
+        return font;
+    }
+
+    public void setFont(Integer font) {
+        this.font = font;
+    }
+
+    public Integer getContrast() {
+        return contrast;
+    }
+
+    public void setContrast(Integer contrast) {
+        this.contrast = contrast;
+    }
+
+    public Integer getLendingPeriod() {
+        return lendingPeriod;
+    }
+
+    public void setLendingPeriod(Integer lendingPeriod) {
+        this.lendingPeriod = lendingPeriod;
+    }
+
+    public String getAgeContent() {
+        return ageContent;
+    }
+
+    public void setAgeContent(String ageContent) {
+        this.ageContent = ageContent;
+    }
 }

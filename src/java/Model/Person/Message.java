@@ -35,6 +35,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Message.findBySubjects", query = "SELECT m FROM Message m WHERE m.subjects = :subjects")})
 public class Message implements Serializable {
 
+    @Size(max = 50)
+    @Column(name = "subjects")
+    private String subjects;
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected MessagePK messagePK;
@@ -45,8 +49,6 @@ public class Message implements Serializable {
     private String content;
     @Column(name = "viewed")
     private Integer viewed;
-    @Column(name = "subjects")
-    private Character subjects;
     @JoinColumn(name = "sender", referencedColumnName = "userName", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Account account;
@@ -97,13 +99,6 @@ public class Message implements Serializable {
         this.viewed = viewed;
     }
 
-    public Character getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(Character subjects) {
-        this.subjects = subjects;
-    }
 
     public Account getAccount() {
         return account;
@@ -144,6 +139,14 @@ public class Message implements Serializable {
     @Override
     public String toString() {
         return "Model.Person.Message[ messagePK=" + messagePK + " ]";
+    }
+
+    public String getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(String subjects) {
+        this.subjects = subjects;
     }
     
 }

@@ -6,11 +6,14 @@
 package Model.Person;
 
 import Model.Book.Book;
+import Model.Book.Borrow;
+import Model.Book.Comments;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,6 +23,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -56,6 +60,22 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Account.findByAgeContent", query = "SELECT a FROM Account a WHERE a.ageContent = :ageContent"),
     @NamedQuery(name = "Account.findByLendingPeriod", query = "SELECT a FROM Account a WHERE a.lendingPeriod = :lendingPeriod")})
 public class Account implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private Collection<Comments> commentsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private Collection<Message> messageCollection;
+    @OneToMany(mappedBy = "receiver")
+    private Collection<Message> messageCollection1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private Collection<Creditcard> creditcardCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private Collection<Hold> holdCollection;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private Collection<Rating> ratingCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private Collection<Borrow> borrowCollection;
 
     @ManyToMany(mappedBy = "accountCollection")
     private Collection<Book> bookCollection;
@@ -343,6 +363,69 @@ public class Account implements Serializable {
 
     public void setBookCollection2(Collection<Book> bookCollection2) {
         this.bookCollection2 = bookCollection2;
+    }
+
+    @XmlTransient
+    public Collection<Rating> getRatingCollection() {
+        return ratingCollection;
+    }
+
+    public void setRatingCollection(Collection<Rating> ratingCollection) {
+        this.ratingCollection = ratingCollection;
+    }
+
+    @XmlTransient
+    public Collection<Borrow> getBorrowCollection() {
+        return borrowCollection;
+    }
+
+    public void setBorrowCollection(Collection<Borrow> borrowCollection) {
+        this.borrowCollection = borrowCollection;
+    }
+
+    @XmlTransient
+    public Collection<Comments> getCommentsCollection() {
+        return commentsCollection;
+    }
+
+    public void setCommentsCollection(Collection<Comments> commentsCollection) {
+        this.commentsCollection = commentsCollection;
+    }
+
+    @XmlTransient
+    public Collection<Message> getMessageCollection() {
+        return messageCollection;
+    }
+
+    public void setMessageCollection(Collection<Message> messageCollection) {
+        this.messageCollection = messageCollection;
+    }
+
+    @XmlTransient
+    public Collection<Message> getMessageCollection1() {
+        return messageCollection1;
+    }
+
+    public void setMessageCollection1(Collection<Message> messageCollection1) {
+        this.messageCollection1 = messageCollection1;
+    }
+
+    @XmlTransient
+    public Collection<Creditcard> getCreditcardCollection() {
+        return creditcardCollection;
+    }
+
+    public void setCreditcardCollection(Collection<Creditcard> creditcardCollection) {
+        this.creditcardCollection = creditcardCollection;
+    }
+
+    @XmlTransient
+    public Collection<Hold> getHoldCollection() {
+        return holdCollection;
+    }
+
+    public void setHoldCollection(Collection<Hold> holdCollection) {
+        this.holdCollection = holdCollection;
     }
     
 }
