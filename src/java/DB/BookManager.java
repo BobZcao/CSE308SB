@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package DB;
+
 import java.util.LinkedHashSet;
 import Model.Book.Book;
 import Model.Book.Borrow;
@@ -14,9 +15,11 @@ import ViewBean.SearchBean;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.Cache;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,13 +34,16 @@ public class BookManager {
 
     public static void persistBook(Book book) {
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         em.getTransaction().begin();
         em.persist(book);
         em.getTransaction().commit();
         em.close();
     }
+
     public static void mergeBook(Book book) {
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         em.getTransaction().begin();
         em.merge(book);
         em.getTransaction().commit();
@@ -46,7 +52,9 @@ public class BookManager {
 
     public static Book getBookByIsbn(String isbn) {
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         Book book = em.find(Book.class, isbn);
+        em.refresh(book);
         em.close();
         return book;
     }
@@ -54,6 +62,7 @@ public class BookManager {
     public static List<String> generateSubjectsList() {
         List<String> subjectsList = null;
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         String[] subjects = null;
         //find all kinds of subjects of the book 
         subjectsList = em.createQuery("select c.subjects from Book c", String.class).getResultList();
@@ -79,6 +88,7 @@ public class BookManager {
     public static List<String> generateLanguageList() {
         List<String> languageList = null;
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         languageList = em.createQuery("select c.language from Book c", String.class).getResultList();
         Set<String> languageSet = new LinkedHashSet<String>();
         for (String a : languageList) {
@@ -95,6 +105,7 @@ public class BookManager {
     public static List<String> generateSelectionList(String query) {
         List<String> selectionList = null;
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         String[] selection = null;
         selectionList = em.createQuery(query, String.class).getResultList();
         Set<String> selectionSet = new LinkedHashSet<String>();
@@ -114,7 +125,7 @@ public class BookManager {
         selectionList = new ArrayList<String>();
 
         for (String c : selectionSet) {
-            
+
             selectionList.add(c);
         }
 
@@ -123,6 +134,7 @@ public class BookManager {
 
     public static List<Book> searchBook(String s) {
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         List<Book> resultList = em.createNamedQuery(
                 "Book.findAll")
                 .setMaxResults(10)
@@ -133,6 +145,7 @@ public class BookManager {
 
     public static List<Book> basicSearch(String s) {
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         //dicide a string into multiple small strings 
 
         String[] keys = s.split("\\s* \\s*");
@@ -159,6 +172,7 @@ public class BookManager {
 
     public static List<Book> advancedSearch(SearchBean searchBean) {
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         List<Book> resultList = null;
         String searchQuery = "select c from Book c where ";
 
@@ -226,16 +240,19 @@ public class BookManager {
 
         return resultList;
     }
-    public static String solveSpecial (String s){
+
+    public static String solveSpecial(String s) {
         String k = s;
         int i = s.indexOf("\'");
-        if(i!=-1&&i!=0){
-            k = s.substring(0,i) + "\'" + s.substring(i,s.length());
+        if (i != -1 && i != 0) {
+            k = s.substring(0, i) + "\'" + s.substring(i, s.length());
         }
         return k;
     }
+
     public static List<Book> AuthorSearch(String s) {
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
 
         List<Book> resultList = null;
 
@@ -260,15 +277,19 @@ public class BookManager {
 //        persistBook(borrow.getBook1());
 //        PersonManager.persistAccount(borrow.getAccount());
     }
-    public static void persistBorrow(Borrow borrow){
+
+    public static void persistBorrow(Borrow borrow) {
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         em.getTransaction().begin();
         em.persist(borrow);
         em.getTransaction().commit();
         em.close();
     }
-    public static void mergeBorrow(Borrow borrow){
+
+    public static void mergeBorrow(Borrow borrow) {
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         em.getTransaction().begin();
         em.merge(borrow);
         em.getTransaction().commit();
@@ -277,24 +298,27 @@ public class BookManager {
 
     public static Rating getRating(String bn, String userName) {
         EntityManager em = factory.createEntityManager();
-        em.clear();
-        RatingPK ratingPK= new RatingPK();
+        RatingPK ratingPK = new RatingPK();
         ratingPK.setBook(bn);
         ratingPK.setUser(userName);
-        Rating rating=em.find(Rating.class,ratingPK);
+        Rating rating = em.find(Rating.class, ratingPK);
+        if (rating != null) {
+            em.refresh(rating);
+        }
         em.close();
         return rating;
     }
 
     public static void persistRating(Rating rating) {
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         em.getTransaction().begin();
         em.persist(rating);
         em.getTransaction().commit();
         em.close();
     }
 
-    public static void mergeRating(Rating rating) { 
+    public static void mergeRating(Rating rating) {
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         em.merge(rating);
@@ -304,10 +328,10 @@ public class BookManager {
 
     public static void removeRating(String bn, String userName) {
         EntityManager em = factory.createEntityManager();
-        RatingPK ratingPK= new RatingPK();
+        RatingPK ratingPK = new RatingPK();
         ratingPK.setBook(bn);
         ratingPK.setUser(userName);
-        Rating rating=em.find(Rating.class,ratingPK);
+        Rating rating = em.find(Rating.class, ratingPK);
         em.getTransaction().begin();
         em.remove(rating);
         em.getTransaction().commit();

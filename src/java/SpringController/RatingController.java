@@ -33,7 +33,7 @@ public class RatingController {
         Account account = (Account) session.getAttribute("account");
         if (account != null) {
             if (rate > 0 && rate <= 5) {
-                Rating r = BookManager.getRating(account.getUserName(), isbn);
+                Rating r = BookManager.getRating(isbn,account.getUserName());
                 if (r == null) {
                     RatingPK pk=new RatingPK();
                     pk.setBook(isbn);

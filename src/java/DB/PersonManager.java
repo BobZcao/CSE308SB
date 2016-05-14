@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package DB;
+
 import Model.Person.*;
 import ViewBean.LoginBean;
 import javax.persistence.EntityManager;
@@ -12,16 +13,16 @@ import javax.persistence.Persistence;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-
 public class PersonManager {
+
     //injected database connection
     private static final String PERSISTENCE_UNIT_NAME = "DB";
-    
+
     private static EntityManagerFactory factory;
-    
+
     //Stores a new member;
-    public static void persistMember(Member member) throws NoSuchAlgorithmException{
-        
+    public static void persistMember(Member member) throws NoSuchAlgorithmException {
+
         //We store a member object as a person object and an account object
         //first create a person
         Account account = new Account();
@@ -33,7 +34,7 @@ public class PersonManager {
         account.setStreet(member.getStreet());
         account.setTelephone(member.getTelephone());
         account.setZipCode(Integer.parseInt(member.getZipCode()));
-        
+
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         byte[] pass = md.digest(member.getPassword().getBytes());
         //Will change database later
@@ -44,32 +45,32 @@ public class PersonManager {
         account.setAgeContent(member.getAgeContent());
         account.setContrast(member.getContrast());
         account.setLendingPeriod(member.getLendingPeriod());
-        
-        
+
         persistAccount(account);
-        
+
     }
-    
-    
-    public static void persistAccount(Account account){
+
+    public static void persistAccount(Account account) {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         em.getTransaction().begin();
         em.persist(account);
         em.getTransaction().commit();
         em.close();
     }
-    
-    public static Account getAccount(LoginBean loginBean){
+
+    public static Account getAccount(LoginBean loginBean) {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         EntityManager em = factory.createEntityManager();
-  
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
+
         String userName = loginBean.getUserName();
         String password = loginBean.getPassword();
-        
+
         Account account = em.find(Account.class, userName);
-        
+
         return account;
     }
-          
+
 }
