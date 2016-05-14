@@ -8,6 +8,8 @@ import java.util.LinkedHashSet;
 import Model.Book.Book;
 import Model.Book.Borrow;
 import Model.Book.BorrowPK;
+import Model.Book.Rating;
+import Model.Book.RatingPK;
 import ViewBean.SearchBean;
 import java.util.ArrayList;
 import java.util.List;
@@ -246,17 +248,17 @@ public class BookManager {
     }
 
     public static void persistReturn(Borrow borrow) {
-        EntityManager em = factory.createEntityManager();
-        BorrowPK borrowPK = new BorrowPK();
-        borrowPK.setBook(borrow.getBook1().getIsbn());
-        borrowPK.setUser(borrow.getAccount().getUserName());
-        Borrow borrowFind = em.find(Borrow.class, borrowPK);
-        em.getTransaction().begin();
-        em.persist(borrowFind);
-        em.getTransaction().commit();
-        em.close();
-        persistBook(borrow.getBook1());
-        PersonManager.persistAccount(borrow.getAccount());
+//        EntityManager em = factory.createEntityManager();
+//        BorrowPK borrowPK = new BorrowPK();
+//        borrowPK.setBook(borrow.getBook1().getIsbn());
+//        borrowPK.setUser(borrow.getAccount().getUserName());
+//        Borrow borrowFind = em.find(Borrow.class, borrowPK);
+//        em.getTransaction().begin();
+//        em.persist(borrowFind);
+//        em.getTransaction().commit();
+//        em.close();
+//        persistBook(borrow.getBook1());
+//        PersonManager.persistAccount(borrow.getAccount());
     }
     public static void persistBorrow(Borrow borrow){
         EntityManager em = factory.createEntityManager();
@@ -265,10 +267,49 @@ public class BookManager {
         em.getTransaction().commit();
         em.close();
     }
-    public static void refreshBorrow(Borrow borrow){
+    public static void mergeBorrow(Borrow borrow){
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
-        em.refresh(borrow);
+        em.merge(borrow);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public static Rating getRating(String bn, String userName) {
+        EntityManager em = factory.createEntityManager();
+        em.clear();
+        RatingPK ratingPK= new RatingPK();
+        ratingPK.setBook(bn);
+        ratingPK.setUser(userName);
+        Rating rating=em.find(Rating.class,ratingPK);
+        em.close();
+        return rating;
+    }
+
+    public static void persistRating(Rating rating) {
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(rating);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public static void mergeRating(Rating rating) { 
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(rating);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public static void removeRating(String bn, String userName) {
+        EntityManager em = factory.createEntityManager();
+        RatingPK ratingPK= new RatingPK();
+        ratingPK.setBook(bn);
+        ratingPK.setUser(userName);
+        Rating rating=em.find(Rating.class,ratingPK);
+        em.getTransaction().begin();
+        em.remove(rating);
         em.getTransaction().commit();
         em.close();
     }

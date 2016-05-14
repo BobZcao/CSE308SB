@@ -25,18 +25,16 @@ public class SearchController {
     
     @RequestMapping(value = "/display_page.htm")
     public String search(Model model, SearchBean searchBean){
-        //if the search is the simple search that contains the keyword only
-         
+        //if the search is the simple search that contains the keyword only      
         model.addAttribute("searchBookList", BookManager.basicSearch(searchBean.getKeywords()));
- 
-        
+        model.addAttribute("searchBean", searchBean);
         return "display_page";
     }
     
     @RequestMapping(value = "/display_page_advanced.htm")
     public String advancedSearch(Model model, SearchBean searchBean){
             model.addAttribute("searchBookList", BookManager.advancedSearch(searchBean));
-
+        model.addAttribute("searchBean", searchBean);
         return "display_page";
     }
     
