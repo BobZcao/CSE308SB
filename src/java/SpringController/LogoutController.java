@@ -5,8 +5,10 @@
  */
 package SpringController;
 
+import ViewBean.SearchBean;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LogoutController {
     @RequestMapping(value="logout")
     public String logoutAccount(HttpSession session){
+        SearchBean searchBean = new SearchBean();
         session.removeAttribute("account");
         return "forward:/index.htm";
     }

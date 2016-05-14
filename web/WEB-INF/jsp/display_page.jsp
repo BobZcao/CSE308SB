@@ -126,24 +126,32 @@ and open the template in the editor.
                                     <button type="button" style="width:200px" class="btn btn-warning btn-lg btn-block">Add to Wish List</button>
                                     <h4>Description</h4>
                                     <p>${book.description}</p>
-
-
                                 </div>
-
                             </div>
                             <hr> 
                         </c:forEach>
 
 
                     </div>
-
+                  
 
 
                 </div>
+                
+                 
 
 
             </div>
-
+        </div>
+        
+         <div>
+                        <ul class="pager" style="margin-top:20px">
+                             <li><a href="#">Next</a></li>
+                            <li><a href="#">Previous</a></li>
+                             <li><a href="#">Last</a></li>
+                              <li><a href="#">First</a></li>
+                        </ul>
+         </div>
             <c:import url="footer.html"/>
 
 

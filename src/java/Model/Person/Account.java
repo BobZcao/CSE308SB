@@ -53,9 +53,20 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Account.findByMessageId", query = "SELECT a FROM Account a WHERE a.messageId = :messageId"),
     @NamedQuery(name = "Account.findByFont", query = "SELECT a FROM Account a WHERE a.font = :font"),
     @NamedQuery(name = "Account.findByContrast", query = "SELECT a FROM Account a WHERE a.contrast = :contrast"),
-    @NamedQuery(name = "Account.findByAgeContent", query = "SELECT a FROM Account a WHERE a.ageContent = :ageContent")})
+    @NamedQuery(name = "Account.findByAgeContent", query = "SELECT a FROM Account a WHERE a.ageContent = :ageContent"),
+    @NamedQuery(name = "Account.findByLendingPeriod", query = "SELECT a FROM Account a WHERE a.lendingPeriod = :lendingPeriod")})
 public class Account implements Serializable {
-    public static final int MAX=10;
+
+    @ManyToMany(mappedBy = "accountCollection")
+    private Collection<Book> bookCollection;
+    @JoinTable(name = "rating", joinColumns = {
+        @JoinColumn(name = "user", referencedColumnName = "userName")}, inverseJoinColumns = {
+        @JoinColumn(name = "book", referencedColumnName = "isbn")})
+    @ManyToMany
+    private Collection<Book> bookCollection1;
+    @ManyToMany(mappedBy = "accountCollection2")
+    private Collection<Book> bookCollection2;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -111,15 +122,11 @@ public class Account implements Serializable {
     private Integer font;
     @Column(name = "contrast")
     private Integer contrast;
+    @Size(max = 20)
     @Column(name = "ageContent")
-    private Integer ageContent;
-    @ManyToMany(mappedBy = "accountCollection")
-    private Collection<Book> bookCollection;
-    @JoinTable(name = "rating", joinColumns = {
-        @JoinColumn(name = "user", referencedColumnName = "userName")}, inverseJoinColumns = {
-        @JoinColumn(name = "book", referencedColumnName = "isbn")})
-    @ManyToMany
-    private Collection<Book> bookCollection1;
+    private String ageContent;
+    @Column(name = "lendingPeriod")
+    private Integer lendingPeriod;
 
     public Account() {
     }
@@ -270,30 +277,20 @@ public class Account implements Serializable {
         this.contrast = contrast;
     }
 
-    public Integer getAgeContent() {
+    public String getAgeContent() {
         return ageContent;
     }
 
-    public void setAgeContent(Integer ageContent) {
+    public void setAgeContent(String ageContent) {
         this.ageContent = ageContent;
     }
 
-    @XmlTransient
-    public Collection<Book> getBookCollection() {
-        return bookCollection;
+    public Integer getLendingPeriod() {
+        return lendingPeriod;
     }
 
-    public void setBookCollection(Collection<Book> bookCollection) {
-        this.bookCollection = bookCollection;
-    }
-
-    @XmlTransient
-    public Collection<Book> getBookCollection1() {
-        return bookCollection1;
-    }
-
-    public void setBookCollection1(Collection<Book> bookCollection1) {
-        this.bookCollection1 = bookCollection1;
+    public void setLendingPeriod(Integer lendingPeriod) {
+        this.lendingPeriod = lendingPeriod;
     }
 
     @Override
@@ -321,4 +318,31 @@ public class Account implements Serializable {
         return "Model.Person.Account[ userName=" + userName + " ]";
     }
 
+    @XmlTransient
+    public Collection<Book> getBookCollection() {
+        return bookCollection;
     }
+
+    public void setBookCollection(Collection<Book> bookCollection) {
+        this.bookCollection = bookCollection;
+    }
+
+    @XmlTransient
+    public Collection<Book> getBookCollection1() {
+        return bookCollection1;
+    }
+
+    public void setBookCollection1(Collection<Book> bookCollection1) {
+        this.bookCollection1 = bookCollection1;
+    }
+
+    @XmlTransient
+    public Collection<Book> getBookCollection2() {
+        return bookCollection2;
+    }
+
+    public void setBookCollection2(Collection<Book> bookCollection2) {
+        this.bookCollection2 = bookCollection2;
+    }
+    
+}

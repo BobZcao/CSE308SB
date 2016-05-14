@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,7 +20,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -53,7 +51,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Book.findByImageUrl", query = "SELECT b FROM Book b WHERE b.imageUrl = :imageUrl"),
     @NamedQuery(name = "Book.findByHoldNum", query = "SELECT b FROM Book b WHERE b.holdNum = :holdNum"),
     @NamedQuery(name = "Book.findByPublisher", query = "SELECT b FROM Book b WHERE b.publisher = :publisher"),
-    @NamedQuery(name = "Book.findByBanned", query = "SELECT b FROM Book b WHERE b.banned = :banned")})
+    @NamedQuery(name = "Book.findByBanned", query = "SELECT b FROM Book b WHERE b.banned = :banned"),
+    @NamedQuery(name = "Book.findByFormat", query = "SELECT b FROM Book b WHERE b.format = :format"),
+    @NamedQuery(name = "Book.findByLanguage", query = "SELECT b FROM Book b WHERE b.language = :language"),
+    @NamedQuery(name = "Book.findByAward", query = "SELECT b FROM Book b WHERE b.award = :award"),
+    @NamedQuery(name = "Book.findByReadLevel", query = "SELECT b FROM Book b WHERE b.readLevel = :readLevel")})
 public class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -101,6 +103,18 @@ public class Book implements Serializable {
     private String publisher;
     @Column(name = "banned")
     private Integer banned;
+    @Size(max = 20)
+    @Column(name = "format")
+    private String format;
+    @Size(max = 45)
+    @Column(name = "language")
+    private String language;
+    @Size(max = 45)
+    @Column(name = "award")
+    private String award;
+    @Size(max = 45)
+    @Column(name = "readLevel")
+    private String readLevel;
     @JoinTable(name = "favorbook", joinColumns = {
         @JoinColumn(name = "book", referencedColumnName = "isbn")}, inverseJoinColumns = {
         @JoinColumn(name = "user", referencedColumnName = "userName")})
@@ -108,10 +122,11 @@ public class Book implements Serializable {
     private Collection<Account> accountCollection;
     @ManyToMany(mappedBy = "bookCollection1")
     private Collection<Account> accountCollection1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book1")
-    private Collection<Comments> commentsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book1")
-    private Collection<Borrow> borrowCollection;
+    @JoinTable(name = "recommend", joinColumns = {
+        @JoinColumn(name = "book", referencedColumnName = "isbn")}, inverseJoinColumns = {
+        @JoinColumn(name = "user", referencedColumnName = "userName")})
+    @ManyToMany
+    private Collection<Account> accountCollection2;
 
     public Book() {
     }
@@ -240,6 +255,38 @@ public class Book implements Serializable {
         this.banned = banned;
     }
 
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getAward() {
+        return award;
+    }
+
+    public void setAward(String award) {
+        this.award = award;
+    }
+
+    public String getReadLevel() {
+        return readLevel;
+    }
+
+    public void setReadLevel(String readLevel) {
+        this.readLevel = readLevel;
+    }
+
     @XmlTransient
     public Collection<Account> getAccountCollection() {
         return accountCollection;
@@ -259,21 +306,12 @@ public class Book implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Comments> getCommentsCollection() {
-        return commentsCollection;
+    public Collection<Account> getAccountCollection2() {
+        return accountCollection2;
     }
 
-    public void setCommentsCollection(Collection<Comments> commentsCollection) {
-        this.commentsCollection = commentsCollection;
-    }
-
-    @XmlTransient
-    public Collection<Borrow> getBorrowCollection() {
-        return borrowCollection;
-    }
-
-    public void setBorrowCollection(Collection<Borrow> borrowCollection) {
-        this.borrowCollection = borrowCollection;
+    public void setAccountCollection2(Collection<Account> accountCollection2) {
+        this.accountCollection2 = accountCollection2;
     }
 
     @Override
@@ -324,4 +362,7 @@ public class Book implements Serializable {
        // BookManager.persistReturn(borrow);
         return true;
     }
+    
 }
+
+
