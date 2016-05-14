@@ -24,6 +24,42 @@ public class Member {
     private String state;
     private String zipCode;
     private String telephone;
+    private int font;
+
+    public int getFont() {
+        return font;
+    }
+
+    public void setFont(int font) {
+        this.font = font;
+    }
+
+    public int getContrast() {
+        return contrast;
+    }
+
+    public void setContrast(int contrast) {
+        this.contrast = contrast;
+    }
+
+    public int getLendingPeriod() {
+        return lendingPeriod;
+    }
+
+    public void setLendingPeriod(int lendingPeriod) {
+        this.lendingPeriod = lendingPeriod;
+    }
+
+    public String getAgeContent() {
+        return ageContent;
+    }
+
+    public void setAgeContent(String ageContent) {
+        this.ageContent = ageContent;
+    }
+    private int contrast;
+    private int lendingPeriod;
+    private String ageContent;
     
     public Member(){
     

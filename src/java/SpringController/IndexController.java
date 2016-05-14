@@ -18,8 +18,8 @@ indicate all the handling methods on this controller are realtive to the /index 
 
 @Controller
 public class IndexController {
-//@RequestMapping(method = RequestMethod.GET)
-  @RequestMapping(value = "/index")
+    
+    @RequestMapping(value="/index")
     public String printHello(ModelMap model){
         SearchBean searchBean = new SearchBean();
         model.addAttribute("searchBean", searchBean);

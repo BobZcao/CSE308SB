@@ -69,7 +69,7 @@ and open the template in the editor.
 
                     <c:when test="${not empty account.userName}">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#"><span class="glyphicon glyphicon-user"></span> ${account.userName}</a></li>                        
+                            <li><a href="member_login.htm"><span class="glyphicon glyphicon-user"></span> ${account.userName}</a></li>                        
                             <li><a href="logout.htm">Log out</a></li>
                         </ul>
                     </c:when>

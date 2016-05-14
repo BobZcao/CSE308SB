@@ -74,67 +74,35 @@ and open the template in the editor.
 
             <div class="row">
                 <div class="col-lg-8">
-                    <h2>Review</h2>
-                    <div class="ratings">
-                        <p>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <button class="btn btn-default" data-toggle="modal" data-target="#rate-modal">Rate</button>
-                        </p>
+                    <h2>Rating</h2>
+                    <div id="ratings">
+                        <!--                        <p>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <span class="glyphicon glyphicon-star"></span>
+                                                    <button class="btn btn-default" data-toggle="modal" data-target="#rate-modal">Rate</button>
+                                                </p>-->
                     </div>
-
-                    <div class="detailBox">
-
-                        <div class="actionBox">
-                            <ul class="commentList">
-                                <li>
-                                    <div class="commenterImage">
-                                        <img src="http://lorempixel.com/50/50/people/6" />
-                                    </div>
-                                    <div class="commentText">
-                                        <p class="">Hello this is a test comment.</p> <span class="date sub-text">on March 5th, 2014</span>
-
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="commenterImage">
-                                        <img src="http://lorempixel.com/50/50/people/7" />
-                                    </div>
-                                    <div class="commentText">
-                                        <p class="">Hello this is a test comment and this comment is particularly very long and it goes on and on and on.</p> <span class="date sub-text">on March 5th, 2014</span>
-
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="commenterImage">
-                                        <img src="http://lorempixel.com/50/50/people/9" />
-                                    </div>
-                                    <div class="commentText">
-                                        <p class="">Hello this is a test comment.</p> <span class="date sub-text">on March 5th, 2014</span>
-
-                                    </div>
-                                </li>
-                            </ul>
-                            <form class="form-inline" role="form">
-                                <div class="form-group">
-                                    <input class="form-control" type="text" placeholder="Your comments" />
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-default">Add</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-
 
                 </div>
             </div>
 
         </div>
+        <script>
+            $(docoument).ready(function () {
+
+
+                var ratingElement = document.querySelector("#rating");
+                var currentRating = ${book.rating};
+                var maxRating = 5;
+                var callback = function (rating) {
+                    alert(rating);
+                };
+                var r = rating(ratingElement, currentRating, maxRating, callback);
+            })
+        </script>
 
         <!-- BEGIN # MODAL BORROW -->
         <div class="modal fade" id="borrow-modal" tabindex="-1" role="dialog"

@@ -120,7 +120,9 @@ and open the template in the editor.
                                     <button class="btn btn-default" style="margin-top: 10px; width: 100px; margin-left:100px;">Sample</button>
                                 </div>      
                                 <div class="col-lg-8"  >
-                                    <h3>${book.title}</h3>
+                                    <a href="/view.htm?isbn=${book.isbn}">
+                                        <h3>${book.title}</h3>
+                                    </a>
                                     <p>By <a href="#">${book.author}</a></p>
                                     <button type="button" style="width:200px" class="btn btn-primary btn-lg btn-block">Borrow</button>
                                     <button type="button" style="width:200px" class="btn btn-warning btn-lg btn-block">Add to Wish List</button>

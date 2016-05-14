@@ -9,6 +9,7 @@ import DB.BookManager;
 import Model.Person.Account;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -338,31 +339,38 @@ public class Book implements Serializable {
     public String toString() {
         return "Model.Book.Book[ isbn=" + isbn + " ]";
     }
-    
+
     public synchronized boolean borrow(Account account) {
-        if(this.available<=0) return false;
+        if (this.available <= 0) {
+            return false;
+        }
         //if(account.getBookBorrowed()>=account.MAX) return false;
-        Borrow borrow= new Borrow();
-        borrow.setAccount(account);
-        borrow.setBook1(this);
-        borrow.setDateBorrow(new Date());
-        this.available-=1;
-        //account.setBookBorrowed(account.getBookBorrowed()+1);
+        Borrow borrow = new Borrow();
+        BorrowPK borrowPK=new BorrowPK();
+        borrowPK.setBook(isbn);
+        borrowPK.setUser(account.getUserName());
+        borrowPK.setDateBorrow(new Date());
+        borrow.setBorrowPK(borrowPK);
+        Calendar cal = Calendar.getInstance(); // creates calendar
+        cal.setTime(borrowPK.getDateBorrow()); // sets calendar time/date
+        cal.add(Calendar.DAY_OF_YEAR, account.getLendingPeriod()); // adds one hour
+        borrow.setDateReturn(cal.getTime());
+        this.available -= 1;
         BookManager.persistBorrow(borrow);
+        BookManager.mergeBook(this);
         return true;
     }
+
     public synchronized boolean returnBook(Account account) {
-        
-        Borrow borrow= new Borrow();
-       // account.setBookBorrowed(account.getBookBorrowed()-1);
-        borrow.setAccount(account);
-        borrow.setBook1(this);
+
+        Borrow borrow = new Borrow();
+        // account.setBookBorrowed(account.getBookBorrowed()-1);
+//        borrow.setAccount(account);
+//        borrow.setBook1(this);
         borrow.setDateReturn(new Date());
-        this.available+=1;
-       // BookManager.persistReturn(borrow);
+        this.available += 1;
+        // BookManager.persistReturn(borrow);
         return true;
     }
-    
+
 }
-
-

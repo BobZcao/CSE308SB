@@ -73,6 +73,15 @@
                                                 class="form-control"  placeholder="Zipcode" />
                                     <form:input path = "telephone" id="telephone" class="form-control" 
                                                 placeholder="Telephone" />
+                       
+                                     <form:input path = "font" id="font" class="form-control" 
+                                                placeholder="Telephone" />
+                                    <form:input path = "contrast" id="contrast" class="form-control" 
+                                                placeholder="contrast" />
+                                    <form:input path = "ageContent" id="ageContent" class="form-control" 
+                                                placeholder="ageContent" />
+                                    <form:input path = "lendingPeriod" id="lendingPeriod" class="form-control" 
+                                                placeholder="lendingPeriod" />
                                     <!-- <input
                                              id="credit_card_number" class="form-control" type="text"
                                              placeholder="Credit Card Number" name="reg_cardnum" required>-->
