@@ -9,6 +9,7 @@ import Model.Book.Book;
 import Model.Person.Account;
 import ViewBean.LoginBean;
 import java.util.Map;
+import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class BorrowController  {
     @RequestMapping(value="/borrow")
-    public String borrowBook(Model model,@RequestParam("isbn")String isbn){
+    public String borrowBook(HttpSession session,@RequestParam("isbn")String isbn,Model model){
         Book book=BookManager.getBookByIsbn(isbn);
-        Map modelMap = model.asMap();
-        Account account=(Account) modelMap.get("account");
+        Account account=(Account)session.getAttribute("account");
         if(account == null){
             LoginBean loginBean = new LoginBean();
             model.addAttribute("loginBean", loginBean);

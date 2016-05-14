@@ -5,14 +5,11 @@
  */
 package Model.Book;
 
-import Model.Person.Account;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -22,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author code
+ * @author Tian
  */
 @Entity
 @Table(name = "borrow")
@@ -32,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Borrow.findByUser", query = "SELECT b FROM Borrow b WHERE b.borrowPK.user = :user"),
     @NamedQuery(name = "Borrow.findByBook", query = "SELECT b FROM Borrow b WHERE b.borrowPK.book = :book"),
     @NamedQuery(name = "Borrow.findByNumber", query = "SELECT b FROM Borrow b WHERE b.number = :number"),
-    @NamedQuery(name = "Borrow.findByDateBorrow", query = "SELECT b FROM Borrow b WHERE b.dateBorrow = :dateBorrow"),
+    @NamedQuery(name = "Borrow.findByDateBorrow", query = "SELECT b FROM Borrow b WHERE b.borrowPK.dateBorrow = :dateBorrow"),
     @NamedQuery(name = "Borrow.findByDateReturn", query = "SELECT b FROM Borrow b WHERE b.dateReturn = :dateReturn")})
 public class Borrow implements Serializable {
 
@@ -41,18 +38,9 @@ public class Borrow implements Serializable {
     protected BorrowPK borrowPK;
     @Column(name = "number")
     private Integer number;
-    @Column(name = "dateBorrow")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateBorrow;
     @Column(name = "dateReturn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateReturn;
-    @JoinColumn(name = "user", referencedColumnName = "userName", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Account account;
-    @JoinColumn(name = "book", referencedColumnName = "isbn", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Book book1;
 
     public Borrow() {
     }
@@ -61,8 +49,8 @@ public class Borrow implements Serializable {
         this.borrowPK = borrowPK;
     }
 
-    public Borrow(String user, String book) {
-        this.borrowPK = new BorrowPK(user, book);
+    public Borrow(String user, String book, Date dateBorrow) {
+        this.borrowPK = new BorrowPK(user, book, dateBorrow);
     }
 
     public BorrowPK getBorrowPK() {
@@ -81,36 +69,12 @@ public class Borrow implements Serializable {
         this.number = number;
     }
 
-    public Date getDateBorrow() {
-        return dateBorrow;
-    }
-
-    public void setDateBorrow(Date dateBorrow) {
-        this.dateBorrow = dateBorrow;
-    }
-
     public Date getDateReturn() {
         return dateReturn;
     }
 
     public void setDateReturn(Date dateReturn) {
         this.dateReturn = dateReturn;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public Book getBook1() {
-        return book1;
-    }
-
-    public void setBook1(Book book1) {
-        this.book1 = book1;
     }
 
     @Override
