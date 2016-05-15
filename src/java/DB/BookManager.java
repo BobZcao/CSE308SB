@@ -12,7 +12,10 @@ import Model.Book.BorrowPK;
 import Model.Book.Rating;
 import Model.Book.RatingPK;
 import ViewBean.SearchBean;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Cache;
@@ -264,18 +267,40 @@ public class BookManager {
         return resultList;
     }
 
-    public static void persistReturn(Borrow borrow) {
-//        EntityManager em = factory.createEntityManager();
-//        BorrowPK borrowPK = new BorrowPK();
-//        borrowPK.setBook(borrow.getBook1().getIsbn());
-//        borrowPK.setUser(borrow.getAccount().getUserName());
-//        Borrow borrowFind = em.find(Borrow.class, borrowPK);
-//        em.getTransaction().begin();
-//        em.persist(borrowFind);
-//        em.getTransaction().commit();
-//        em.close();
-//        persistBook(borrow.getBook1());
-//        PersonManager.persistAccount(borrow.getAccount());
+    public static Borrow checkBorrow(String userName, String isbn) {
+        EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date = sdfDate.format(new Date());
+        String query = "select b from Borrow b where (b.borrowPK.user = '" + userName + "' And b.borrowPK.book=" + isbn + " And b.dateReturn>'" + date + "')";
+        Borrow borrow;
+        try {
+            borrow = em.createQuery(query, Borrow.class).getSingleResult();
+            em.refresh(borrow);
+            return borrow;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return null;
+    }
+
+    public static boolean returnBook(String userName, String isbn) {
+        EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date = sdfDate.format(new Date());
+        String query = "select b from Borrow b where b.borrowPK.user = '" + userName + "' And b.borrowPK.book=" + isbn + " And b.dateReturn>'" + date + "'";
+        Borrow borrow = em.createQuery(query, Borrow.class).getSingleResult();
+        em.refresh(borrow);
+        em.close();
+        if (borrow != null) {
+            borrow.setDateReturn(new Date());
+            mergeBorrow(borrow);
+            return true;
+        }
+        return false;
     }
 
     public static void persistBorrow(Borrow borrow) {
@@ -337,4 +362,5 @@ public class BookManager {
         em.getTransaction().commit();
         em.close();
     }
+
 }

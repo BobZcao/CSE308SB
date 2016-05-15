@@ -6,6 +6,7 @@
 package SpringController;
 
 import DB.BookManager;
+import Model.Book.Borrow;
 import Model.Book.Rating;
 import Model.Person.Account;
 import javax.servlet.http.HttpSession;
@@ -28,6 +29,10 @@ public class ViewBookController {
         Account account = (Account) session.getAttribute("account");
         if (account != null) {
             Rating rating = BookManager.getRating(isbn, account.getUserName());
+            Borrow borrow = BookManager.checkBorrow(account.getUserName(),isbn);
+            if (borrow!=null){
+                map.addAttribute("borrow", borrow);
+            }
             if (rating != null) {
                 map.addAttribute("rating", rating);
             }

@@ -21,7 +21,16 @@ and open the template in the editor.
                 <div class="col-lg-4">
                     <h2>${book.title}</h2>
                     <p>By <a href="#">${book.author}</a></p>
-                    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'borrow.htm?isbn=${book.isbn}';">Borrow</button>
+                        <c:choose>
+                            <c:when test="${not empty borrow}">
+
+                            <button type="button" class="btn btn-warning btn-lg btn-block" onclick="location.href = 'return.htm?isbn=${book.isbn}';">Return</button>
+                        </c:when>
+                        <c:otherwise>
+
+                            <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'borrow.htm?isbn=${book.isbn}';">Borrow</button>
+                        </c:otherwise>
+                    </c:choose>
                     <button type="button" class="btn btn-warning btn-lg btn-block"  >Add to Wish List</button>
 
                     <h4>Description</h4>
