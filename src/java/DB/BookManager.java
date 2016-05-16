@@ -12,6 +12,8 @@ import Model.Book.BorrowPK;
 import Model.Person.Account;
 import ViewBean.SearchBean;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -260,7 +262,7 @@ public class BookManager {
         em.close();
         additionalTitles = resultList;
         //filter the list to with all titles
-        
+
         searchResult = filterSearchResultByAllTitles();
         //after get books with all titles, get all books that are available
 
@@ -335,9 +337,9 @@ public class BookManager {
         resultList = em.createQuery(searchQuery, Book.class).getResultList();
         em.close();
         additionalTitles = resultList;
-        
+
         searchResult = filterSearchResultByAllTitles();
-        
+
         return resultList;
     }
 
@@ -345,27 +347,79 @@ public class BookManager {
 //        
 //    }
     // get books that are in the lib, remove the books that are not in the lib
-    public static List<Book> filterSearchResultByAllTitles(){
-         List<Book> resultList = new ArrayList<Book>();
-         for(int i =0; i<additionalTitles.size();i++){
-             if(additionalTitles.get(i).getLicenses()!=0){
-                 resultList.add(additionalTitles.get(i));
-             }
-         }
-         return resultList;
-    }
-    
-    public static List<Book> filterSearchResultByAvailableNow(){
+    public static List<Book> filterSearchResultByAllTitles() {
         List<Book> resultList = new ArrayList<Book>();
-        for(int i =0; i<additionalTitles.size();i++){
-            if(additionalTitles.get(i).getLicenses()!=0 && additionalTitles.get(i).getAvailable()!=0){
+        for (int i = 0; i < additionalTitles.size(); i++) {
+            if (additionalTitles.get(i).getLicenses() != 0) {
                 resultList.add(additionalTitles.get(i));
             }
         }
-        
         return resultList;
     }
 
+    public static List<Book> filterSearchResultByAvailableNow() {
+        List<Book> resultList = new ArrayList<Book>();
+        for (int i = 0; i < additionalTitles.size(); i++) {
+            if (additionalTitles.get(i).getLicenses() != 0 && additionalTitles.get(i).getAvailable() != 0) {
+                resultList.add(additionalTitles.get(i));
+            }
+        }
+
+        return resultList;
+    }
+    
+    public static List<Book> sortByTitleA_Z(){
+        //change the order in the searchResult
+        Collections.sort(searchResult, new Comparator<Book>() {
+        public int compare(Book b1, Book b2) {
+        return b1.getTitle().compareTo(b2.getTitle());
+    }
+    });
+        return searchResult;
+    }
+    
+    public static List<Book> sortByTitleZ_A(){
+        Collections.sort(searchResult, new Comparator<Book>(){
+            public int compare(Book b1, Book b2){
+                return b2.getTitle().compareTo(b1.getTitle());
+            }
+        });
+           
+        return searchResult;
+    }
+    
+    public static List<Book> sortByAuthorA_Z(){
+        Collections.sort(searchResult, new Comparator<Book>(){
+            public int compare(Book b1, Book b2){
+                return b1.getAuthor().compareTo(b2.getAuthor());
+            }
+        });
+           
+        return searchResult;
+    }
+    
+    public static List<Book> sortByAuthorZ_A(){
+        Collections.sort(searchResult, new Comparator<Book>(){
+            public int compare(Book b1, Book b2){
+                return b2.getAuthor().compareTo(b1.getAuthor());
+            }
+        });
+           
+        return searchResult;
+    }
+    
+    public static List<Book> sortByReleaseDate(){
+        Collections.sort(searchResult, new Comparator<Book>(){
+            public int compare(Book b1, Book b2){
+                return b2.getPublishDate().compareTo(b1.getPublishDate());
+            }
+        });
+        return searchResult;
+    }
+    
+   
+    
+    
     public static String solveSpecial(String s) {
         String k = s;
         int i = s.indexOf("\'");

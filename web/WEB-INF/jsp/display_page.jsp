@@ -87,13 +87,13 @@ and open the template in the editor.
                 <div class="col-lg-8" style="font-size:150%;">
                     <h2>Book Title</h2>
                     <Span>Sort by:</Span>
-                    <select style="margin-right: 40%">
-                        <option value="relevancy">Relevancy</option>
-                        <option value=" titleAtZ">Title A-Z</option>
-                        <option value="titleZtA">Title Z-A</option>
-                        <option value=" authorAtZ">Author A-Z</option>
-                        <option value="authorZtA">Author Z-A</option>
-                        <option value="release_date">Release Date</option>
+                    <select style="margin-right: 40%" onChange="window.location.href=this.value">
+                        <option value="">Relevancy</option>
+                        <option value="diaplay_page_sortByTitleAZ.htm">Title A-Z</option>
+                        <option value="diaplay_page_sortByTitleZA.htm">Title Z-A</option>
+                        <option value="diaplay_page_sortByAuthorAZ.htm">Author A-Z</option>
+                        <option value="diaplay_page_sortByAuthorZA.htm">Author Z-A</option>
+                        <option value="diaplay_page_sortByReleaseDate.htm">Release Date</option>
                         <option value="added_to_site">Added to Site </option>
                         <option value="most_popuLAR">Most Popular</option>
 
