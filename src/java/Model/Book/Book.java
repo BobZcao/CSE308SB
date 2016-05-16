@@ -296,17 +296,17 @@ public class Book implements Serializable {
         return "Model.Book.Book[ isbn=" + isbn + " ]";
     }
     
-    public synchronized boolean returnBook(Account account) {
-
-        Borrow borrow = new Borrow();
-        // account.setBookBorrowed(account.getBookBorrowed()-1);
-//        borrow.setAccount(account);
-//        borrow.setBook1(this);
-        borrow.setDateReturn(new Date());
-        this.available += 1;
-        // BookManager.persistReturn(borrow);
-        return true;
-    }
+//    public synchronized boolean returnBook(Account account) {
+//
+//        Borrow borrow = new Borrow();
+//        // account.setBookBorrowed(account.getBookBorrowed()-1);
+////        borrow.setAccount(account);
+////        borrow.setBook1(this);
+//        borrow.setDateReturn(new Date());
+//        this.available += 1;
+//        // BookManager.persistReturn(borrow);
+//        return true;
+//    }
     
     
      public synchronized boolean borrow(Account account) {
@@ -315,7 +315,7 @@ public class Book implements Serializable {
         }
         //if(account.getBookBorrowed()>=account.MAX) return false;
         Borrow borrow = new Borrow();
-        BorrowPK borrowPK=new BorrowPK();
+        BorrowPK borrowPK = new BorrowPK();
         borrowPK.setBook(isbn);
         borrowPK.setUser(account.getUserName());
         borrowPK.setDateBorrow(new Date());
@@ -329,5 +329,15 @@ public class Book implements Serializable {
         BookManager.mergeBook(this);
         return true;
     }
-    
+
+    public synchronized boolean returnBook(Account account) {
+        if (BookManager.returnBook(account.getUserName(), this.getIsbn())) {
+            this.available += 1;
+            BookManager.mergeBook(this);
+            return true;
+        }
+        // BookManager.persistReturn(borrow);
+        return false;
+    }
+
 }

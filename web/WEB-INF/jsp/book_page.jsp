@@ -21,7 +21,16 @@ and open the template in the editor.
                 <div class="col-lg-4">
                     <h2>${book.title}</h2>
                     <p>By <a href="#">${book.author}</a></p>
-                    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'borrow.htm?isbn=${book.isbn}';">Borrow</button>
+                        <c:choose>
+                            <c:when test="${not empty borrow}">
+
+                            <button type="button" class="btn btn-warning btn-lg btn-block" onclick="location.href = 'return.htm?isbn=${book.isbn}';">Return</button>
+                        </c:when>
+                        <c:otherwise>
+
+                            <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'borrow.htm?isbn=${book.isbn}';">Borrow</button>
+                        </c:otherwise>
+                    </c:choose>
                     <button type="button" class="btn btn-warning btn-lg btn-block"  >Add to Wish List</button>
 
                     <h4>Description</h4>
@@ -75,34 +84,24 @@ and open the template in the editor.
             <div class="row">
                 <div class="col-lg-8">
                     <h2>Rating</h2>
-                    <div id="ratings">
-                        <!--                        <p>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <span class="glyphicon glyphicon-star"></span>
-                                                    <button class="btn btn-default" data-toggle="modal" data-target="#rate-modal">Rate</button>
-                                                </p>-->
+                    <br>
+                    <h3>Average Rating: ${not empty book.rating? book.rating:0.0}</h3>
+                    <br>
+                    <h3>Your rating :</h3>
+                    <div>
+                        <ul class="c-rating"></ul>
+                    </div>
+                    <div style="margin-top: 10px">
+                        <c:if test="${not empty rating}">
+                            <button type="button" class="btn btn-primary btn-lg btn-block" style="width:200px" onclick="removeRating()">Remove rating</button>
+                        </c:if>
                     </div>
 
                 </div>
             </div>
 
         </div>
-        <script>
-            $(docoument).ready(function () {
 
-
-                var ratingElement = document.querySelector("#rating");
-                var currentRating = ${book.rating};
-                var maxRating = 5;
-                var callback = function (rating) {
-                    alert(rating);
-                };
-                var r = rating(ratingElement, currentRating, maxRating, callback);
-            })
-        </script>
 
         <!-- BEGIN # MODAL BORROW -->
         <div class="modal fade" id="borrow-modal" tabindex="-1" role="dialog"
@@ -202,5 +201,44 @@ and open the template in the editor.
 
         <!-- Customized js files -->
         <script src="bootstrap-3.3.6-dist/js/script.js"></script>
+        <script src="js/dist/rating.min.js"></script>
+        <script>
+                                $(document).ready(function () {
+                                    var ratingElement = document.querySelector(".c-rating");
+                                    var currentRating = ${not empty rating? rating.rating:0};
+                                    var maxRating = 5;
+                                    var callback = function (rating) {
+                                        var url = "rating.htm?isbn=" +${book.isbn} + "&&rating=" + rating;
+                                        $.ajax({
+                                            url: url,
+                                            success: function (data) {
+                                                if (data == "ok") {
+
+                                                    location.replace("view.htm?isbn=" +${book.isbn})
+                                                }
+                                            }
+                                        });
+                                    };
+                                    if (${empty account}) {
+                                        callback = function (rating) {
+                                            location.replace("loginPage.htm");
+                                        }
+                                    }
+                                    var r = rating(ratingElement, currentRating, maxRating, callback);
+
+                                });
+                                function removeRating() {
+                                    var url = "rating.htm?isbn=" +${book.isbn} + "&&rating=0";
+                                    $.ajax({
+                                        url: url,
+                                        success: function (data) {
+                                            if (data == "ok") {
+
+                                                location.replace("view.htm?isbn=" +${book.isbn})
+                                            }
+                                        }
+                                    });
+                                }
+        </script>
     </body>
 </html>

@@ -10,17 +10,23 @@ import Model.Book.Book;
 import Model.Book.Borrow;
 import Model.Book.BorrowPK;
 import Model.Person.Account;
+import Model.Book.Rating;
+import Model.Book.RatingPK;
 import ViewBean.SearchBean;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.Cache;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TemporalType;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -61,6 +67,7 @@ public class BookManager {
 
     public static void persistBook(Book book) {
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         em.getTransaction().begin();
         em.persist(book);
         em.getTransaction().commit();
@@ -69,6 +76,7 @@ public class BookManager {
 
     public static void mergeBook(Book book) {
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         em.getTransaction().begin();
         em.merge(book);
         em.getTransaction().commit();
@@ -77,7 +85,9 @@ public class BookManager {
 
     public static Book getBookByIsbn(String isbn) {
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         Book book = em.find(Book.class, isbn);
+        em.refresh(book);
         em.close();
         return book;
     }
@@ -85,6 +95,7 @@ public class BookManager {
     public static List<String> generateSubjectsList() {
         List<String> subjectsList = null;
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         String[] subjects = null;
         //find all kinds of subjects of the book 
         subjectsList = em.createQuery("select c.subjects from Book c", String.class).getResultList();
@@ -110,6 +121,7 @@ public class BookManager {
     public static List<String> generateLanguageList() {
         List<String> languageList = null;
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         languageList = em.createQuery("select c.language from Book c", String.class).getResultList();
         Set<String> languageSet = new LinkedHashSet<String>();
         for (String a : languageList) {
@@ -126,6 +138,7 @@ public class BookManager {
     public static List<String> generateSelectionList(String query) {
         List<String> selectionList = null;
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         String[] selection = null;
         selectionList = em.createQuery(query, String.class).getResultList();
         Set<String> selectionSet = new LinkedHashSet<String>();
@@ -228,6 +241,7 @@ public class BookManager {
 
     public static List<Book> searchBook(String s) {
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         List<Book> resultList = em.createNamedQuery(
                 "Book.findAll")
                 .setMaxResults(10)
@@ -240,6 +254,7 @@ public class BookManager {
         //reset cursor
         cursor = 0;
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         //dicide a string into multiple small strings 
 
         String[] keys = s.split("\\s* \\s*");
@@ -273,6 +288,7 @@ public class BookManager {
         //reset cursor 
         cursor = 0;
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         List<Book> resultList = null;
         String searchQuery = "select c from Book c where ";
 
@@ -431,6 +447,7 @@ public class BookManager {
 
     public static List<Book> AuthorSearch(String s) {
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
 
         List<Book> resultList = null;
 
@@ -442,27 +459,104 @@ public class BookManager {
         return resultList;
     }
 
-    public static void persistReturn(Borrow borrow) {
-//        EntityManager em = factory.createEntityManager();
-//        BorrowPK borrowPK = new BorrowPK();
-//        borrowPK.setBook(borrow.getIsbn());
-//        borrowPK.setUser(borrow.getAccount().getUserName());
-//        Borrow borrowFind = em.find(Borrow.class, borrowPK);
-//        em.getTransaction().begin();
-//        em.persist(borrowFind);
-//        em.getTransaction().commit();
-//        em.close();
-//        persistBook(borrow.getBook1());
-//        PersonManager.persistAccount(borrow.getAccount());
+    public static Borrow checkBorrow(String userName, String isbn) {
+        EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date = sdfDate.format(new Date());
+        String query = "select b from Borrow b where (b.borrowPK.user = '" + userName + "' And b.borrowPK.book=" + isbn + " And b.dateReturn>'" + date + "')";
+        Borrow borrow;
+        try {
+            borrow = em.createQuery(query, Borrow.class).getSingleResult();
+            em.refresh(borrow);
+            return borrow;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+        return null;
+    }
+
+     
+    public static boolean returnBook(String userName, String isbn) {
+        EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date = sdfDate.format(new Date());
+        String query = "select b from Borrow b where b.borrowPK.user = '" + userName + "' And b.borrowPK.book=" + isbn + " And b.dateReturn>'" + date + "'";
+        Borrow borrow = em.createQuery(query, Borrow.class).getSingleResult();
+        em.refresh(borrow);
+        em.close();
+        if (borrow != null) {
+            borrow.setDateReturn(new Date());
+            mergeBorrow(borrow);
+            return true;
+        }
+        return false;
     }
 
     public static void persistBorrow(Borrow borrow) {
         EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         em.getTransaction().begin();
         em.persist(borrow);
         em.getTransaction().commit();
         em.close();
     }
+
+     public static void mergeBorrow(Borrow borrow) {
+        EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
+        em.getTransaction().begin();
+        em.merge(borrow);
+        em.getTransaction().commit();
+        em.close();
+    }
+     
+      public static Rating getRating(String bn, String userName) {
+        EntityManager em = factory.createEntityManager();
+        RatingPK ratingPK = new RatingPK();
+        ratingPK.setBook(bn);
+        ratingPK.setUser(userName);
+        Rating rating = em.find(Rating.class, ratingPK);
+        if (rating != null) {
+            em.refresh(rating);
+        }
+        em.close();
+        return rating;
+    }
+
+    public static void persistRating(Rating rating) {
+        EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
+        em.getTransaction().begin();
+        em.persist(rating);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public static void mergeRating(Rating rating) {
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(rating);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public static void removeRating(String bn, String userName) {
+        EntityManager em = factory.createEntityManager();
+        RatingPK ratingPK = new RatingPK();
+        ratingPK.setBook(bn);
+        ratingPK.setUser(userName);
+        Rating rating = em.find(Rating.class, ratingPK);
+        em.getTransaction().begin();
+        em.remove(rating);
+        em.getTransaction().commit();
+        em.close();
+    }
+    
+    
 
     public static void refreshBorrow(Borrow borrow) {
         EntityManager em = factory.createEntityManager();
@@ -563,4 +657,5 @@ public class BookManager {
         em.close();
 
     }
+
 }
