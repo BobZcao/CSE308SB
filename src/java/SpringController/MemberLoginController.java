@@ -53,7 +53,12 @@ public class MemberLoginController {
             model.addAttribute("checkedOutBookList",BookManager.searchCheckedOutBook(account.getUserName()));
 //            model.addAttribute("wishList",BookManager.searchWishBookList(account.getUserName()));
             model.addAttribute("borrowList",BookManager.searchBorrowList(account.getUserName()));
+            if(account.getLevels()==1){
             return "member_login";
+            }
+            else{
+                return "forward:/index.htm";
+            }
 
         } else {
             return "loginPage";

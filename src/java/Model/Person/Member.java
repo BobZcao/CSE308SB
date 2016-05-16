@@ -28,7 +28,7 @@ public class Member extends Account{
     private String ageContent;
     private Integer contrast;
     private Integer lendingPeriod;
-    
+    private String level;
 
    
  
@@ -150,4 +150,14 @@ public class Member extends Account{
     public void setAgeContent(String ageContent) {
         this.ageContent = ageContent;
     }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+    
+    
 }

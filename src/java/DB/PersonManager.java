@@ -44,7 +44,14 @@ public class PersonManager {
         account.setAgeContent(member.getAgeContent());
         account.setContrast(member.getContrast());
         account.setLendingPeriod(member.getLendingPeriod());
-        
+        //1 is member
+        if(member.getLevel().equals("Member")){
+            account.setLevels(1);
+        }
+        //2 is administrator
+        else{
+            account.setLevels(2);
+        }
         
         persistAccount(account);
         

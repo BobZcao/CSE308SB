@@ -9,6 +9,7 @@ package SpringController;
 import DB.PersonManager;
 import Model.Person.Member;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import validator.RegistrationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,11 +38,12 @@ public class MemeberRegisterController {
         binder.setValidator(validator);
     }
     
-   @RequestMapping(value = "/registrationPage.htm", method = RequestMethod.GET)
+   @RequestMapping(value = "/registrationPage.htm")
     public String initRegisterForm(Model model){
         Member member = new Member();
         model.addAttribute("member", member);
-        
+        String[] level = {"Member","Administrator"};
+        model.addAttribute("level",level);
         return "registrationPage";
     }
     
@@ -50,6 +52,8 @@ public class MemeberRegisterController {
     public String submitRegisterForm(Model model, @Validated Member member, BindingResult result ) throws NoSuchAlgorithmException{
         
         if(result.hasErrors()){
+            String[] level = {"Member","Administrator"};
+            model.addAttribute("level",level);
             return "registrationPage";
         }
         else{

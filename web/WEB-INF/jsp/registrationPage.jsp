@@ -82,6 +82,14 @@
                                                 placeholder="ageContent" />
                                     <form:input path = "lendingPeriod" id="lendingPeriod" class="form-control" 
                                                 placeholder="lendingPeriod" />
+                                    
+                                     
+                                <div  style="font-size:150%;">
+                                <label for="subjects">Please select Your role:</label>
+                                <form:select path = "level" items = "${level}" style="margin-right: 40%; width: 60%"/>
+                                </div>
+
+                           
                                     <!-- <input
                                              id="credit_card_number" class="form-control" type="text"
                                              placeholder="Credit Card Number" name="reg_cardnum" required>-->
