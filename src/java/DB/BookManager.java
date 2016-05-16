@@ -507,8 +507,23 @@ public class BookManager {
         return searchResult;
     }
     
-   
+   public static List<Book> sortByAddedToSite(){
+       Collections.sort(searchResult, new Comparator<Book>(){
+            public int compare(Book b1, Book b2){
+                return b2.getAddedToSite().compareTo(b1.getAddedToSite());
+            }
+        });
+        return searchResult;
+   }
     
+   public static List<Book> sortByPopular(){
+       Collections.sort(searchResult, new Comparator<Book>(){
+            public int compare(Book b1, Book b2){
+                return b2.getPopular().compareTo(b1.getPopular());
+            }
+        });
+        return searchResult;
+   }
     
     public static String solveSpecial(String s) {
         String k = s;

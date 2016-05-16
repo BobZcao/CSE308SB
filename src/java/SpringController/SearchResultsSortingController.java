@@ -15,6 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class SearchResultsSortingController {
+    
+    @RequestMapping(value ="/diaplay_page_sortByRelevancy.htm")
+    public String SortByRelevancy(Model model){
+        model.addAttribute("searchBookList",BookManager.filterSearchResultByAllTitles());
+        return "display_page";
+    }
+    
     @RequestMapping(value ="/diaplay_page_sortByTitleAZ.htm")
     public String SortByTitleA_Z(Model model){
         model.addAttribute("searchBookList",BookManager.sortByTitleA_Z());
@@ -42,6 +49,18 @@ public class SearchResultsSortingController {
     @RequestMapping(value ="/diaplay_page_sortByReleaseDate.htm")
     public String SortByReleaseDate(Model model){
         model.addAttribute("searchBookList",BookManager.sortByReleaseDate());
+        return "display_page";
+    }
+    
+    @RequestMapping(value ="/diaplay_page_sortByAddedToSite.htm")
+    public String SortByAddedToSite(Model model){
+        model.addAttribute("searchBookList",BookManager.sortByAddedToSite());
+        return "display_page";
+    }
+    
+    @RequestMapping(value ="/diaplay_page_sortByPopular.htm")
+    public String SortByPopular(Model model){
+        model.addAttribute("searchBookList",BookManager.sortByPopular());
         return "display_page";
     }
     

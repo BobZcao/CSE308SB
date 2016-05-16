@@ -88,14 +88,15 @@ and open the template in the editor.
                     <h2>Book Title</h2>
                     <Span>Sort by:</Span>
                     <select style="margin-right: 40%" onChange="window.location.href=this.value">
-                        <option value="">Relevancy</option>
+                        <option value="#"></option>
+                        <option value="diaplay_page_sortByRelevancy.htm">Relevancy</option>
                         <option value="diaplay_page_sortByTitleAZ.htm">Title A-Z</option>
                         <option value="diaplay_page_sortByTitleZA.htm">Title Z-A</option>
                         <option value="diaplay_page_sortByAuthorAZ.htm">Author A-Z</option>
                         <option value="diaplay_page_sortByAuthorZA.htm">Author Z-A</option>
                         <option value="diaplay_page_sortByReleaseDate.htm">Release Date</option>
-                        <option value="added_to_site">Added to Site </option>
-                        <option value="most_popuLAR">Most Popular</option>
+                        <option value="diaplay_page_sortByAddedToSite.htm">Added to Site </option>
+                        <option value="diaplay_page_sortByPopular.htm">Most Popular</option>
 
                     </select>
                     <button type="button" onclick="cover()" class="btn btn-primary"><span class="glyphicon glyphicon-th">Cover</span></button>
