@@ -51,7 +51,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Book.findByFormat", query = "SELECT b FROM Book b WHERE b.format = :format"),
     @NamedQuery(name = "Book.findByLanguage", query = "SELECT b FROM Book b WHERE b.language = :language"),
     @NamedQuery(name = "Book.findByAward", query = "SELECT b FROM Book b WHERE b.award = :award"),
-    @NamedQuery(name = "Book.findByReadLevel", query = "SELECT b FROM Book b WHERE b.readLevel = :readLevel")})
+    @NamedQuery(name = "Book.findByReadLevel", query = "SELECT b FROM Book b WHERE b.readLevel = :readLevel"),
+    @NamedQuery(name = "Book.findByAddedToSite", query = "SELECT b FROM Book b WHERE b.addedToSite = :addedToSite"),
+    @NamedQuery(name = "Book.findByPopular", query = "SELECT b FROM Book b WHERE b.popular = :popular")})
 public class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -111,6 +113,11 @@ public class Book implements Serializable {
     @Size(max = 45)
     @Column(name = "readLevel")
     private String readLevel;
+    @Column(name = "addedToSite")
+    @Temporal(TemporalType.DATE)
+    private Date addedToSite;
+    @Column(name = "popular")
+    private Integer popular;
 
     public Book() {
     }
@@ -271,6 +278,22 @@ public class Book implements Serializable {
         this.readLevel = readLevel;
     }
 
+    public Date getAddedToSite() {
+        return addedToSite;
+    }
+
+    public void setAddedToSite(Date addedToSite) {
+        this.addedToSite = addedToSite;
+    }
+
+    public Integer getPopular() {
+        return popular;
+    }
+
+    public void setPopular(Integer popular) {
+        this.popular = popular;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -296,20 +319,7 @@ public class Book implements Serializable {
         return "Model.Book.Book[ isbn=" + isbn + " ]";
     }
     
-//    public synchronized boolean returnBook(Account account) {
-//
-//        Borrow borrow = new Borrow();
-//        // account.setBookBorrowed(account.getBookBorrowed()-1);
-////        borrow.setAccount(account);
-////        borrow.setBook1(this);
-//        borrow.setDateReturn(new Date());
-//        this.available += 1;
-//        // BookManager.persistReturn(borrow);
-//        return true;
-//    }
-    
-    
-     public synchronized boolean borrow(Account account) {
+        public synchronized boolean borrow(Account account) {
         if (this.available <= 0) {
             return false;
         }
@@ -325,6 +335,7 @@ public class Book implements Serializable {
         cal.add(Calendar.DAY_OF_YEAR, account.getLendingPeriod()); // adds one hour
         borrow.setDateReturn(cal.getTime());
         this.available -= 1;
+        this.popular += 1;
         BookManager.persistBorrow(borrow);
         BookManager.mergeBook(this);
         return true;
@@ -339,5 +350,5 @@ public class Book implements Serializable {
         // BookManager.persistReturn(borrow);
         return false;
     }
-
+    
 }

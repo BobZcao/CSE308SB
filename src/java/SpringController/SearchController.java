@@ -58,9 +58,9 @@ public class SearchController {
         //find all kinds of subjects in our book db
         subjectsList = BookManager.generateSubjectsList();
         List<String> languageList = BookManager.generateLanguageList();
-        String[] levelRange = {"child","teen","adult"};
-        String[] addedToSite = {"Within 7 days" , "Within 14 days","Within 30 days", "Within 3 months", "Within 6 months", "Within 1 year"};
-        String[] format = {"eBook","audioBook","videoBook"};
+        String[] levelRange = {"","child","teen","adult"};
+        String[] addedToSite = {"","Within 7 days" , "Within 14 days","Within 30 days", "Within 3 months", "Within 6 months", "Within 1 year"};
+        String[] format = {"","eBook","audioBook","videoBook"};
         List<String> publisherList = BookManager.generateSelectionList(publisherListQuery);
         List<String> awardList = BookManager.generateSelectionList(awardListQuery);
         model.addAttribute("subjectsList", subjectsList);

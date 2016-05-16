@@ -111,6 +111,7 @@ public class BookManager {
 
         //store all the string into the subjectsList
         subjectsList = new ArrayList<String>();
+        subjectsList.add("");
         for (String c : subjectsSet) {
             subjectsList.add(c);
         }
@@ -128,6 +129,7 @@ public class BookManager {
             languageSet.add(a);
         }
         languageList = new ArrayList<String>();
+        languageList.add("");
         for (String c : languageSet) {
             languageList.add(c);
         }
@@ -156,7 +158,7 @@ public class BookManager {
         }
 
         selectionList = new ArrayList<String>();
-
+        selectionList.add("");
         for (String c : selectionSet) {
 
             selectionList.add(c);
@@ -290,13 +292,19 @@ public class BookManager {
         EntityManager em = factory.createEntityManager();
         em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         List<Book> resultList = null;
-        String searchQuery = "select c from Book c where ";
+        String searchQuery = "select c from Book c";
 
         if (!searchBean.getTitle().equals("")) {
+            if (searchQuery.length()== 20){
+                searchQuery = searchQuery + " where "; 
+            }
             searchQuery = searchQuery + "(c.title like '%" + solveSpecial(searchBean.getTitle()) + "%')";
         }
 
         if (!searchBean.getISBN().equals("")) {
+            if (searchQuery.length()== 20){
+                searchQuery = searchQuery + " where "; 
+            }
             if (searchQuery.length() != 27) {
                 searchQuery = searchQuery + " and ";
             }
@@ -304,6 +312,9 @@ public class BookManager {
         }
 
         if (!searchBean.getAuthor().equals("")) {
+            if (searchQuery.length()== 20){
+                searchQuery = searchQuery + " where "; 
+            }
             if (searchQuery.length() != 27) {
                 searchQuery = searchQuery + " and ";
             }
@@ -311,6 +322,9 @@ public class BookManager {
         }
         //addedToSiteneed to be implemented later
         if (!searchBean.getSubjects().equals("")) {
+            if (searchQuery.length()== 20){
+                searchQuery = searchQuery + " where "; 
+            }
             if (searchQuery.length() != 27) {
                 searchQuery = searchQuery + " and ";
             }
@@ -318,6 +332,9 @@ public class BookManager {
         }
 
         if (!searchBean.getFormat().equals("")) {
+            if (searchQuery.length()== 20){
+                searchQuery = searchQuery + " where "; 
+            }
             if (searchQuery.length() != 27) {
                 searchQuery = searchQuery + " and ";
             }
@@ -325,6 +342,9 @@ public class BookManager {
         }
 
         if (!searchBean.getLanguage().equals("")) {
+            if (searchQuery.length()== 20){
+                searchQuery = searchQuery + " where "; 
+            }
             if (searchQuery.length() != 27) {
                 searchQuery = searchQuery + " and ";
             }
@@ -332,22 +352,76 @@ public class BookManager {
         }
 
         if (!searchBean.getPublisher().equals("")) {
+            if (searchQuery.length()== 20){
+                searchQuery = searchQuery + " where "; 
+            }
             if (searchQuery.length() != 27) {
                 searchQuery = searchQuery + " and ";
             }
             searchQuery = searchQuery + "(c.publisher like '%" + solveSpecial(searchBean.getPublisher()) + "%')";
         }
         if (!searchBean.getAward().equals("")) {
+            if (searchQuery.length()== 20){
+                searchQuery = searchQuery + " where "; 
+            }
             if (searchQuery.length() != 27) {
                 searchQuery = searchQuery + " and ";
             }
             searchQuery = searchQuery + "(c.award like '%" + solveSpecial(searchBean.getAward()) + "%')";
         }
         if (!searchBean.getReadingLevelRange().equals("")) {
+            if (searchQuery.length()== 20){
+                searchQuery = searchQuery + " where "; 
+            }
             if (searchQuery.length() != 27) {
                 searchQuery = searchQuery + " and ";
             }
             searchQuery = searchQuery + "(c.readLevel like '%" + searchBean.getReadingLevelRange() + "%')";
+        }
+        
+        if(!searchBean.getAddedToSite().equals("")){
+            if (searchQuery.length()== 20){
+                searchQuery = searchQuery + " where "; 
+            }
+            if (searchQuery.length() != 27) {
+                searchQuery = searchQuery + " and ";
+            }
+            String addedToSite = searchBean.getAddedToSite();
+            //get the current date
+            Date currentDate = new Date();
+            int DayDiff = 0;
+            
+                   
+            if(addedToSite.equals("Within 7 days")){
+               DayDiff = -7;
+            }
+            else if(addedToSite.equals("Within 14 days")){
+                DayDiff = -14;
+            }
+            else if(addedToSite.equals("Within 30 days")){
+                DayDiff = -30;
+            }
+            else if(addedToSite.equals("Within 3 months")){
+                DayDiff = -90;
+            }
+            else if(addedToSite.equals("Within 6 months")){
+                DayDiff = -180;
+            } 
+            else if(addedToSite.equals("Within 1 year")){
+                DayDiff = -365;
+            }
+            else{
+                DayDiff =0;
+            }
+            
+            SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar c = Calendar.getInstance();
+		c.setTime(new Date());
+		
+		c.add(Calendar.DATE, DayDiff);
+		String Date = d.format(c.getTime());
+                
+            searchQuery = searchQuery + "(c.addedToSite >= '"  + Date + "')";
         }
 
         resultList = em.createQuery(searchQuery, Book.class).getResultList();
