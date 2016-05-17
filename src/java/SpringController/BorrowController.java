@@ -32,7 +32,7 @@ public class BorrowController  {
             model.addAttribute("loginBean", loginBean);
             return "loginPage";
         }
-        book.borrow(account);
+        //book.borrow(account);
         return "member_login";
     }  
 }

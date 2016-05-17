@@ -12,6 +12,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -50,6 +52,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Account.findByAgeContent", query = "SELECT a FROM Account a WHERE a.ageContent = :ageContent"),
     @NamedQuery(name = "Account.findByLendingPeriod", query = "SELECT a FROM Account a WHERE a.lendingPeriod = :lendingPeriod")})
 public class Account implements Serializable {
+
+//    @ManyToMany(mappedBy = "accountCollection")
+//    private Collection<Book> bookCollection;
+    @JoinTable(name = "rating", joinColumns = {
+        @JoinColumn(name = "user", referencedColumnName = "userName")}, inverseJoinColumns = {
+        @JoinColumn(name = "book", referencedColumnName = "isbn")})
+//    @ManyToMany
+//    private Collection<Book> bookCollection1;
+//    @ManyToMany(mappedBy = "accountCollection2")
+//    private Collection<Book> bookCollection2;
 
     private static final long serialVersionUID = 1L;
     @Id

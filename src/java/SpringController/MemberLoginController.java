@@ -61,12 +61,19 @@ public class MemberLoginController {
             }
 
         } else {
-            return "loginPage";
+            return "mange_users";
         }
 
     }
     @RequestMapping(value = "/member_login.htm")
-    public String memberPage(){
+    public String memberPage(HttpSession session){
+        Account a = (Account) session.getAttribute("account");
+        if(a.getLevels()==1){
         return "member_login";
+        }
+        else
+        {
+            return "manage_users";
+        }
     }
 }

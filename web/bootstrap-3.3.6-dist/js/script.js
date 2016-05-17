@@ -28,23 +28,27 @@ $(document).ready(function () {
 
     //this part scripts is for admin panel display
     //message panel will be displayed innitially
-    $('.admin_panel').load("admin_panel/messages.html");
     $('.publisher_panel').load("publisher_panel/edit_book_description.html");
-    $('#messages').click(function () {
-        $('.admin_panel').load("admin_panel/messages.html");
-    });
+//    $('#messages').click(function () {
+//        $('.admin_panel').load("admin_panel/messages.html");
+//    });
+//
+//    $('#best_seller_list').click(function () {
+//        $('.admin_panel').load("admin_panel/best_seller_list.html");
+//    });
+//
+//    $('#manage_users').click(function () {
+//        $('.admin_panel').load("admin_panel/manage_users.html");
+//    });
+//
+//    $('#manage_books').click(function () {
+//        $('.admin_panel').load("admin_panel/manage_books.html");
+//    });
+//    
+//    $('#update_books').click(function () {
+//        $('.admin_panel').load("admin_panel/update_books.html");
+//    });
 
-    $('#best_seller_list').click(function () {
-        $('.admin_panel').load("admin_panel/best_seller_list.html");
-    });
-
-    $('#manage_users').click(function () {
-        $('.admin_panel').load("admin_panel/manage_users.html");
-    });
-
-    $('#manage_books').click(function () {
-        $('.admin_panel').load("admin_panel/manage_books.html");
-    });
     $('#book_application').click(function () {
         $('.publisher_panel').load("publisher_panel/book_application.html");
     });

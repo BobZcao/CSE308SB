@@ -12,6 +12,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 public class PersonManager {
 
@@ -105,5 +109,12 @@ public class PersonManager {
         em.getTransaction().commit();
         em.close();
         
-    }      
+    }
+     public static List<String> getUserNameList(){
+        List<String> userNameList = null;
+        EntityManager em = factory.createEntityManager();
+        userNameList = em.createQuery("select c.userName from Account c", String.class).getResultList();
+        em.close();
+        return userNameList;
+    }
 }
