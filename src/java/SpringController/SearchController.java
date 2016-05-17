@@ -6,6 +6,7 @@
 package SpringController;
 
 import DB.BookManager;
+import DB.FiltersGenerator;
 import ViewBean.SearchBean;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +32,17 @@ public class SearchController {
         if(!searchBean.getKeywords().equals("")){
             BookManager.basicSearch(searchBean.getKeywords());
         model.addAttribute("searchBookList", BookManager.getNextSetBook());
-        
+       
         }
         else{
             BookManager.advancedSearch(searchBean);
         model.addAttribute("searchBookList", BookManager.getNextSetBook());
+        
         }
         
+        FiltersGenerator.initializeAllFilters(model);
         return "display_page";
+    
     }
     
 //    @RequestMapping(value = "/display_page_advanced.htm")

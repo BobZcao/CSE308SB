@@ -744,7 +744,6 @@ public class BookManager {
         em.persist(borrowFind);
         em.getTransaction().commit();
         em.close();
-
     }
 
 }

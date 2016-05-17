@@ -25,6 +25,23 @@ and open the template in the editor.
                     <span> <a href="display_page_filterByAvailableNow.htm">Available now</a></span><br>
                     <span> <a href="display_page_filterByAdditionalTitle.htm">additional titles to recommend</a></span><br>
                     <div class="panel-group" id="accordion" style="margin-top:40px">
+                          
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Format</a>
+                                </h4>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                             
+                                    <c:forEach var="b" items="${formatList}">
+                                         <span> <a href="display.htm?format=${b}">${b}</a></span><br>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -33,17 +50,17 @@ and open the template in the editor.
                             </div>
                             <div id="collapse1" class="panel-collapse collapse in">
                                 <div class="panel-body">
-                                    <span> <a href=#> Fiction</a></span><br>
-                                    <span> <a href=#>Mystery</a></span><br>
-                                    <span> <a href=#> Literature</a></span><br>
-                                    <span> <a href=#>Romance</a></span><br>
-                                    <span> <a href=#> Historical Fiction</a></span><br>
-                                    <span> <a href=#>Humor</a></span><br>
-                                    <span> <a href=#> More...</a></span><br>
-
+                             
+                                    <c:forEach var="b" items="${subjectsList}">
+                                         <span> <a href="display.htm?subject=${b}">${b}</a></span><br>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
+                        
+                        
+                        
+                        
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -52,6 +69,8 @@ and open the template in the editor.
                             </div>
                             <div id="collapse2" class="panel-collapse collapse">
                                 <div class="panel-body">
+                                    
+                                    
                                     <span> <a href=#> KensingTon</a></span><br>
                                     <span> <a href=#>St. Martin's Press</a></span><br>
                                     <span> <a href=#> Baker Publishing Group</a></span><br>
