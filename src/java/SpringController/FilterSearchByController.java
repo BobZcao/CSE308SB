@@ -22,34 +22,72 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class FilterSearchByController {
     @RequestMapping(value = "/display_page_filterByAllTitle.htm")
     public String FilterByAllTitle(Model model){
-        
-        model.addAttribute("searchBookList",BookManager.getBooksWithAllTitle());
-        
+        BookManager.getBooksWithAllTitle();
+        model.addAttribute("searchBookList",BookManager.getFirstSetBook());
+        FiltersGenerator.initializeAllFilters(model);
         return "display_page";
     }
     
     @RequestMapping(value = "/display_page_filterByAvailableNow.htm")
     public String FilterByAvailableNow(Model model){
-        
-        model.addAttribute("searchBookList",BookManager.getBooksAvailableNow());
-        
+        BookManager.getBooksAvailableNow();
+        model.addAttribute("searchBookList",BookManager.getFirstSetBook());
+        FiltersGenerator.initializeAllFilters(model);
         return "display_page";
     }
     
     @RequestMapping(value = "/display_page_filterByAdditionalTitle.htm")
     public String FilterByAdditionalTitles(Model model){
-        
-        model.addAttribute("searchBookList",BookManager.getAdditionalTitles());
-        
+        BookManager.getAdditionalTitles();
+        model.addAttribute("searchBookList",BookManager.getFirstSetBook());
+        FiltersGenerator.initializeAllFilters(model);
+        return "display_page";
+    }
+    //diaply_page according to the format
+    @RequestMapping(value = "/display_format", method = RequestMethod.GET)
+    public String FilterByFormat(Model model, @RequestParam("format") String format){
+        BookManager.additionalTitles = FiltersGenerator.filterSearchResultByFormat(BookManager.searchResult,format);
+        BookManager.searchResult = BookManager.filterSearchResultByAllTitles();
+        model.addAttribute("searchBookList", BookManager.getFirstSetBook());
+        FiltersGenerator.initializeAllFilters(model);
         return "display_page";
     }
     
-//    @RequestMapping(value = "/display_page_filterByformat", method = RequestMethod.GET)
-//    public String FilterByFormat(Model model, @RequestParam("format") String format){
-//        //get format 
-//        List<String> listOfFormat = FiltersGenerator.generateListOfFormat(BookManager.searchResult);
-//        model.addAttribute("formarList", FiltersGenerator.generateSelectionList(listOfFormat));
-//        return "display_page";
-//    }
+     @RequestMapping(value = "/display_subject", method = RequestMethod.GET)
+    public String FilterBySubject(Model model, @RequestParam("subject") String subject){
+        BookManager.additionalTitles = FiltersGenerator.filterSearchResultBySubject(BookManager.searchResult,subject);
+        BookManager.searchResult = BookManager.filterSearchResultByAllTitles();
+        model.addAttribute("searchBookList", BookManager.getFirstSetBook());
+        FiltersGenerator.initializeAllFilters(model);
+        return "display_page";
+    }
+    
+    @RequestMapping(value = "/display_publisher", method = RequestMethod.GET)
+    public String FilterByPublisher(Model model, @RequestParam("publisher") String publisher){
+        BookManager.additionalTitles = FiltersGenerator.filterSearchResultByPublisher(BookManager.searchResult,publisher);
+        BookManager.searchResult = BookManager.filterSearchResultByAllTitles();
+        model.addAttribute("searchBookList", BookManager.getFirstSetBook());
+        FiltersGenerator.initializeAllFilters(model);
+        return "display_page";
+    }
+    
+    @RequestMapping(value = "/display_rating", method = RequestMethod.GET)
+    public String FilterByRating(Model model, @RequestParam("rating") String rating){
+        BookManager.additionalTitles = FiltersGenerator.filterSearchResultByRating(BookManager.searchResult,rating);
+        BookManager.searchResult = BookManager.filterSearchResultByAllTitles();
+        model.addAttribute("searchBookList", BookManager.getFirstSetBook());
+        FiltersGenerator.initializeAllFilters(model);
+        return "display_page";
+    }
+    
+    @RequestMapping(value = "/display_interestLevel", method = RequestMethod.GET)
+    public String FilterByinterestLevel(Model model, @RequestParam("interestLevel") String interestLevel){
+        BookManager.additionalTitles = FiltersGenerator.filterSearchResultByInterestLevel(BookManager.searchResult,interestLevel);
+        BookManager.searchResult = BookManager.filterSearchResultByAllTitles();
+        model.addAttribute("searchBookList", BookManager.getFirstSetBook());
+        FiltersGenerator.initializeAllFilters(model);
+        return "display_page";
+    }
+    
     
 }

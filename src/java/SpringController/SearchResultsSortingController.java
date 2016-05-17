@@ -6,6 +6,7 @@
 package SpringController;
 
 import DB.BookManager;
+import DB.FiltersGenerator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,49 +19,65 @@ public class SearchResultsSortingController {
     
     @RequestMapping(value ="/diaplay_page_sortByRelevancy.htm")
     public String SortByRelevancy(Model model){
-        model.addAttribute("searchBookList",BookManager.filterSearchResultByAllTitles());
+        BookManager.getBooksWithAllTitle();
+        model.addAttribute("searchBookList",BookManager.getFirstSetBook());
+        FiltersGenerator.initializeAllFilters(model);
         return "display_page";
     }
     
     @RequestMapping(value ="/diaplay_page_sortByTitleAZ.htm")
     public String SortByTitleA_Z(Model model){
-        model.addAttribute("searchBookList",BookManager.sortByTitleA_Z());
+        BookManager.sortByTitleA_Z();
+        model.addAttribute("searchBookList",BookManager.getFirstSetBook());
+        FiltersGenerator.initializeAllFilters(model);
         return "display_page";
     }
     
     @RequestMapping(value ="/diaplay_page_sortByTitleZA.htm")
     public String SortByTitleZ_A(Model model){
-        model.addAttribute("searchBookList",BookManager.sortByTitleZ_A());
+        BookManager.sortByTitleZ_A();
+        model.addAttribute("searchBookList",BookManager.getFirstSetBook());
+        FiltersGenerator.initializeAllFilters(model);
         return "display_page";
     }
     
     @RequestMapping(value ="/diaplay_page_sortByAuthorAZ.htm")
     public String SortByAuthorA_Z(Model model){
-        model.addAttribute("searchBookList",BookManager.sortByAuthorA_Z());
+        BookManager.sortByAuthorA_Z();
+        model.addAttribute("searchBookList",BookManager.getFirstSetBook());
+        FiltersGenerator.initializeAllFilters(model);
         return "display_page";
     }
     
     @RequestMapping(value ="/diaplay_page_sortByAuthorZA.htm")
     public String SortByAuthorZ_A(Model model){
-        model.addAttribute("searchBookList",BookManager.sortByAuthorZ_A());
+        BookManager.sortByAuthorZ_A();
+        model.addAttribute("searchBookList",BookManager.getFirstSetBook());
+        FiltersGenerator.initializeAllFilters(model);
         return "display_page";
     }
     
     @RequestMapping(value ="/diaplay_page_sortByReleaseDate.htm")
     public String SortByReleaseDate(Model model){
-        model.addAttribute("searchBookList",BookManager.sortByReleaseDate());
+        BookManager.sortByReleaseDate();
+        model.addAttribute("searchBookList",BookManager.getFirstSetBook());
+        FiltersGenerator.initializeAllFilters(model);
         return "display_page";
     }
     
     @RequestMapping(value ="/diaplay_page_sortByAddedToSite.htm")
     public String SortByAddedToSite(Model model){
-        model.addAttribute("searchBookList",BookManager.sortByAddedToSite());
+        BookManager.sortByAddedToSite();
+        model.addAttribute("searchBookList",BookManager.getFirstSetBook());
+        FiltersGenerator.initializeAllFilters(model);
         return "display_page";
     }
     
     @RequestMapping(value ="/diaplay_page_sortByPopular.htm")
     public String SortByPopular(Model model){
-        model.addAttribute("searchBookList",BookManager.sortByPopular());
+        BookManager.sortByPopular();
+        model.addAttribute("searchBookList",BookManager.getFirstSetBook());
+        FiltersGenerator.initializeAllFilters(model);
         return "display_page";
     }
     

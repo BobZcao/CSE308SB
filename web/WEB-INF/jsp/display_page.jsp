@@ -36,7 +36,7 @@ and open the template in the editor.
                                 <div class="panel-body">
                              
                                     <c:forEach var="b" items="${formatList}">
-                                         <span> <a href="display.htm?format=${b}">${b}</a></span><br>
+                                         <span> <a href="display_format.htm?format=${b}">${b}</a></span><br>
                                     </c:forEach>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@ and open the template in the editor.
                                 <div class="panel-body">
                              
                                     <c:forEach var="b" items="${subjectsList}">
-                                         <span> <a href="display.htm?subject=${b}">${b}</a></span><br>
+                                         <span> <a href="display_subject.htm?subject=${b}">${b}</a></span><br>
                                     </c:forEach>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@ and open the template in the editor.
                                 <div class="panel-body">
                                     
                                     <c:forEach var="b" items="${publisherList}">
-                                         <span> <a href="display.htm?publisher=${b}">${b}</a></span><br>
+                                         <span> <a href="display_publisher.htm?publisher=${b}">${b}</a></span><br>
                                     </c:forEach>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@ and open the template in the editor.
                             <div id="collapse4" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <c:forEach var="b" items="${ratingList}">
-                                         <span> <a href="display.htm?rating=${b}">${b}</a></span><br>
+                                         <span> <a href="display_rating.htm?rating=${b}">${b}</a></span><br>
                                     </c:forEach>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@ and open the template in the editor.
                             <div id="collapse5" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <c:forEach var="b" items="${interestLevelList}">
-                                         <span> <a href="display.htm?interestLevel=${b}">${b}</a></span><br>
+                                         <span> <a href="display_interestLevel.htm?interestLevel=${b}">${b}</a></span><br>
                                     </c:forEach>
                                 </div>
                             </div>

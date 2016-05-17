@@ -97,7 +97,56 @@ public class FiltersGenerator {
             List<String> listOfInterestLevel = FiltersGenerator.generateListOfInterestLevel(BookManager.searchResult);
             model.addAttribute("interestLevelList", FiltersGenerator.generateSelectionList(listOfInterestLevel));
         }
-                       
+        
+        public static List<Book> filterSearchResultByFormat(List<Book> searchResult, String format){
+            List<Book> result = new ArrayList<Book>();
+            for(Book b: searchResult){
+                if(b.getFormat().equals(format)){
+                    result.add(b);
+                }
+            }
+            return result;
+        }
+        
+        public static List<Book> filterSearchResultBySubject(List<Book> searchResult, String subject){
+            List<Book> result = new ArrayList<Book>();
+            for(Book b: searchResult){
+                if(b.getSubjects().contains(subject)){
+                    result.add(b);
+                }
+            }
+            return result;
+        }
+        
+        public static List<Book> filterSearchResultByPublisher(List<Book> searchResult, String publisher){
+            List<Book> result = new ArrayList<Book>();
+            for(Book b: searchResult){
+                if(b.getPublisher().equals(publisher)){
+                    result.add(b);
+                }
+            }
+            return result;
+        }
+        
+        public static List<Book> filterSearchResultByRating(List<Book> searchResult, String rating){
+            List<Book> result = new ArrayList<Book>();
+            for(Book b: searchResult){
+                if(b.getRating().toString().equals(rating)){
+                    result.add(b);
+                }
+            }
+            return result;
+        }
+        
+        public static List<Book> filterSearchResultByInterestLevel(List<Book> searchResult, String interestLevel){
+            List<Book> result = new ArrayList<Book>();
+            for(Book b: searchResult){
+                if(b.getReadLevel().equals(interestLevel)){
+                    result.add(b);
+                }
+            }
+            return result;
+        }
 }
 
 
