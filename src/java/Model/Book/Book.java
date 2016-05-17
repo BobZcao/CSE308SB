@@ -5,19 +5,13 @@
  */
 package Model.Book;
 
-import DB.BookManager;
-import Model.Person.Account;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -26,11 +20,10 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author code
+ * @author Joey
  */
 @Entity
 @Table(name = "book")
@@ -55,7 +48,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Book.findByFormat", query = "SELECT b FROM Book b WHERE b.format = :format"),
     @NamedQuery(name = "Book.findByLanguage", query = "SELECT b FROM Book b WHERE b.language = :language"),
     @NamedQuery(name = "Book.findByAward", query = "SELECT b FROM Book b WHERE b.award = :award"),
-    @NamedQuery(name = "Book.findByReadLevel", query = "SELECT b FROM Book b WHERE b.readLevel = :readLevel")})
+    @NamedQuery(name = "Book.findByReadLevel", query = "SELECT b FROM Book b WHERE b.readLevel = :readLevel"),
+    @NamedQuery(name = "Book.findByAddedToSite", query = "SELECT b FROM Book b WHERE b.addedToSite = :addedToSite"),
+    @NamedQuery(name = "Book.findByPopular", query = "SELECT b FROM Book b WHERE b.popular = :popular")})
 public class Book implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -115,18 +110,11 @@ public class Book implements Serializable {
     @Size(max = 45)
     @Column(name = "readLevel")
     private String readLevel;
-    @JoinTable(name = "favorbook", joinColumns = {
-        @JoinColumn(name = "book", referencedColumnName = "isbn")}, inverseJoinColumns = {
-        @JoinColumn(name = "user", referencedColumnName = "userName")})
-    @ManyToMany
-    private Collection<Account> accountCollection;
-    @ManyToMany(mappedBy = "bookCollection1")
-    private Collection<Account> accountCollection1;
-    @JoinTable(name = "recommend", joinColumns = {
-        @JoinColumn(name = "book", referencedColumnName = "isbn")}, inverseJoinColumns = {
-        @JoinColumn(name = "user", referencedColumnName = "userName")})
-    @ManyToMany
-    private Collection<Account> accountCollection2;
+    @Column(name = "addedToSite")
+    @Temporal(TemporalType.DATE)
+    private Date addedToSite;
+    @Column(name = "popular")
+    private Integer popular;
 
     public Book() {
     }
@@ -287,31 +275,20 @@ public class Book implements Serializable {
         this.readLevel = readLevel;
     }
 
-    @XmlTransient
-    public Collection<Account> getAccountCollection() {
-        return accountCollection;
+    public Date getAddedToSite() {
+        return addedToSite;
     }
 
-    public void setAccountCollection(Collection<Account> accountCollection) {
-        this.accountCollection = accountCollection;
+    public void setAddedToSite(Date addedToSite) {
+        this.addedToSite = addedToSite;
     }
 
-    @XmlTransient
-    public Collection<Account> getAccountCollection1() {
-        return accountCollection1;
+    public Integer getPopular() {
+        return popular;
     }
 
-    public void setAccountCollection1(Collection<Account> accountCollection1) {
-        this.accountCollection1 = accountCollection1;
-    }
-
-    @XmlTransient
-    public Collection<Account> getAccountCollection2() {
-        return accountCollection2;
-    }
-
-    public void setAccountCollection2(Collection<Account> accountCollection2) {
-        this.accountCollection2 = accountCollection2;
+    public void setPopular(Integer popular) {
+        this.popular = popular;
     }
 
     @Override
@@ -339,30 +316,4 @@ public class Book implements Serializable {
         return "Model.Book.Book[ isbn=" + isbn + " ]";
     }
     
-    public synchronized boolean borrow(Account account) {
-        if(this.available<=0) return false;
-        //if(account.getBookBorrowed()>=account.MAX) return false;
-        Borrow borrow= new Borrow();
-        borrow.setAccount(account);
-        borrow.setBook1(this);
-        borrow.setDateBorrow(new Date());
-        this.available-=1;
-        //account.setBookBorrowed(account.getBookBorrowed()+1);
-        BookManager.persistBorrow(borrow);
-        return true;
-    }
-    public synchronized boolean returnBook(Account account) {
-        
-        Borrow borrow= new Borrow();
-       // account.setBookBorrowed(account.getBookBorrowed()-1);
-        borrow.setAccount(account);
-        borrow.setBook1(this);
-        borrow.setDateReturn(new Date());
-        this.available+=1;
-       // BookManager.persistReturn(borrow);
-        return true;
-    }
-    
 }
-
-

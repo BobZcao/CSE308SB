@@ -25,7 +25,7 @@ public class ReturnBookController {
     public String borrowBook(ModelMap map,@RequestParam("isbn")String isbn){
         Book book=BookManager.getBookByIsbn(isbn);
         Account account=(Account) map.get("account");
-        book.returnBook(account);
+        //book.returnBook(account);
         return "member_login";
     }  
 }

@@ -29,7 +29,7 @@ public class BorrowController  {
         if(account == null){
             return "loginPage";
         }
-        book.borrow(account);
+        //book.borrow(account);
         return "member_login";
     }  
 }

@@ -57,15 +57,15 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Account.findByLendingPeriod", query = "SELECT a FROM Account a WHERE a.lendingPeriod = :lendingPeriod")})
 public class Account implements Serializable {
 
-    @ManyToMany(mappedBy = "accountCollection")
-    private Collection<Book> bookCollection;
+//    @ManyToMany(mappedBy = "accountCollection")
+//    private Collection<Book> bookCollection;
     @JoinTable(name = "rating", joinColumns = {
         @JoinColumn(name = "user", referencedColumnName = "userName")}, inverseJoinColumns = {
         @JoinColumn(name = "book", referencedColumnName = "isbn")})
-    @ManyToMany
-    private Collection<Book> bookCollection1;
-    @ManyToMany(mappedBy = "accountCollection2")
-    private Collection<Book> bookCollection2;
+//    @ManyToMany
+//    private Collection<Book> bookCollection1;
+//    @ManyToMany(mappedBy = "accountCollection2")
+//    private Collection<Book> bookCollection2;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -318,31 +318,31 @@ public class Account implements Serializable {
         return "Model.Person.Account[ userName=" + userName + " ]";
     }
 
-    @XmlTransient
-    public Collection<Book> getBookCollection() {
-        return bookCollection;
-    }
+//    @XmlTransient
+//    public Collection<Book> getBookCollection() {
+//        return bookCollection;
+//    }
+//
+//    public void setBookCollection(Collection<Book> bookCollection) {
+//        this.bookCollection = bookCollection;
+//    }
 
-    public void setBookCollection(Collection<Book> bookCollection) {
-        this.bookCollection = bookCollection;
-    }
+//    @XmlTransient
+//    public Collection<Book> getBookCollection1() {
+//        return bookCollection1;
+//    }
+//
+//    public void setBookCollection1(Collection<Book> bookCollection1) {
+//        this.bookCollection1 = bookCollection1;
+//    }
 
-    @XmlTransient
-    public Collection<Book> getBookCollection1() {
-        return bookCollection1;
-    }
-
-    public void setBookCollection1(Collection<Book> bookCollection1) {
-        this.bookCollection1 = bookCollection1;
-    }
-
-    @XmlTransient
-    public Collection<Book> getBookCollection2() {
-        return bookCollection2;
-    }
-
-    public void setBookCollection2(Collection<Book> bookCollection2) {
-        this.bookCollection2 = bookCollection2;
-    }
+//    @XmlTransient
+//    public Collection<Book> getBookCollection2() {
+//        return bookCollection2;
+//    }
+//
+//    public void setBookCollection2(Collection<Book> bookCollection2) {
+//        this.bookCollection2 = bookCollection2;
+//    }
     
 }

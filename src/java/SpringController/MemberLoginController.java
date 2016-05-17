@@ -40,7 +40,8 @@ public class MemberLoginController {
         if(account!=null){
             model.addAttribute("account", account);
             System.out.print(account.getUserName());
-            return "forward:index.htm";
+            //return "forward:index.htm";
+            return "manage_users";
         }
         
         else{
