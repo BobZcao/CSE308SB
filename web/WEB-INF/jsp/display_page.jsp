@@ -45,10 +45,10 @@ and open the template in the editor.
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Subject</a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Subject</a>
                                 </h4>
                             </div>
-                            <div id="collapse1" class="panel-collapse collapse in">
+                            <div id="collapse2" class="panel-collapse collapse in">
                                 <div class="panel-body">
                              
                                     <c:forEach var="b" items="${subjectsList}">
@@ -64,20 +64,15 @@ and open the template in the editor.
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse"  href="#collapse2">Publisher</a>
+                                    <a data-toggle="collapse"  href="#collapse3">Publisher</a>
                                 </h4>
                             </div>
-                            <div id="collapse2" class="panel-collapse collapse">
+                            <div id="collapse3" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     
-                                    
-                                    <span> <a href=#> KensingTon</a></span><br>
-                                    <span> <a href=#>St. Martin's Press</a></span><br>
-                                    <span> <a href=#> Baker Publishing Group</a></span><br>
-                                    <span> <a href=#>Allison & Rusby</a></span><br>
-                                    <span> <a href=#> Oasis Audio</a></span><br>
-                                    <span> <a href=#>Scriber</a></span><br>
-                                    <span> <a href=#> More...</a></span><br>
+                                    <c:forEach var="b" items="${publisherList}">
+                                         <span> <a href="display.htm?publisher=${b}">${b}</a></span><br>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -85,18 +80,29 @@ and open the template in the editor.
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse"  href="#collapse4">Language</a>
+                                    <a data-toggle="collapse"  href="#collapse4">Rating</a>
                                 </h4>
                             </div>
                             <div id="collapse4" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <span> <a href=#> English</a></span><br>
-                                    <span> <a href=#>Spanish</a></span><br>
-                                    <span> <a href=#> Germany</a></span><br>
-                                    <span> <a href=#>Chinese</a></span><br>
-                                    <span> <a href=#> French</a></span><br>
-                                    <span> <a href=#>Japanese</a></span><br>
-                                    <span> <a href=#> More...</a></span><br>
+                                    <c:forEach var="b" items="${ratingList}">
+                                         <span> <a href="display.htm?rating=${b}">${b}</a></span><br>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse"  href="#collapse5">Interest Level</a>
+                                </h4>
+                            </div>
+                            <div id="collapse5" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <c:forEach var="b" items="${interestLevelList}">
+                                         <span> <a href="display.htm?interestLevel=${b}">${b}</a></span><br>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>

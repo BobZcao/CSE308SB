@@ -60,10 +60,10 @@ public class FiltersGenerator {
             return resultList;
         }
         
-        public static List<BigDecimal> generateListOfRating(List<Book> list){
-            List<BigDecimal> resultList = new ArrayList<BigDecimal>();
+        public static List<String> generateListOfRating(List<Book> list){
+            List<String> resultList = new ArrayList<String>();
             for(Book b: list){
-                resultList.add(b.getRating());
+                resultList.add(b.getRating().toString());
             }
             return resultList;
         }
@@ -89,15 +89,10 @@ public class FiltersGenerator {
             List<String> listOfPublishers = FiltersGenerator.generateListOfPublisher(BookManager.searchResult);
             model.addAttribute("publisherList", FiltersGenerator.generateSelectionList(listOfPublishers));
             //initiazlie the rating list
-            List<BigDecimal> listOfRatings = FiltersGenerator.generateListOfRating(BookManager.searchResult);
-            Set<BigDecimal> selectionSet = new LinkedHashSet<BigDecimal>();
-            listOfRatings = new ArrayList<BigDecimal>();
-        
-            for (BigDecimal c : selectionSet) {
-                listOfRatings.add(c);
-            }
+            List<String> listOfRatings = FiltersGenerator.generateListOfRating(BookManager.searchResult);
             
-            model.addAttribute("RatingList", listOfRatings);
+            
+            model.addAttribute("ratingList", FiltersGenerator.generateSelectionList(listOfRatings));
             //initialize the interest level
             List<String> listOfInterestLevel = FiltersGenerator.generateListOfInterestLevel(BookManager.searchResult);
             model.addAttribute("interestLevelList", FiltersGenerator.generateSelectionList(listOfInterestLevel));
