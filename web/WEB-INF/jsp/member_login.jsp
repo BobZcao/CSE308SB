@@ -57,7 +57,9 @@
                                     </td>
 
                                     <c:forEach var="borrow" items="${borrowList}">
-                                        <c:if test="${book.isbn==borrow.borrowPK.book}">
+                                       <jsp:useBean id="now" class="java.util.Date"/>
+                    
+                                        <c:if test="${book.isbn==borrow.borrowPK.book && borrow.dateReturn gt now}">
                                  
                                             <td>  <fmt:formatDate type="both"  value="${borrow.borrowPK.dateBorrow}"/>  </td>
                                             <td>  <fmt:formatDate type="both"  value="${borrow.dateReturn}"/>  </td>
@@ -65,7 +67,7 @@
                                                 <button type="submit" value = "Submit"  onclick="location.href = 'return.htm?isbn=${book.isbn}'" class="btn btn-primary  btn-block" >Return</button>
                                             </td>
                                             <td>   
-                                                <button  type="submit" value = "Submit"  onclick="location.href = 'renew.htm?isbn=${book.isbn} & date=${borrow.borrowPK.dateBorrow}'" class="btn btn-primary  btn-block" >Renew</button>
+                                                <button  type="submit" value = "Submit"  onclick="location.href = 'renew.htm?isbn=${book.isbn}'" class="btn btn-primary  btn-block" >Renew</button>
                                             </td>
                                             <td>   
                                                 <button id = "readButton" type="submit" value = "Submit" onclick="location.href = 'read.htm?isbn=${book.isbn}'" class="btn btn-primary  btn-block" >read</button>

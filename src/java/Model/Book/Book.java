@@ -366,5 +366,13 @@ public class Book implements Serializable {
     public void setBorrowCollection(Collection<Borrow> borrowCollection) {
         this.borrowCollection = borrowCollection;
     }
+
+    public void renewBook(Account account) {
+      BookManager.renewBook(account.getUserName(), this.getIsbn(),account.getLendingPeriod());
+
+           
+      
+
+    }
     
 }
