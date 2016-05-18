@@ -77,7 +77,7 @@
                                 </tr>
                                 
                                 <c:if test ="${not empty readBook}">
-                                    <tr><embed src=${readBook} width="800" height="500" type='application/pdf' id = "read" ></iframe></tr>
+                                    <tr><embed src=${readBook} width="800" height="500" type='application/pdf' id = "read" ></tr>
                                 </c:if>
                                 
                             </c:forEach>
