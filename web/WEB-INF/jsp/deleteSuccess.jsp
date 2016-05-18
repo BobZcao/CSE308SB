@@ -19,5 +19,5 @@
 
     <!-- Customized js files -->
     <script src="bootstrap-3.3.6-dist/js/script.js"></script>
-    <c:import url="footer.html"/>
+     <c:import url="footer.jsp"/>
 </html>

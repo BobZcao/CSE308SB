@@ -174,7 +174,7 @@ and open the template in the editor.
                 <li><a href="display_page_first.htm">First</a></li>
             </ul>
         </div>
-        <c:import url="footer.html"/>
+         <c:import url="footer.jsp"/>
 
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
