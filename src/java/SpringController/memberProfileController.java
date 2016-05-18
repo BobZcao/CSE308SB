@@ -108,6 +108,7 @@ public class memberProfileController {
             return "loginPage";
         }
         BookManager.removeFromRecommendList(isbn,account.getUserName());
+        model.addAttribute("recommendBookList", BookManager.searchRecommendBookList(account.getUserName()));
         
         return "memberRecommend";
     }
