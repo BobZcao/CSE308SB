@@ -110,11 +110,48 @@ public class PersonManager {
         em.close();
         
     }
-     public static List<String> getUserNameList(){
-        List<String> userNameList = null;
+     public static List<String> getUserList(){
+        List<String> userList = null;
         EntityManager em = factory.createEntityManager();
-        userNameList = em.createQuery("select c.userName from Account c", String.class).getResultList();
+        userList = em.createQuery("select a from Account a", String.class).getResultList();
         em.close();
-        return userNameList;
+        return userList;
+    }
+
+    public static void promote(String userName) {
+        EntityManager em = factory.createEntityManager();              
+        em.getTransaction().begin();
+        Account ac = em.find(Account.class, userName);
+        ac.setLevels(2);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public static void demote(String userName) {
+        EntityManager em = factory.createEntityManager();              
+        em.getTransaction().begin();
+        Account ac = em.find(Account.class, userName);
+        ac.setLevels(1);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public static Account getAccountByName(String userName) {
+        EntityManager em = factory.createEntityManager();      
+        em.getTransaction().begin();
+        Account ac = em.find(Account.class, userName);
+        return ac;
+        //em.close();
+        
+    }
+
+    public static void delete(String userName) {
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em = factory.createEntityManager();
+        Account ac = em.find(Account.class, userName);
+        em.getTransaction().begin();
+        em.remove(ac);
+        em.getTransaction().commit();
+        em.close();
     }
 }

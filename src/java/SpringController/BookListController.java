@@ -6,10 +6,16 @@
 package SpringController;
 
 import DB.BookManager;
+import Model.Book.Book;
+import Model.Person.Account;
+import ViewBean.LoginBean;
 import ViewBean.SearchBean;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
@@ -20,10 +26,46 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes("book")
 public class BookListController {
     @RequestMapping(value = "/manage_books")
-    public String printHello(ModelMap model){
+    public String printBooks(ModelMap model){
         //SearchBean searchBean = new SearchBean();
         //model.addAttribute("searchBean", searchBean);
         model.addAttribute("resultBookList",BookManager.searchBook(""));
         return "manage_books";
     }
+    
+    @RequestMapping(value="/ban")
+    public String banBook(@RequestParam("isbn")String isbn,Model model){
+        Book book=BookManager.getBookByIsbn(isbn);
+        if(book.getBanned() == 1){
+            //success
+            BookManager.banBook(book);
+            return "banSuccess";
+        } else {
+            //fail
+            return "banFail";
+        }
+        
+    }  
+    
+    @RequestMapping(value="/unban")
+    public String unbanBook(@RequestParam("isbn")String isbn,Model model){
+        Book book=BookManager.getBookByIsbn(isbn);
+        if(book.getBanned() == 0){
+            //success
+            BookManager.unbanBook(book);
+            return "unbanSuccess";
+        } else {
+            //fail
+            return "unbanFail";
+        }
+        
+    }  
+    
+    @RequestMapping(value="/buyMoreLicenses")
+    public String buyMoreLicenses(@RequestParam("isbn")String isbn,Model model){
+        Book book=BookManager.getBookByIsbn(isbn);
+        model.addAttribute("book", book);
+        BookManager.buyMoreLicenses(book);
+        return "buyMoreLicensesSuccess";
+    }  
 }

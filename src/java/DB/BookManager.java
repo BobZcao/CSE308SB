@@ -12,6 +12,7 @@ import Model.Book.BorrowPK;
 import Model.Person.Account;
 import Model.Book.Rating;
 import Model.Book.RatingPK;
+import Model.Book.Recommend;
 import ViewBean.SearchBean;
 import java.io.File;
 import java.math.BigDecimal;
@@ -306,15 +307,15 @@ public class BookManager {
         String searchQuery = "select c from Book c";
 
         if (!searchBean.getTitle().equals("")) {
-            if (searchQuery.length()== 20){
-                searchQuery = searchQuery + " where "; 
+            if (searchQuery.length() == 20) {
+                searchQuery = searchQuery + " where ";
             }
             searchQuery = searchQuery + "(c.title like '%" + solveSpecial(searchBean.getTitle()) + "%')";
         }
 
         if (!searchBean.getISBN().equals("")) {
-            if (searchQuery.length()== 20){
-                searchQuery = searchQuery + " where "; 
+            if (searchQuery.length() == 20) {
+                searchQuery = searchQuery + " where ";
             }
             if (searchQuery.length() != 27) {
                 searchQuery = searchQuery + " and ";
@@ -323,8 +324,8 @@ public class BookManager {
         }
 
         if (!searchBean.getAuthor().equals("")) {
-            if (searchQuery.length()== 20){
-                searchQuery = searchQuery + " where "; 
+            if (searchQuery.length() == 20) {
+                searchQuery = searchQuery + " where ";
             }
             if (searchQuery.length() != 27) {
                 searchQuery = searchQuery + " and ";
@@ -333,8 +334,8 @@ public class BookManager {
         }
         //addedToSiteneed to be implemented later
         if (!searchBean.getSubjects().equals("")) {
-            if (searchQuery.length()== 20){
-                searchQuery = searchQuery + " where "; 
+            if (searchQuery.length() == 20) {
+                searchQuery = searchQuery + " where ";
             }
             if (searchQuery.length() != 27) {
                 searchQuery = searchQuery + " and ";
@@ -343,8 +344,8 @@ public class BookManager {
         }
 
         if (!searchBean.getFormat().equals("")) {
-            if (searchQuery.length()== 20){
-                searchQuery = searchQuery + " where "; 
+            if (searchQuery.length() == 20) {
+                searchQuery = searchQuery + " where ";
             }
             if (searchQuery.length() != 27) {
                 searchQuery = searchQuery + " and ";
@@ -353,8 +354,8 @@ public class BookManager {
         }
 
         if (!searchBean.getLanguage().equals("")) {
-            if (searchQuery.length()== 20){
-                searchQuery = searchQuery + " where "; 
+            if (searchQuery.length() == 20) {
+                searchQuery = searchQuery + " where ";
             }
             if (searchQuery.length() != 27) {
                 searchQuery = searchQuery + " and ";
@@ -363,8 +364,8 @@ public class BookManager {
         }
 
         if (!searchBean.getPublisher().equals("")) {
-            if (searchQuery.length()== 20){
-                searchQuery = searchQuery + " where "; 
+            if (searchQuery.length() == 20) {
+                searchQuery = searchQuery + " where ";
             }
             if (searchQuery.length() != 27) {
                 searchQuery = searchQuery + " and ";
@@ -372,8 +373,8 @@ public class BookManager {
             searchQuery = searchQuery + "(c.publisher like '%" + solveSpecial(searchBean.getPublisher()) + "%')";
         }
         if (!searchBean.getAward().equals("")) {
-            if (searchQuery.length()== 20){
-                searchQuery = searchQuery + " where "; 
+            if (searchQuery.length() == 20) {
+                searchQuery = searchQuery + " where ";
             }
             if (searchQuery.length() != 27) {
                 searchQuery = searchQuery + " and ";
@@ -381,18 +382,18 @@ public class BookManager {
             searchQuery = searchQuery + "(c.award like '%" + solveSpecial(searchBean.getAward()) + "%')";
         }
         if (!searchBean.getReadingLevelRange().equals("")) {
-            if (searchQuery.length()== 20){
-                searchQuery = searchQuery + " where "; 
+            if (searchQuery.length() == 20) {
+                searchQuery = searchQuery + " where ";
             }
             if (searchQuery.length() != 27) {
                 searchQuery = searchQuery + " and ";
             }
             searchQuery = searchQuery + "(c.readLevel like '%" + searchBean.getReadingLevelRange() + "%')";
         }
-        
-        if(!searchBean.getAddedToSite().equals("")){
-            if (searchQuery.length()== 20){
-                searchQuery = searchQuery + " where "; 
+
+        if (!searchBean.getAddedToSite().equals("")) {
+            if (searchQuery.length() == 20) {
+                searchQuery = searchQuery + " where ";
             }
             if (searchQuery.length() != 27) {
                 searchQuery = searchQuery + " and ";
@@ -401,38 +402,31 @@ public class BookManager {
             //get the current date
             Date currentDate = new Date();
             int DayDiff = 0;
-            
-                   
-            if(addedToSite.equals("Within 7 days")){
-               DayDiff = -7;
-            }
-            else if(addedToSite.equals("Within 14 days")){
+
+            if (addedToSite.equals("Within 7 days")) {
+                DayDiff = -7;
+            } else if (addedToSite.equals("Within 14 days")) {
                 DayDiff = -14;
-            }
-            else if(addedToSite.equals("Within 30 days")){
+            } else if (addedToSite.equals("Within 30 days")) {
                 DayDiff = -30;
-            }
-            else if(addedToSite.equals("Within 3 months")){
+            } else if (addedToSite.equals("Within 3 months")) {
                 DayDiff = -90;
-            }
-            else if(addedToSite.equals("Within 6 months")){
+            } else if (addedToSite.equals("Within 6 months")) {
                 DayDiff = -180;
-            } 
-            else if(addedToSite.equals("Within 1 year")){
+            } else if (addedToSite.equals("Within 1 year")) {
                 DayDiff = -365;
+            } else {
+                DayDiff = 0;
             }
-            else{
-                DayDiff =0;
-            }
-            
+
             SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar c = Calendar.getInstance();
-		c.setTime(new Date());
-		
-		c.add(Calendar.DATE, DayDiff);
-		String Date = d.format(c.getTime());
-                
-            searchQuery = searchQuery + "(c.addedToSite >= '"  + Date + "')";
+            Calendar c = Calendar.getInstance();
+            c.setTime(new Date());
+
+            c.add(Calendar.DATE, DayDiff);
+            String Date = d.format(c.getTime());
+
+            searchQuery = searchQuery + "(c.addedToSite >= '" + Date + "')";
         }
 
         resultList = em.createQuery(searchQuery, Book.class).getResultList();
@@ -468,74 +462,74 @@ public class BookManager {
 
         return resultList;
     }
-    
-    public static List<Book> sortByTitleA_Z(){
+
+    public static List<Book> sortByTitleA_Z() {
         //change the order in the searchResult
         Collections.sort(searchResult, new Comparator<Book>() {
-        public int compare(Book b1, Book b2) {
-        return b1.getTitle().compareTo(b2.getTitle());
-    }
-    });
+            public int compare(Book b1, Book b2) {
+                return b1.getTitle().compareTo(b2.getTitle());
+            }
+        });
         return searchResult;
     }
-    
-    public static List<Book> sortByTitleZ_A(){
-        Collections.sort(searchResult, new Comparator<Book>(){
-            public int compare(Book b1, Book b2){
+
+    public static List<Book> sortByTitleZ_A() {
+        Collections.sort(searchResult, new Comparator<Book>() {
+            public int compare(Book b1, Book b2) {
                 return b2.getTitle().compareTo(b1.getTitle());
             }
         });
-           
+
         return searchResult;
     }
-    
-    public static List<Book> sortByAuthorA_Z(){
-        Collections.sort(searchResult, new Comparator<Book>(){
-            public int compare(Book b1, Book b2){
+
+    public static List<Book> sortByAuthorA_Z() {
+        Collections.sort(searchResult, new Comparator<Book>() {
+            public int compare(Book b1, Book b2) {
                 return b1.getAuthor().compareTo(b2.getAuthor());
             }
         });
-           
+
         return searchResult;
     }
-    
-    public static List<Book> sortByAuthorZ_A(){
-        Collections.sort(searchResult, new Comparator<Book>(){
-            public int compare(Book b1, Book b2){
+
+    public static List<Book> sortByAuthorZ_A() {
+        Collections.sort(searchResult, new Comparator<Book>() {
+            public int compare(Book b1, Book b2) {
                 return b2.getAuthor().compareTo(b1.getAuthor());
             }
         });
-           
+
         return searchResult;
     }
-    
-    public static List<Book> sortByReleaseDate(){
-        Collections.sort(searchResult, new Comparator<Book>(){
-            public int compare(Book b1, Book b2){
+
+    public static List<Book> sortByReleaseDate() {
+        Collections.sort(searchResult, new Comparator<Book>() {
+            public int compare(Book b1, Book b2) {
                 return b2.getPublishDate().compareTo(b1.getPublishDate());
             }
         });
         return searchResult;
     }
-    
-   public static List<Book> sortByAddedToSite(){
-       Collections.sort(searchResult, new Comparator<Book>(){
-            public int compare(Book b1, Book b2){
+
+    public static List<Book> sortByAddedToSite() {
+        Collections.sort(searchResult, new Comparator<Book>() {
+            public int compare(Book b1, Book b2) {
                 return b2.getAddedToSite().compareTo(b1.getAddedToSite());
             }
         });
         return searchResult;
-   }
-    
-   public static List<Book> sortByPopular(){
-       Collections.sort(searchResult, new Comparator<Book>(){
-            public int compare(Book b1, Book b2){
+    }
+
+    public static List<Book> sortByPopular() {
+        Collections.sort(searchResult, new Comparator<Book>() {
+            public int compare(Book b1, Book b2) {
                 return b2.getPopular().compareTo(b1.getPopular());
             }
         });
         return searchResult;
-   }
-    
+    }
+
     public static String solveSpecial(String s) {
         String k = s;
         int i = s.indexOf("\'");
@@ -578,7 +572,6 @@ public class BookManager {
         return null;
     }
 
-     
     public static boolean returnBook(String userName, String isbn) {
         EntityManager em = factory.createEntityManager();
         em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
@@ -605,7 +598,7 @@ public class BookManager {
         em.close();
     }
 
-     public static void mergeBorrow(Borrow borrow) {
+    public static void mergeBorrow(Borrow borrow) {
         EntityManager em = factory.createEntityManager();
         em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         em.getTransaction().begin();
@@ -613,8 +606,8 @@ public class BookManager {
         em.getTransaction().commit();
         em.close();
     }
-     
-      public static Rating getRating(String bn, String userName) {
+
+    public static Rating getRating(String bn, String userName) {
         EntityManager em = factory.createEntityManager();
         RatingPK ratingPK = new RatingPK();
         ratingPK.setBook(bn);
@@ -655,8 +648,6 @@ public class BookManager {
         em.getTransaction().commit();
         em.close();
     }
-    
-    
 
     public static void refreshBorrow(Borrow borrow) {
         EntityManager em = factory.createEntityManager();
@@ -1039,5 +1030,77 @@ public class BookManager {
         em.getTransaction().begin();
         em.remove(book);
         em.getTransaction().commit();
+        em.close();
+    }
+
+    public static void banBook(Book book) {
+        book.setBanned(0);
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(book);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public static void unbanBook(Book book) {
+        book.setBanned(1);
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(book);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public static void buyMoreLicenses(Book book) {
+        book.setLicenses(book.getLicenses()+5);
+        book.setAvailable(book.getAvailable()+5);
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(book);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public static void purchase(String isbn) {
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em = factory.createEntityManager();
+
+        Book book = em.find(Book.class, isbn);
+        book.setLicenses(book.getLicenses()+5);
+        book.setAvailable(book.getAvailable()+5);
+        
+        em.getTransaction().begin();
+        em.merge(book);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public static List<Book> getBookList(List<String> isbnList) {
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em = factory.createEntityManager();
+        List<Book> bookList = new ArrayList<Book>();
+        for(int i=0; i<isbnList.size(); i++){
+            Book book = em.find(Book.class, isbnList.get(i));
+            bookList.add(book);
+        }
+        em.close();
+        return bookList;
+    }
+
+    public static void removeFromRec(String book) {
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em = factory.createEntityManager();
+        // Read the existing entries and write to console
+        String query = "SELECT r FROM Recommend r WHERE r.recommendPK.book = " + book;
+        List<Recommend> bookset = em.createQuery(query, Recommend.class).getResultList();
+        em.getTransaction().begin();
+        for(int i=0; i<bookset.size(); i++){
+            em.remove(bookset.get(i));
+            em.getTransaction().commit();
+        }     
+        em.close();
     }
 }

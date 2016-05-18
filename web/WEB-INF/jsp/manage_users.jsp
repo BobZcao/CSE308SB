@@ -29,21 +29,24 @@
                                 <input type="text" class="form-control" placeholder="Search" style="width:100%">
                             </div>
                             <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> 
+                            <button type="button" class="btn btn-default" onclick = "location.href='registrationPage.htm'">Create New User</button>
                         </form>
                     </div>  
                 </div>
                 <ul class="list-group">
-                    <c:forEach var="userName" items="${resultUserList}">
-                        <li class="list-group-item">${userName}<button type="button" class="btn btn-danger pull-right">Delete</button><button type="button" class="btn btn-warning pull-right">Promote</button><button type="button" class="btn btn-primary pull-right">Update</button></li>
+                    <c:forEach var="user" items="${resultUserList}">
+                        <c:choose>
+                            <c:when test="${user.levels == 1}">
+                                <li class="list-group-item">${user.userName} (member)<button type="button" class="btn btn-danger pull-right" onclick="location.href = 'delete.htm?userName=${user.userName}';">Delete</button><button type="button" class="btn btn-warning pull-right" onclick="location.href = 'promote.htm?userName=${user.userName}';">Promote</button><button type="button" class="btn btn-primary pull-right" onclick = "location.href = 'updateUserInfo.htm?userName=${user.userName}';">Update</button></li>
+                            </c:when>
+                            <c:when test="${user.levels == 2}">                 
+                                <li class="list-group-item">${user.userName} (admin)<button type="button" class="btn btn-danger pull-right" onclick="location.href = 'delete.htm?userName=${user.userName}';">Delete</button><button type="button" class="btn btn-warning pull-right" onclick="location.href = 'demote.htm?userName=${user.userName}';">Demote</button><button type="button" class="btn btn-primary pull-right" onclick = "location.href = 'updateUserInfo.htm?userName=${user.userName}';">Update</button></li>
+                            </c:when>
+                        </c:choose>
+                        
                     </c:forEach>
                 </ul>
             </div>
-
-
-
-
-
-
         </div>
 
         <div class="footer"></div>

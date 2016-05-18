@@ -233,3 +233,10 @@ ul.mail-list li span.mail-message-preview{
 .mail-search{
     border-bottom-color:#7FBCC9!important; 
 }
+
+.center-cropped {
+  width: 1920px;
+  height: 250px;
+  background-position: center center;
+  background-repeat: no-repeat;
+}

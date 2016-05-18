@@ -35,7 +35,7 @@
 
                 <ul class="list-group">
                     <c:forEach var="book" items="${resultBookList}">
-                        <li class="list-group-item">${book.title}<button type="button" class="btn btn-danger pull-right">Ban</button><button type="button" class="btn btn-warning pull-right">Unban</button><button type="button" class="btn btn-primary pull-right">Buy More Licenses</button></li>
+                        <li class="list-group-item">${book.title}<button type="button" class="btn btn-danger pull-right" onclick="location.href = 'ban.htm?isbn=${book.isbn}';">Ban</button><button type="button" class="btn btn-warning pull-right" onclick="location.href = 'unban.htm?isbn=${book.isbn}';">Unban</button><button type="button" class="btn btn-primary pull-right" onclick="location.href = 'buyMoreLicenses.htm?isbn=${book.isbn}';">Buy More Licenses</button></li>
                     </c:forEach>
                 </ul>
             </div>

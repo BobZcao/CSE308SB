@@ -16,7 +16,7 @@ and open the template in the editor.
             <div class="row">
                 <div class="col-lg-4" style="margin-top:20px">
                     <img class="img-responsive" src="${book.imageUrl}" alt="">
-                    <button class="btn btn-default" style="margin-top: 10px; width: 200px; margin-left:50px;">Sample</button>
+                    <button class="btn btn-default" style="margin-top: 10px; width: 200px; margin-left:50px;" onclick="window.open('${book.sample}')" >Sample</button>
                 </div>
                 <div class="col-lg-4">
                     <h2>${book.title}</h2>
