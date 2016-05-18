@@ -282,7 +282,7 @@ public class BookManager {
     public static List<Book> searchBookByPopular(){
         EntityManager em  = factory.createEntityManager();
         em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
-        String s = "select c from Book c order by c.popular DESC";
+        String s = "select c from Book c where c.banned = 1 order by c.popular DESC";
         List<Book> resultList = em.createQuery(s, Book.class).setMaxResults(12).getResultList();
         em.close();
         return resultList;
@@ -291,7 +291,7 @@ public class BookManager {
     public static List<Book> searchBookByNewEBook(){
         EntityManager em = factory.createEntityManager();
         em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
-        String s = "select c from Book c  where c.format like 'eBook' order by c.addedToSite DESC";
+        String s = "select c from Book c  where c.format like 'eBook' and c.banned = 1 order by c.addedToSite DESC";
          List<Book> resultList = em.createQuery(s, Book.class).setMaxResults(12).getResultList();
         em.close();
         return resultList;
@@ -300,7 +300,7 @@ public class BookManager {
     public static List<Book> searchBookByNewAudioBook(){
         EntityManager em = factory.createEntityManager();
         em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
-        String s = "select c from Book c  where c.format like 'audioBook' order by c.addedToSite DESC";
+        String s = "select c from Book c  where c.format like 'audioBook' and c.banned = 1 order by c.addedToSite DESC";
         List<Book> resultList = em.createQuery(s, Book.class).setMaxResults(12).getResultList();
         em.close();
         return resultList;
@@ -309,7 +309,7 @@ public class BookManager {
     public static List<Book> searchBookByRecommendations(){
         EntityManager em = factory.createEntityManager();
         em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
-        String s = "select c from Book c";
+        String s = "select c from Book c where c.banned = 1";
          List<Book> resultList = em.createQuery(s, Book.class).setMaxResults(12).getResultList();
         em.close();
         return resultList;
@@ -343,10 +343,10 @@ public class BookManager {
         em.close();
         additionalTitles = resultList;
         //filter the list to with all titles
-
+        filterBannedBook();
         searchResult = filterSearchResultByAllTitles();
         //after get books with all titles, get all books that are available
-
+       
         return resultList;
     }
 
@@ -484,7 +484,7 @@ public class BookManager {
         resultList = em.createQuery(searchQuery, Book.class).getResultList();
         em.close();
         additionalTitles = resultList;
-
+        filterBannedBook();
         searchResult = filterSearchResultByAllTitles();
 
         return resultList;
@@ -515,6 +515,17 @@ public class BookManager {
         return resultList;
     }
 
+    public static List<Book> filterBannedBook(){
+        List<Book> resultList = new ArrayList<Book>();
+        for(int i =0; i< additionalTitles.size();i++){
+            //the book has been    
+          if(additionalTitles.get(i).getBanned() == 0){
+              additionalTitles.remove(i);
+          } 
+        }
+        return resultList;
+    }
+    
     public static List<Book> sortByTitleA_Z() {
         //change the order in the searchResult
         Collections.sort(searchResult, new Comparator<Book>() {
@@ -583,6 +594,7 @@ public class BookManager {
         });
         return searchResult;
     }
+    
 
     public static String solveSpecial(String s) {
         String k = s;
@@ -1307,6 +1319,7 @@ public class BookManager {
         em.getTransaction().commit();
         em.close();
     }
+    
     
    
 }

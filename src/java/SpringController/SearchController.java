@@ -10,6 +10,7 @@ import DB.FiltersGenerator;
 import ViewBean.SearchBean;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,11 +32,15 @@ public class SearchController {
         //if the search is the simple search that contains the keyword only
         if(!searchBean.getKeywords().equals("")){
             BookManager.basicSearch(searchBean.getKeywords());
+//            BookManager.filterBannedBook();
+//            BookManager.searchResult = BookManager.filterSearchResultByAllTitles();
         model.addAttribute("searchBookList", BookManager.getNextSetBook());
        
         }
         else{
             BookManager.advancedSearch(searchBean);
+//            BookManager.filterBannedBook();
+//            BookManager.searchResult = BookManager.filterSearchResultByAllTitles();
         model.addAttribute("searchBookList", BookManager.getNextSetBook());
         
         }
