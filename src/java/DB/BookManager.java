@@ -54,16 +54,16 @@ public class BookManager {
     private static final String PERSISTENCE_UNIT_NAME = "DB";
     private static EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
     //books that are availiable now
-    public static List<Book> booksAvailableNow = null;
+    public static List<Book> booksAvailableNow = new ArrayList<Book>();
     //books to be recommended
-    public static List<Book> additionalTitles = null;
+    public static List<Book> additionalTitles = new ArrayList<Book>();
     //books with all Title
-    public static List<Book> booksWithAllTitle = null;
+    public static List<Book> booksWithAllTitle = new ArrayList<Book>();
     //current book List
-    public static List<Book> searchResult = null;
+    public static List<Book> searchResult = new ArrayList<Book>();
     public static int cursor = 0;
     //record the current set of books on the page
-    public static List<Book> currentPageBookList = null;
+    public static List<Book> currentPageBookList = new ArrayList<Book>();
 
     public static List<Book> getBooksWithAllTitle() {
         booksWithAllTitle = filterSearchResultByAllTitles();
@@ -207,6 +207,7 @@ public class BookManager {
                 count++;
             }
         }
+        
         return currentPageBookList;
     }
 
