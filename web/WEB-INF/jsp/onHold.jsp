@@ -39,7 +39,7 @@
                     <img class="img-responsive" src="${book.imageUrl}" alt="" width="300" height="400">
        
                 </a>
-                     <button type="submit" value = "Submit"  onclick="location.href ='EditHold.htm?isbn=${book.isbn}'" class="btn btn-primary btn-lg btn-block" >Edit</button>
+                     <button type="submit" value = "Submit"  onclick="location.href ='editHold.htm?isbn=${book.isbn}'" class="btn btn-primary btn-lg btn-block" >Edit</button>
             </div>
          </c:forEach>
                 </div>

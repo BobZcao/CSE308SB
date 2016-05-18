@@ -44,7 +44,7 @@
                                     <img class="img-responsive" src="${book.imageUrl}" alt="" width="150" height="200">
 
                                 </a>
-                                <button type="submit" value = "Submit"  onclick="location.href = 'removeWish.htm?isbn=${book.isbn}'" class="btn btn-primary btn-lg btn-block" >Remove</button>
+                                <button type="submit" value = "Submit"  onclick="location.href = 'removeFromWishListMember.htm?isbn=${book.isbn}'" class="btn btn-primary btn-lg btn-block" >Remove</button>
                             </div>
                         </c:forEach>
                     </div>
@@ -55,7 +55,7 @@
                                     <img class="img-responsive" src="${book.imageUrl}" alt="" width="150" height="200">
 
                                 </a>
-                                <button type="submit" value = "Submit"  onclick="location.href = 'removeWish.htm?isbn=${book.isbn}'" class="btn btn-primary btn-lg btn-block" >Remove</button>
+                                <button type="submit" value = "Submit"  onclick="location.href = 'removeFromWishListMember.htm?isbn=${book.isbn}'" class="btn btn-primary btn-lg btn-block" >Remove</button>
                             </div>
                         </c:forEach>
                     </div>

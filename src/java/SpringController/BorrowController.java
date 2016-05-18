@@ -6,6 +6,8 @@
 package SpringController;
 import DB.BookManager;
 import Model.Book.Book;
+import Model.Book.Hold;
+import Model.Book.HoldPK;
 import Model.Person.Account;
 import ViewBean.LoginBean;
 import java.util.Map;
@@ -16,7 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import ViewBean.HoldBean;
 /**
  *
  * @author Tian
@@ -49,5 +51,20 @@ public class BorrowController  {
         return "forward:/checkout.htm";
     }
     
+    @RequestMapping(value = "/editHold")
+    public String editHold(HttpSession session, @RequestParam("isbn")String isbn, Model model){
+        Book book = BookManager.getBookByIsbn(isbn);
+        Account account = (Account)session.getAttribute("account");
+        Hold hold = BookManager.checkHold(account.getUserName(), isbn);
+        
+       
+        
+        model.addAttribute("hold",hold);
+        String[] suspend = {"yes","no"};
+        model.addAttribute("suspendList", suspend);
+        String[] setting = {"auto checkout", "e-mail notification"};
+        model.addAttribute("settingList", setting);
+        return "HoldEdit";
+    }
     
 }

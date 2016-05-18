@@ -35,6 +35,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Hold.findByDateHold", query = "SELECT h FROM Hold h WHERE h.dateHold = :dateHold")})
 public class Hold implements Serializable {
 
+    @Size(max = 20)
+    @Column(name = "suspend")
+    private String suspend;
+
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 20)
     @Column(name = "email")
@@ -42,8 +46,6 @@ public class Hold implements Serializable {
     @Size(max = 45)
     @Column(name = "setting")
     private String setting;
-    @Column(name = "suspend")
-    private Integer suspend;
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -142,11 +144,11 @@ public class Hold implements Serializable {
         this.setting = setting;
     }
 
-    public Integer getSuspend() {
+    public String getSuspend() {
         return suspend;
     }
 
-    public void setSuspend(Integer suspend) {
+    public void setSuspend(String suspend) {
         this.suspend = suspend;
     }
     
