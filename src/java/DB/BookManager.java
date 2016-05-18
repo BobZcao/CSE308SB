@@ -9,6 +9,8 @@ import java.util.LinkedHashSet;
 import Model.Book.Book;
 import Model.Book.Borrow;
 import Model.Book.BorrowPK;
+import Model.Book.Favorbook;
+import Model.Book.FavorbookPK;
 import Model.Person.Account;
 import Model.Book.Rating;
 import Model.Book.RatingPK;
@@ -1041,5 +1043,47 @@ public class BookManager {
         em.getTransaction().begin();
         em.remove(book);
         em.getTransaction().commit();
+    }
+
+    public static void addToWishList(String bn, String userName) {
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em = factory.createEntityManager();
+           em.getTransaction().begin();
+        // Read the existing entries and write to console
+        FavorbookPK fb=new FavorbookPK();
+        fb.setBook(bn);
+        fb.setUser(userName);
+        Favorbook f=new Favorbook(bn,userName);      
+        f.setFavorbookPK(fb);
+     
+        em.persist(f);
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public static Favorbook checkWish(String userName, String bn) {
+         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em = factory.createEntityManager();
+        FavorbookPK fb=new FavorbookPK();
+        fb.setBook(bn);
+        fb.setUser(userName);
+       Favorbook f=em.find(Favorbook.class,fb);
+        em.close();
+       return f;
+    }
+
+    public static void removeFromWishList(String bn, String userName) {
+       factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em = factory.createEntityManager();
+        FavorbookPK fb=new FavorbookPK();
+        fb.setBook(bn);
+        fb.setUser(userName);
+         em.getTransaction().begin();
+       Favorbook f=em.find(Favorbook.class,fb);
+     
+        em.remove(f);
+        em.getTransaction().commit();
+        em.close();
+    
     }
 }

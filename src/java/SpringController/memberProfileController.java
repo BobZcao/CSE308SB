@@ -10,6 +10,7 @@ import DB.PersonManager;
 import Model.Book.Book;
 import Model.Person.Account;
 import Model.Person.Member;
+import ViewBean.LoginBean;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.HashMap;
@@ -135,5 +136,18 @@ public class memberProfileController {
 //        BookManager.renewBook(account,isbn,dates);
         return "member_login";
     }
+    
+              @RequestMapping(value = "/removeFromWishListMember.htm")
+    public String removeWishBook(HttpSession session,@RequestParam("isbn")String isbn,Model model){
+        Account account=(Account)session.getAttribute("account");
+        if(account == null){
+            LoginBean loginBean = new LoginBean();
+            model.addAttribute("loginBean", loginBean);
+            return "loginPage";
+        }
+        BookManager.removeFromWishList(isbn,account.getUserName());
+        
+        return "forward:wishList.htm";
+}
 
 }

@@ -7,6 +7,7 @@ package SpringController;
 
 import DB.BookManager;
 import Model.Book.Borrow;
+import Model.Book.Favorbook;
 import Model.Book.Rating;
 import Model.Person.Account;
 import javax.servlet.http.HttpSession;
@@ -30,6 +31,9 @@ public class ViewBookController {
         if (account != null) {
             Rating rating = BookManager.getRating(isbn, account.getUserName());
             Borrow borrow = BookManager.checkBorrow(account.getUserName(),isbn);
+            Favorbook f=BookManager.checkWish(account.getUserName(),isbn);
+            if(f!=null)
+            map.addAttribute("wishBook",f);
             if (borrow!=null){
                 map.addAttribute("borrow", borrow);
             }

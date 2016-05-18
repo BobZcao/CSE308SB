@@ -32,8 +32,12 @@ and open the template in the editor.
                             <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'borrow.htm?isbn=${book.isbn}';">Borrow</button>
                         </c:otherwise>
                     </c:choose>
-                    <button type="button" class="btn btn-warning btn-lg btn-block"  >Add to Wish List</button>
-
+                        <c:if test="${empty wishBook}" >
+                    <button type="button" onclick="location.href = 'addWishList.htm?isbn=${book.isbn}'" class="btn btn-warning btn-lg btn-block"  >Add to Wish List</button>
+                        </c:if>
+                    <c:if test="${not empty wishBook}" >
+                    <button type="button" onclick="location.href = 'removeFromWishList.htm?isbn=${book.isbn}'" class="btn btn-warning btn-lg btn-block"  >Remove From Wish List</button>
+                        </c:if>
                     <h4>Description</h4>
                     <p>${book.description}</p>
 
