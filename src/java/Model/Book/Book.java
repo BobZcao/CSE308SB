@@ -10,19 +10,23 @@ import Model.Person.Account;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -55,6 +59,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Book.findByAddedToSite", query = "SELECT b FROM Book b WHERE b.addedToSite = :addedToSite"),
     @NamedQuery(name = "Book.findByPopular", query = "SELECT b FROM Book b WHERE b.popular = :popular")})
 public class Book implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book1")
+    private Collection<Borrow> borrowCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -349,6 +356,15 @@ public class Book implements Serializable {
         }
         // BookManager.persistReturn(borrow);
         return false;
+    }
+
+    @XmlTransient
+    public Collection<Borrow> getBorrowCollection() {
+        return borrowCollection;
+    }
+
+    public void setBorrowCollection(Collection<Borrow> borrowCollection) {
+        this.borrowCollection = borrowCollection;
     }
     
 }
