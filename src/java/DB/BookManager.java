@@ -14,6 +14,8 @@ import Model.Book.FavorbookPK;
 import Model.Person.Account;
 import Model.Book.Rating;
 import Model.Book.RatingPK;
+import Model.Book.Recommend;
+import Model.Book.RecommendPK;
 import ViewBean.SearchBean;
 import java.io.File;
 import java.math.BigDecimal;
@@ -1085,5 +1087,43 @@ public class BookManager {
         em.getTransaction().commit();
         em.close();
     
+    }
+
+    public static List<Recommend> searchRecommendBookList(String userName) {
+      factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em = factory.createEntityManager();
+         
+        // Read the existing entries and write to console
+        List<Recommend> resultList = null;
+        String searchQuery = "select b.* from Recommend rc,Book b where (rc.user='" + userName+"' and b.isbn=rc.book)";
+       
+        resultList = em.createNativeQuery(searchQuery, Book.class).getResultList();
+        em.close();
+        return resultList;
+        
+    }
+
+    public static void removeFromRecommendList(String bn, String userName) {
+     EntityManager em = factory.createEntityManager();
+        RecommendPK rcPK = new RecommendPK();
+        rcPK.setBook(bn);
+        rcPK.setUser(userName);
+        Recommend r = em.find(Recommend.class, rcPK);
+        em.getTransaction().begin();
+        em.remove(r);
+        em.getTransaction().commit();
+        em.close();  
+    }
+
+    public static void addRecommend(String bn, String userName) {
+       EntityManager em = factory.createEntityManager();
+        RecommendPK rcPK = new RecommendPK();
+        em.getTransaction().begin();
+        rcPK.setBook(bn);
+        rcPK.setUser(userName);
+        Recommend r = new Recommend(rcPK);
+        em.persist(r);
+        em.getTransaction().commit();
+        em.close();
     }
 }

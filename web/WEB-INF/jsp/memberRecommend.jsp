@@ -1,6 +1,6 @@
 <%-- 
-    Document   : member_login
-    Created on : May 8, 2016, 9:09:01 PM
+    Document   : memberRecommend
+    Created on : May 18, 2016, 2:50:49 AM
     Author     : yongbinchen
 --%>
 
@@ -29,37 +29,27 @@
                         <a href="wishList.htm" class="list-group-item">Wish List</a>
                         <a href="ratedBooks.htm" class="list-group-item">Rated Books</a>
                         <a href="borrowHistory.htm" class="list-group-item">Borrow History</a>
-                         <a href="recommend.htm" class="list-group-item">Recommend</a>
+                        <a href="recommend.htm" class="list-group-item">Recommend</a>
+                        
                     </div>
                 </div>
                 <div class="col-lg-7 " style="margin-top: 40px;margin-bottom: 20px">
 
-                    <h4>Wish Books</h4>
-                    <button type="button" onclick="All()" class="btn btn-primary">All</button>
-
-                    <button type="button" onclick="Avail()" class="btn btn-primary">Available</button><br><br><br>
-                    <div class="allBook">
-                        <c:forEach var="book" items="${wishList}">
+                    <h4>Recommend Books</h4>
+                
+                    <div >
+                   <c:forEach var="book" items="${recommendBookList}">
                             <div class="col-lg-3 col-md-3 col-xs-6 thumb">
                                 <a class="thumbnail" href="view.htm?isbn=${book.isbn}">
-                                    <img class="img-responsive" src="${book.imageUrl}" alt="" width="150" height="200">
+                                       <img class="img-responsive" src="${book.imageUrl}" alt="" width="110" height="150">
 
+                        
                                 </a>
-                                <button type="submit" value = "Submit"  onclick="location.href = 'removeFromWishListMember.htm?isbn=${book.isbn}'" class="btn btn-primary btn-lg btn-block" >Remove</button>
+                                <button type="submit" value = "Submit"  onclick="location.href = 'removeFromRecommend.htm?isbn=${book.isbn}'" class="btn btn-primary btn-lg btn-block" >Remove</button>
                             </div>
                         </c:forEach>
                     </div>
-                    <div class="availableBook" style="display:none;">
-                        <c:forEach var="book" items="${wishAvailableList}">
-                            <div class="col-lg-3 col-md-3 col-xs-6 thumb">
-                                <a class="thumbnail" href="view.htm?isbn=${book.isbn}">
-                                    <img class="img-responsive" src="${book.imageUrl}" alt="" width="150" height="200">
-
-                                </a>
-                                <button type="submit" value = "Submit"  onclick="location.href = 'removeFromWishListMember.htm?isbn=${book.isbn}'" class="btn btn-primary btn-lg btn-block" >Remove</button>
-                            </div>
-                        </c:forEach>
-                    </div>
+                   
                 </div>
 
 
@@ -76,19 +66,11 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-        <script>
-                        function All() {
-                            $(".allBook").css("display", "inline");
-                            $(".availableBook").css("display", "none");
-                        }
-                        function Avail() {
-                            $(".availableBook").css("display", "inline");
-                            $(".allBook").css("display", "none");
-                        }
-        </script>
+        
         <!-- Customized js files -->
         <script src="bootstrap-3.3.6-dist/js/script.js"></script>
     </body>
 </html>
+
 
 

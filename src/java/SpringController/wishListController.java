@@ -48,4 +48,16 @@ public class wishListController {
         
         return "forward:view.htm";
 }
+      @RequestMapping(value = "/addRecommend.htm")
+    public String addRecommendBook(HttpSession session,@RequestParam("isbn")String isbn,Model model){
+        Account account=(Account)session.getAttribute("account");
+        if(account == null){
+            LoginBean loginBean = new LoginBean();
+            model.addAttribute("loginBean", loginBean);
+            return "loginPage";
+        }
+        BookManager.addRecommend(isbn,account.getUserName());
+        
+        return "forward:view.htm";
+}
 }
