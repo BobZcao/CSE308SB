@@ -58,13 +58,25 @@ public class BorrowController  {
         Hold hold = BookManager.checkHold(account.getUserName(), isbn);
         
        
-        
+        HoldBean holdBean = new HoldBean();
+        model.addAttribute("book", book);
         model.addAttribute("hold",hold);
+        model.addAttribute("holdBean", holdBean);
         String[] suspend = {"yes","no"};
         model.addAttribute("suspendList", suspend);
         String[] setting = {"auto checkout", "e-mail notification"};
         model.addAttribute("settingList", setting);
         return "HoldEdit";
+    }
+    
+     @RequestMapping(value = "onHold_view.htm")
+    public String onHoldList(Model model, HttpSession session, HoldBean holdBean,@RequestParam("isbn")String isbn){
+        Account account = (Account)session.getAttribute("account");
+        
+        Hold hold = BookManager.checkHold(account.getUserName(), isbn);
+        
+        BookManager.updateHold(holdBean,account.getUserName(), isbn);
+        return "forward:/onHold.htm";
     }
     
 }

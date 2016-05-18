@@ -30,6 +30,8 @@
                         <a href="wishList.htm" class="list-group-item">Wish List</a>
                         <a href="ratedBooks.htm" class="list-group-item">Rated Books</a>
                         <a href="borrowHistory.htm" class="list-group-item">Borrow History</a>
+                        <a href="recommend.htm" class="list-group-item">Recommend</a>
+                        
                     </div>
                 </div>
                 <div class="col-lg-10 " style="margin-top: 40px;margin-bottom: 20px">

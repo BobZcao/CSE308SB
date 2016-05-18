@@ -57,11 +57,12 @@ public class MemberLoginController {
             return "member_login";
             }
             else{
-                return "forward:/index.htm";
+                 return "mange_users";
+                
             }
 
         } else {
-            return "mange_users";
+           return "forward:/index.htm";
         }
 
     }

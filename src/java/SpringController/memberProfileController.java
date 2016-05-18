@@ -8,9 +8,11 @@ package SpringController;
 import DB.BookManager;
 import DB.PersonManager;
 import Model.Book.Book;
+import Model.Book.Recommend;
 import Model.Book.Hold;
 import Model.Person.Account;
 import Model.Person.Member;
+import ViewBean.HoldBean;
 import ViewBean.LoginBean;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
@@ -72,12 +74,7 @@ public class memberProfileController {
         }
         return "member_profile";
     }
-    @RequestMapping(value = "onHold_view.htm")
-    public String onHoldList(Model model, HttpSession session, Hold hold){
-        
-        BookManager.persistHold(hold);
-        return "onHold";
-    }
+   
 
     @RequestMapping(value = "checkout.htm")
     public String checkout(Model model, HttpSession session) {
@@ -94,6 +91,28 @@ public class memberProfileController {
         model.addAttribute("wishList", BookManager.searchWishBookList(account.getUserName()));
         model.addAttribute("wishAvailableList", BookManager.searchWishAvailableBookList(account.getUserName()));
         return "wishList";
+    }
+    @RequestMapping(value = "recommend.htm")
+    public String recommendList(Model model, HttpSession session) {
+
+        Account account = (Account) session.getAttribute("account");
+        model.addAttribute("recommendBookList", BookManager.searchRecommendBookList(account.getUserName()));
+        
+        
+        
+        return "memberRecommend";
+    }
+     @RequestMapping(value = "removeFromRecommend.htm")
+    public String removeFromecommendList(HttpSession session,@RequestParam("isbn")String isbn,Model model){
+        Account account=(Account)session.getAttribute("account");
+        if(account == null){
+            LoginBean loginBean = new LoginBean();
+            model.addAttribute("loginBean", loginBean);
+            return "loginPage";
+        }
+        BookManager.removeFromRecommendList(isbn,account.getUserName());
+        
+        return "memberRecommend";
     }
 
     @RequestMapping(value = "onHold.htm")

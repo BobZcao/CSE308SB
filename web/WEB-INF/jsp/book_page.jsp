@@ -1,3 +1,4 @@
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -34,7 +35,7 @@ and open the template in the editor.
                             
                          <c:when test="${book.licenses==0}">
 
-                            <button type="button" class="btn btn-warning btn-lg btn-block" onclick="location.href = 'recommend.htm?isbn=${book.isbn}';">Recommend</button>
+                            <button type="button" class="btn btn-warning btn-lg btn-block" onclick="location.href = 'addRecommend.htm?isbn=${book.isbn}';">Recommend</button>
                         </c:when>
                             
                         <c:when test="${book.available==0}">
