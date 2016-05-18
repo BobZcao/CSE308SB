@@ -26,7 +26,9 @@ public class IndexController {
         //List<String> subjectsList = null;
         //find all kinds of subjects in our book db
         //subjectsList = BookManager.generateSubjectsList();
+        //most popular
         model.addAttribute("searchBean", searchBean);
+        
         model.addAttribute("resultBookList",BookManager.searchBook(""));
         //model.addAttribute("subjectsList", subjectsList);
         return "index";

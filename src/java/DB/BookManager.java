@@ -278,6 +278,43 @@ public class BookManager {
         em.close();
         return resultList;
     }
+    
+    public static List<Book> searchBookByPopular(){
+        EntityManager em  = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
+        String s = "select c from Book c order by c.popular DESC";
+        List<Book> resultList = em.createQuery(s, Book.class).setMaxResults(12).getResultList();
+        em.close();
+        return resultList;
+    }
+    
+    public static List<Book> searchBookByNewEBook(){
+        EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
+        String s = "select c from Book c  where c.format like 'eBook' order by c.addedToSite DESC";
+         List<Book> resultList = em.createQuery(s, Book.class).setMaxResults(12).getResultList();
+        em.close();
+        return resultList;
+    }
+    
+    public static List<Book> searchBookByNewAudioBook(){
+        EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
+        String s = "select c from Book c  where c.format like 'audioBook' order by c.addedToSite DESC";
+        List<Book> resultList = em.createQuery(s, Book.class).setMaxResults(12).getResultList();
+        em.close();
+        return resultList;
+    }
+    
+    public static List<Book> searchBookByRecommendations(){
+        EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
+        String s = "select c from Book c";
+         List<Book> resultList = em.createQuery(s, Book.class).setMaxResults(12).getResultList();
+        em.close();
+        return resultList;
+    }
+    
 
     public static List<Book> basicSearch(String s) {
         //reset cursor
@@ -1246,4 +1283,6 @@ public class BookManager {
         em.getTransaction().commit();
         em.close();
     }
+    
+   
 }
