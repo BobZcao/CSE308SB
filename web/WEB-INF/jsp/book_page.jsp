@@ -22,11 +22,28 @@ and open the template in the editor.
                     <h2>${book.title}</h2>
                     <p>By <a href="#">${book.author}</a></p>
                         <c:choose>
-                            <c:when test="${not empty borrow}">
+                        
+                        <c:when test="${not empty borrow}">
 
                             <button type="button" class="btn btn-warning btn-lg btn-block" onclick="location.href = 'return.htm?isbn=${book.isbn}';">Return</button>
                         </c:when>
                             
+                         <c:when test="${not empty hold}">
+                            <button type="button" class="btn btn-warning btn-lg btn-block" onclick="location.href = 'editHold.htm?isbn=${book.isbn}';">Edit Hold</button>
+                        </c:when>
+                            
+                         <c:when test="${book.licenses==0}">
+
+                            <button type="button" class="btn btn-warning btn-lg btn-block" onclick="location.href = 'recommend.htm?isbn=${book.isbn}';">Recommend</button>
+                        </c:when>
+                            
+                        <c:when test="${book.available==0}">
+
+                            <button type="button" class="btn btn-warning btn-lg btn-block" onclick="location.href = 'hold.htm?isbn=${book.isbn}';">Hold</button>
+                        </c:when>
+                        
+                       
+                        
                         <c:otherwise>
 
                             <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'borrow.htm?isbn=${book.isbn}';">Borrow</button>

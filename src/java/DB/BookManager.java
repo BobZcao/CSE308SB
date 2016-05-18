@@ -9,6 +9,7 @@ import java.util.LinkedHashSet;
 import Model.Book.Book;
 import Model.Book.Borrow;
 import Model.Book.BorrowPK;
+import Model.Book.Hold;
 import Model.Person.Account;
 import Model.Book.Rating;
 import Model.Book.RatingPK;
@@ -579,8 +580,25 @@ public class BookManager {
         }
         return null;
     }
+    
+    public static Hold checkHold(String userName, String isbn){
+        EntityManager em = factory.createEntityManager();
+         em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
+         String query = "select h from Hold h where (h.holdPK.user = '" + userName +"' And h.holdPK.book= " + isbn +")";
+         Hold hold; 
+            try{
+                hold = em.createQuery(query, Hold.class).getSingleResult();
+                em.refresh(hold);
+                return hold;
+            }catch(Exception e){
+                e.printStackTrace();
+            }finally{
+                em.close();
+            }
+         return null;
+            
+    }
 
-     
     public static boolean returnBook(String userName, String isbn) {
         EntityManager em = factory.createEntityManager();
         em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
@@ -603,6 +621,15 @@ public class BookManager {
         em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
         em.getTransaction().begin();
         em.persist(borrow);
+        em.getTransaction().commit();
+        em.close();
+    }
+    
+    public static void persistHold(Hold hold){
+        EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
+        em.getTransaction().begin();
+        em.persist(hold);
         em.getTransaction().commit();
         em.close();
     }

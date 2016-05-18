@@ -36,10 +36,10 @@
                      <c:forEach var="book" items="${onHoldList}">
             <div class="col-lg-2 col-md-3 col-xs-6 thumb">
                 <a class="thumbnail" href="view.htm?isbn=${book.isbn}">
-                    <img class="img-responsive" src="${book.imageUrl}" alt="" width="150" height="200">
+                    <img class="img-responsive" src="${book.imageUrl}" alt="" width="300" height="400">
        
                 </a>
-                     <button type="submit" value = "Submit"  onclick="location.href ='removeWish.htm?isbn=${book.isbn}'" class="btn btn-primary btn-lg btn-block" >Remove</button>
+                     <button type="submit" value = "Submit"  onclick="location.href ='EditHold.htm?isbn=${book.isbn}'" class="btn btn-primary btn-lg btn-block" >Edit</button>
             </div>
          </c:forEach>
                 </div>

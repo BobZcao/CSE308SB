@@ -33,6 +33,21 @@ public class BorrowController  {
             return "loginPage";
         }
         book.borrow(account);
-        return "member_login";
-    }  
+        return "forward:/checkout.htm";
+    }
+    
+    @RequestMapping(value="/hold")
+    public String HoldBook(HttpSession session, @RequestParam("isbn")String isbn, Model model){
+        Book book = BookManager.getBookByIsbn(isbn);
+        Account account = (Account)session.getAttribute("account");
+        if(account == null){
+            LoginBean loginBean = new LoginBean();
+            model.addAttribute("loginBean", loginBean);
+            return "loginPage";
+        }
+        book.hold(account);
+        return "forward:/checkout.htm";
+    }
+    
+    
 }

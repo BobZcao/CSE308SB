@@ -61,6 +61,9 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Book implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "book1")
+    private Collection<Hold> holdCollection;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book1")
     private Collection<Borrow> borrowCollection;
 
     private static final long serialVersionUID = 1L;
@@ -348,6 +351,18 @@ public class Book implements Serializable {
         return true;
     }
 
+    public synchronized boolean hold(Account account){
+        Hold hold = new Hold();
+        HoldPK holdPK = new HoldPK();
+        holdPK.setBook(isbn);
+        holdPK.setUser(account.getUserName());
+        hold.setHoldPK(holdPK);
+        hold.setDateHold(new Date());
+        BookManager.persistHold(hold);
+        //there is no time for the hold 
+        return true;
+    }
+
     public synchronized boolean returnBook(Account account) {
         if (BookManager.returnBook(account.getUserName(), this.getIsbn())) {
             this.available += 1;
@@ -365,6 +380,15 @@ public class Book implements Serializable {
 
     public void setBorrowCollection(Collection<Borrow> borrowCollection) {
         this.borrowCollection = borrowCollection;
+    }
+
+    @XmlTransient
+    public Collection<Hold> getHoldCollection() {
+        return holdCollection;
+    }
+
+    public void setHoldCollection(Collection<Hold> holdCollection) {
+        this.holdCollection = holdCollection;
     }
     
 }

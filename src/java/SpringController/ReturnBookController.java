@@ -29,6 +29,6 @@ public class ReturnBookController {
         Book book = BookManager.getBookByIsbn(isbn);
         Account account = (Account) session.getAttribute("account");
         book.returnBook(account);
-        return "member_login";
+        return "forward:/checkout.htm";
     }
 }

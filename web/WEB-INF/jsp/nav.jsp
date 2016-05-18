@@ -63,13 +63,22 @@ and open the template in the editor.
                     </li>
                     <li class="active"><a href="about.html">About<span class="sr-only">(current)</span></a></li>
                     <li><a href="#">Contact</a></li>
-                    <li><a href="#">FAQ</a></li>
+                    <li><a class="dropdown-toggle" data-toggle="dropdown">Library Services</a>
+                        <ul class="dropdown-menu row">
+                            
+                            <li><a href="http://help.overdrive.com/customer/en/portal/articles/1529341">View OverDrive Help</a></li>
+                            <li><a href="lendingPolicies.htm">View Lending Policies</a></li>
+                            <li><a href="howToRecommend.htm">How to Recommend Book</a></li>
+                            <li><a href="copyright.htm">View Copyright Policy</a></li>
+                        </ul>
+                    </li>
+                    
                 </ul>
                 <c:choose>
 
                     <c:when test="${not empty account.userName}">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="member_login.htm"><span class="glyphicon glyphicon-user"></span> ${account.userName}</a></li>                        
+                            <li><a href="checkout.htm"><span class="glyphicon glyphicon-user"></span> ${account.userName}</a></li>                        
                             <li><a href="logout.htm">Log out</a></li>
                         </ul>
                     </c:when>

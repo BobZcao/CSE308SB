@@ -6,6 +6,7 @@
 package Model.Person;
 
 import Model.Book.Borrow;
+import Model.Book.Hold;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -57,6 +58,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Account.findByAgeContent", query = "SELECT a FROM Account a WHERE a.ageContent = :ageContent"),
     @NamedQuery(name = "Account.findByLendingPeriod", query = "SELECT a FROM Account a WHERE a.lendingPeriod = :lendingPeriod")})
 public class Account implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private Collection<Hold> holdCollection;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private Collection<Borrow> borrowCollection;
@@ -325,6 +329,15 @@ public class Account implements Serializable {
 
     public void setBorrowCollection(Collection<Borrow> borrowCollection) {
         this.borrowCollection = borrowCollection;
+    }
+
+    @XmlTransient
+    public Collection<Hold> getHoldCollection() {
+        return holdCollection;
+    }
+
+    public void setHoldCollection(Collection<Hold> holdCollection) {
+        this.holdCollection = holdCollection;
     }
     
 }
