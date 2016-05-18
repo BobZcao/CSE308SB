@@ -76,7 +76,9 @@ $(document).ready(function () {
         $('.faculty_panel').load("faculty_panel/manage_books.html");
     });
 
-    
+    $('#readButton').click(function(){
+        $('#read').show();
+    });
     
     
       

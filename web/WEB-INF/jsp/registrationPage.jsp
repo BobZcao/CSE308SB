@@ -21,14 +21,7 @@
                         <div  style="font-size:150%;">
                         <form:form action="registrationSuccessPage.htm" method="POST" commandName = "member" >
                         <div class="modal-body">
-                            <!-- div style="font-size:20px;">
-                                <Span><Strong>Sign up as:</Strong></Span>
-                                <select style="margin-right: 40%" id="selectSign" onchange="selectSignIn();">
-                                    <option value="Member">Member</option>
-                                    <option value="Faculty">Faculty</option>
-                                    <option value="Publisher">Publisher</option>
-                                </select>
-                                </div> -->
+                            
                             </br>
                                
                               
@@ -90,32 +83,7 @@
                                 </div>
 
                            
-                                    <!-- <input
-                                             id="credit_card_number" class="form-control" type="text"
-                                             placeholder="Credit Card Number" name="reg_cardnum" required>-->
-
-                                    <!--     <div class="publisher" style="display:none">
-                                            <input id="register_username" class="form-control" type="text"
-                                                   placeholder="Username" name= "pub_username" required> 
-                                            <input
-                                                id="pub_password" class="form-control" type="password"
-                                                placeholder="Password" name= "pub_password" required> 
-                                            <input name="pub_password_confirm"
-                                                   id="register_confirm_password" class="form-control"
-                                                   type="password" placeholder="Confirm Password" required>
-                                            <input id="company_name"  name="company_name" class="form-control" type="text"
-                                                   placeholder="Company name" required>
-                                            <input id="pub_address" name="pub_address"
-                                                   class="form-control" type="text" placeholder="Address"
-                                                   required> 
-                                            <input
-                                                id="pub_email" class="form-control" type="text"
-                                                placeholder="Email" name= "pub_email" required> 
-                                            <input name="pub_phone"
-                                                   id="pub_phone" class="form-control"
-                                                   type="text" placeholder="Phone" required>
-        
-                                        </div> -->
+                                   
                                 </div>
                                 <div class="modal-footer">
 

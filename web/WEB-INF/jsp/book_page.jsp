@@ -26,6 +26,7 @@ and open the template in the editor.
 
                             <button type="button" class="btn btn-warning btn-lg btn-block" onclick="location.href = 'return.htm?isbn=${book.isbn}';">Return</button>
                         </c:when>
+                            
                         <c:otherwise>
 
                             <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'borrow.htm?isbn=${book.isbn}';">Borrow</button>

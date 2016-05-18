@@ -63,14 +63,25 @@
                                                 <button type="submit" value = "Submit"  onclick="location.href = 'return.htm?isbn=${book.isbn}'" class="btn btn-primary  btn-block" >Return</button>
                                             </td>
                                             <td>   
-                                                <button type="submit" value = "Submit"  onclick="location.href = 'renew.htm?isbn=${book.isbn} & date=${borrow.borrowPK.dateBorrow}'" class="btn btn-primary  btn-block" >Renew</button>
+                                                <button  type="submit" value = "Submit"  onclick="location.href = 'renew.htm?isbn=${book.isbn} & date=${borrow.borrowPK.dateBorrow}'" class="btn btn-primary  btn-block" >Renew</button>
                                             </td>
+                                            <td>   
+                                                <button id = "readButton" type="submit" value = "Submit" onclick="location.href = 'read.htm?isbn=${book.isbn}'" class="btn btn-primary  btn-block" >read</button>
+                                            </td>
+                                            
+                                            
                                         </c:if>
                                     </c:forEach>
-
-
+                                            
+                                            
                                 </tr>
+                                
+                                <c:if test ="${not empty readBook}">
+                                    <tr><embed src=${readBook} width="800" height="500" type='application/pdf' id = "read" ></iframe></tr>
+                                </c:if>
+                                
                             </c:forEach>
+                                
                     </table>
                 </div>
 
