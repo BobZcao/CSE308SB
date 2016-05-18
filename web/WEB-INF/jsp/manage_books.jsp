@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>  
 <!DOCTYPE html>
 <html>
 
@@ -24,12 +24,16 @@
             <div class="col-lg-10 admin_panel" style="margin-top: 80px">
                 <div class="row">
                     <div class="col-md-6">
-                        <form class="navbar-form page-header" role="search">
-                            <div class="form-group" style="width: 50%">
-                                <input type="text" class="form-control" placeholder="Search" style="width:100%">
-                            </div>
-                            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> 
-                        </form>
+                   <form:form action="manage_books_search.htm" method="POST" class="navbar-form page-header" role="search" id="search" commandName= "searchBean">
+                    <div class="form-group" style="width: 50%">
+                    
+                    <form:input path = "keywords" type="text"
+                                name = "keywords" class="form-control" 
+                                placeholder="Search" style="width:100%" required="required"/>
+                    
+                </div>
+                <button type="submit" value="Submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> 
+                </form:form>
                     </div>  
                 </div>
 
@@ -38,7 +42,18 @@
                         <li class="list-group-item">${book.title}<button type="button" class="btn btn-danger pull-right" onclick="location.href = 'ban.htm?isbn=${book.isbn}';">Ban</button><button type="button" class="btn btn-warning pull-right" onclick="location.href = 'unban.htm?isbn=${book.isbn}';">Unban</button><button type="button" class="btn btn-primary pull-right" onclick="location.href = 'buyMoreLicenses.htm?isbn=${book.isbn}';">Buy More Licenses</button></li>
                     </c:forEach>
                 </ul>
+                
+                
             </div>
+            
+            <div>
+            <ul class="pager" style="margin-top:20px">
+                <li><a href="manage_books_next.htm">Next</a></li>
+                <li><a href="manage_books_previous.htm">Previous</a></li>
+                <li><a href="manage_books_last.htm">Last</a></li>
+                <li><a href="manage_books_first.htm">First</a></li>
+            </ul>
+        </div>
 
 
 

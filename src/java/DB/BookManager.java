@@ -349,6 +349,38 @@ public class BookManager {
        
         return resultList;
     }
+    
+    public static List<Book> basicSearch_admin(String s) {
+        //reset cursor
+        cursor = 0;
+        EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
+        //dicide a string into multiple small strings 
+
+        String[] keys = s.split("\\s* \\s*");
+        List<Book> resultList = null;
+        String searchQuery = "select c from Book c where ";
+        for (int i = 0; i < keys.length; i++) {
+            searchQuery = searchQuery + "(c.isbn like '%" + keys[i] + "%'"
+                    + " or c.subjects like '%" + keys[i] + "%'"
+                    + " or c.title like '%" + keys[i] + "%'"
+                    + " or c.series like '%" + keys[i] + "%'"
+                    + " or c.publishDate like '%" + keys[i] + "%'"
+                    + " or c.author like '%" + keys[i] + "%'"
+                    + " or c.publisher like '%" + keys[i] + "%')";
+            if (i != keys.length - 1) {
+                searchQuery = searchQuery + " and ";
+            }
+        }
+
+        resultList = em.createQuery(searchQuery, Book.class).getResultList();
+        em.close();
+       
+        searchResult = resultList;
+        //after get books with all titles, get all books that are available
+       
+        return resultList;
+    }
 
     public static List<Book> advancedSearch(SearchBean searchBean) {
         //reset cursor 

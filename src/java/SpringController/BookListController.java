@@ -27,9 +27,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class BookListController {
     @RequestMapping(value = "/manage_books")
     public String printBooks(ModelMap model){
-        //SearchBean searchBean = new SearchBean();
-        //model.addAttribute("searchBean", searchBean);
-        model.addAttribute("resultBookList",BookManager.searchBook(""));
+        SearchBean searchBean = new SearchBean();
+        model.addAttribute("searchBean", searchBean);
+        BookManager.basicSearch_admin("");
+        model.addAttribute("resultBookList",BookManager.getFirstSetBook());
+        return "manage_books";
+    }
+    
+    @RequestMapping(value = "/manage_books_search")
+    public String memberSearchBook(Model model, SearchBean searchBean){
+        BookManager.basicSearch_admin(searchBean.getKeywords());
+        model.addAttribute("resultBookList",BookManager.getFirstSetBook());
         return "manage_books";
     }
     
