@@ -1365,5 +1365,19 @@ public class BookManager {
         em.getTransaction().commit();
         em.close(); 
     }
+    
+    public static List<Recommend> getRecommender(String bookIsbn) {
+        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+        EntityManager em = factory.createEntityManager();
+         
+        // Read the existing entries and write to console
+        List<Recommend> resultList = null;
+        String searchQuery = "select r from Recommend r where (r.recommendPK.book =" + bookIsbn + ")";
+       
+        resultList = em.createQuery(searchQuery, Recommend.class).getResultList();
+        em.close();
+        return resultList;
+        
+    }
    
 }
