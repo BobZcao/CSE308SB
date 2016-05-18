@@ -47,7 +47,7 @@ and open the template in the editor.
                             <li><a href="http://help.overdrive.com/customer/en/portal/articles/1529341">View OverDrive Help</a></li>
                             <li><a href="lendingPolicies.htm">View Lending Policies</a></li>
                             <li><a href="howToRecommend.htm">How to Recommend Book</a></li>
-                            <li><a href="copyright.htm">View Copyright Policy</a></li>
+                            
                         </ul>
                     </li>
                     
