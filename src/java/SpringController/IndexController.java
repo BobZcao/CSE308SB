@@ -4,6 +4,7 @@ package SpringController;
 import DB.BookManager;
 import Model.Person.Account;
 import ViewBean.SearchBean;
+import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,8 +23,12 @@ public class IndexController {
     @RequestMapping(value="/index")
     public String printHello(ModelMap model){
         SearchBean searchBean = new SearchBean();
+        //List<String> subjectsList = null;
+        //find all kinds of subjects in our book db
+        //subjectsList = BookManager.generateSubjectsList();
         model.addAttribute("searchBean", searchBean);
         model.addAttribute("resultBookList",BookManager.searchBook(""));
+        //model.addAttribute("subjectsList", subjectsList);
         return "index";
     }
 }

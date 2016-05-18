@@ -57,7 +57,7 @@ public class MemberLoginController {
             return "member_login";
             }
             else{
-                 return "mange_users";
+                 return "manage_users";
                 
             }
 

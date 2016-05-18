@@ -33,8 +33,8 @@
                     </div>  
                 </div>
                 <ul class="list-group">                   
-                    <c:forEach var="bookName" items="${recommendationList}">
-                    <li class="list-group-item">${bookName}<button type="button" class="btn btn-warning pull-right">Ignore</button><button type="button" class="btn btn-primary pull-right">Purchase</button></li>
+                    <c:forEach var="book" items="${recommendationList}">
+                    <li class="list-group-item">${book.title}<button type="button" class="btn btn-warning pull-right" onclick="location.href = 'ignore.htm?bookIsbn=${book.isbn}';">Ignore</button><button type="button" class="btn btn-primary pull-right" onclick="location.href = 'purchase.htm?bookIsbn=${book.isbn}';">Purchase</button></li>
                     </c:forEach>
                     </ul>
             </div>
