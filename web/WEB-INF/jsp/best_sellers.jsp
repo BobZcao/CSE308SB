@@ -20,8 +20,8 @@
             <div class="col-lg-10 admin_panel" style="margin-top: 80px">
                 
                 <ul class="list-group">
-                    <c:forEach var="bookName" items="${resultBestSellers}">
-                        <li class="list-group-item">${bookName}</li>
+                    <c:forEach var="book" items="${resultBestSellers}">
+                        <li class="list-group-item">${book.title}</li>
                     </c:forEach>
                     
                 </ul>

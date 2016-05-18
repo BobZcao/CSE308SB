@@ -12,6 +12,7 @@ import Model.Book.BorrowPK;
 import Model.Book.Favorbook;
 import Model.Book.FavorbookPK;
 import Model.Book.Hold;
+import Model.Book.HoldPK;
 import Model.Person.Account;
 import Model.Book.Rating;
 import Model.Book.RatingPK;
@@ -1353,6 +1354,16 @@ public class BookManager {
         em.close();
     }
     
-    
+    public static void removeHold(String bn, String userName) {
+       EntityManager em = factory.createEntityManager();
+        HoldPK rcPK = new HoldPK();
+        rcPK.setBook(bn);
+        rcPK.setUser(userName);
+        Hold r = em.find(Hold.class, rcPK);
+        em.getTransaction().begin();
+        em.remove(r);
+        em.getTransaction().commit();
+        em.close(); 
+    }
    
 }

@@ -41,6 +41,7 @@
        
                 </a>
                      <button type="submit" value = "Submit"  onclick="location.href ='editHold.htm?isbn=${book.isbn}'" class="btn btn-primary btn-lg btn-block" >Edit</button>
+                       <button type="submit" value = "Submit"  onclick="location.href ='removeHold.htm?isbn=${book.isbn}'" class="btn btn-primary btn-lg btn-block" >Remove</button>
             </div>
          </c:forEach>
                 </div>

@@ -21,7 +21,7 @@ public class bestSellersController {
     @RequestMapping(value = "/best_sellers")
     public String passBestSellers(ModelMap model){
         
-        model.addAttribute("resultBestSellers", BookManager.getBestSellers());
+        model.addAttribute("resultBestSellers", BookManager.searchBookByPopular());
         return "best_sellers";
     }
 }

@@ -27,37 +27,15 @@ and open the template in the editor.
 
                 <ul class="nav navbar-nav">
                     <li class="dropdown mega-dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <span class="glyphicon glyphicon-chevron-down"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Most popular <span class="glyphicon glyphicon-chevron-down"></span></a>
                         <ul class="dropdown-menu mega-dropdown-menu row">
-                            <li class="col-sm-3">
-                                <ul>
-                                    <li class="dropdown-header">Subject</li>
-
-                                    <li><a href="display_page.html">Business</a></li>
-                                    <li><a href="#">Fiction</a></li>
-                                    <li><a href="#">Nonfiction</a></li>
-                                    <li><a href="#">History</a></li>
-                                    <li><a href="#">Religion</a></li>
-                                    <li><a href="#">Education</a></li>
-                                    <li><a href="#">Science</a></li>
-                                    <li><a href="#">Medic</a></li>
-                                    <li><a href="#">More...</a></li>
-
-                                </ul>
-                            </li>
-                            <li class="col-sm-3">
-                                <ul>
-                                    <li class="dropdown-header">Genre</li>
-                                    <li><a href="#">Novel</a></li>
-                                    <li><a href="#">Drama</a></li>
-                                    <li><a href="#">Poetry</a></li>
-                                    <li><a href="#">Comedy</a></li>
-                                    <li><a href="#">Tragedy</a></li>
-                                    <li><a href="#">Short story</a></li>
-                                    <li><a href="#">Epic</a></li>
-                                    <li><a href="#">More...</a></li>
-                                </ul>
-                            </li>
+                            <c:forEach var="book" items="${mostPopular}">
+            <div class="col-lg-2 col-md-3 col-xs-6 thumb">
+                <a class="thumbnail" href="view.htm?isbn=${book.isbn}">
+                    <img class="img-responsive" src="${book.imageUrl}" alt="" width="150" height="200">
+                </a>
+            </div>
+        </c:forEach>
                         </ul>
 
                     </li>
@@ -76,9 +54,15 @@ and open the template in the editor.
                 </ul>
                 <c:choose>
 
-                    <c:when test="${not empty account.userName}">
+                    <c:when test="${not empty account.userName && account.levels==1}">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="checkout.htm"><span class="glyphicon glyphicon-user"></span> ${account.userName}</a></li>                        
+                            <li><a href="logout.htm">Log out</a></li>
+                        </ul>
+                    </c:when>
+                    <c:when test="${not empty account.userName && account.levels==2}">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="manage_users.htm"><span class="glyphicon glyphicon-user"></span> ${account.userName}</a></li>                        
                             <li><a href="logout.htm">Log out</a></li>
                         </ul>
                     </c:when>

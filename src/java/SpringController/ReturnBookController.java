@@ -6,8 +6,10 @@
 package SpringController;
 
 import DB.BookManager;
+import DB.PersonManager;
 import Model.Book.Book;
 import Model.Person.Account;
+import ViewBean.LoginBean;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpRequest;
@@ -16,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -37,5 +40,18 @@ public class ReturnBookController {
         Account account = (Account) session.getAttribute("account");
         book.renewBook(account);
         return "forward:checkout.htm";
+    }
+    
+    @RequestMapping(value = "/secondSiteReturn")
+    @ResponseBody
+    public String returnBook(@RequestParam("isbn") String
+isbn,@RequestParam("userName") String userName){
+        LoginBean loginBean = new LoginBean();
+        loginBean.setUserName(userName);
+        Book book = BookManager.getBookByIsbn(isbn);
+        Account account = PersonManager.getAccount(loginBean);
+        if (book==null||account==null) return "fail";
+        if(book.returnBook(account)) return "success";
+        else return "fail";
     }
 }

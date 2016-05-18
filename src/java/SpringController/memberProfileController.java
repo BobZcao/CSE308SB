@@ -178,5 +178,20 @@ public class memberProfileController {
         
         return "forward:wishList.htm";
 }
+    @RequestMapping(value = "removeHold.htm")
+    public String removeHold(HttpSession session,@RequestParam("isbn")String isbn,Model model){
+        Account account=(Account)session.getAttribute("account");
+        if(account == null){
+            LoginBean loginBean = new LoginBean();
+            model.addAttribute("loginBean", loginBean);
+            return "loginPage";
+        }
+        BookManager.removeHold(isbn,account.getUserName());
+          model.addAttribute("onHoldList", BookManager.searchOnHoldBookList(account.getUserName()));
+        
+        return "memberRecommend";
+    }
+
+
 
 }

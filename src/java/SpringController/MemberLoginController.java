@@ -57,6 +57,7 @@ public class MemberLoginController {
             return "member_login";
             }
             else{
+                model.addAttribute("resultUserList", PersonManager.getUserList());
                  return "manage_users";
                 
             }

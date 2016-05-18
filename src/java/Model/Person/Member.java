@@ -24,10 +24,10 @@ public class Member extends Account{
     private String state;
     private Integer zipCode;
     private String telephone;
-    private Integer font;
-    private String ageContent;
-    private Integer contrast;
-    private Integer lendingPeriod;
+    private Integer font =1;
+    private String ageContent ="Child";
+    private Integer contrast =2 ;
+    private Integer lendingPeriod = 3;
     private String level;
 
    
