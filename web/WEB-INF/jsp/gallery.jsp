@@ -12,9 +12,9 @@
     <div class="row">
 
         <div class="col-lg-12">
-            <h1 class="page-header">New eBooks</h1>
+            <h1 class="page-header">Most Popular</h1>
         </div>
-        <c:forEach var="book" items="${resultBookList}">
+        <c:forEach var="book" items="${mostPopular}">
             <div class="col-lg-2 col-md-3 col-xs-6 thumb">
                 <a class="thumbnail" href="view.htm?isbn=${book.isbn}">
                     <img class="img-responsive" src="${book.imageUrl}" alt="" width="150" height="200">
@@ -25,69 +25,47 @@
     <div class="row">
 
         <div class="col-lg-12">
-            <h1 class="page-header">Most Popular</h1>
+            <h1 class="page-header">New eBooks</h1>
         </div>
 
-        <div class="col-lg-2 col-md-3 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
-            </a>
+       <c:forEach var="book" items="${newEBook}">
+            <div class="col-lg-2 col-md-3 col-xs-6 thumb">
+                <a class="thumbnail" href="view.htm?isbn=${book.isbn}">
+                    <img class="img-responsive" src="${book.imageUrl}" alt="" width="150" height="200">
+                </a>
+            </div>
+        </c:forEach>
+
+    </div>
+    <div class="row">
+
+        <div class="col-lg-12">
+            <h1 class="page-header">New audio Books</h1>
         </div>
-        <div class="col-lg-2 col-md-3 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
-            </a>
+
+       <c:forEach var="book" items="${NewAudioBook}">
+            <div class="col-lg-2 col-md-3 col-xs-6 thumb">
+                <a class="thumbnail" href="view.htm?isbn=${book.isbn}">
+                    <img class="img-responsive" src="${book.imageUrl}" alt="" width="150" height="200">
+                </a>
+            </div>
+        </c:forEach>
+
+    </div>
+    
+    <div class="row">
+
+        <div class="col-lg-12">
+            <h1 class="page-header">Recommendation</h1>
         </div>
-        <div class="col-lg-2 col-md-3 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
-            </a>
-        </div>
-        <div class="col-lg-2 col-md-3 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
-            </a>
-        </div>
-        <div class="col-lg-2 col-md-3 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
-            </a>
-        </div>
-        <div class="col-lg-2 col-md-3 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
-            </a>
-        </div>
-        <div class="col-lg-2 col-md-3 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
-            </a>
-        </div>
-        <div class="col-lg-2 col-md-3 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
-            </a>
-        </div>
-        <div class="col-lg-2 col-md-3 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
-            </a>
-        </div>
-        <div class="col-lg-2 col-md-3 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
-            </a>
-        </div>
-        <div class="col-lg-2 col-md-3 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
-            </a>
-        </div>
-        <div class="col-lg-2 col-md-3 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/150x200" alt="">
-            </a>
-        </div>
+
+       <c:forEach var="book" items="${recommendation}">
+            <div class="col-lg-2 col-md-3 col-xs-6 thumb">
+                <a class="thumbnail" href="view.htm?isbn=${book.isbn}">
+                    <img class="img-responsive" src="${book.imageUrl}" alt="" width="150" height="200">
+                </a>
+            </div>
+        </c:forEach>
 
     </div>
 </html>

@@ -43,14 +43,15 @@
                         </tr>
 
                         <c:forEach var="book" items="${borrowHistoryList}">
-                            <tr><td>
+                           
+
+                                <c:forEach var="borrow" items="${borrowHistoryBorrow}">
+                                    <c:if test="${book.isbn==borrow.borrowPK.book}">
+                                         <tr><td>
                                     <a  href="view.htm?isbn=${book.isbn}">
                                         ${book.title}
                                     </a>
                                 </td>
-
-                                <c:forEach var="borrow" items="${borrowHistoryBorrow}">
-                                    <c:if test="${book.isbn==borrow.borrowPK.book}">
                                         <td>  ${borrow.borrowPK.dateBorrow} </td>
                                         <td>  ${borrow.dateReturn} </td>
                                     </c:if>

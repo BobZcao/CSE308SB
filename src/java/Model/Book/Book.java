@@ -381,7 +381,7 @@ public class Book implements Serializable {
     public void setBorrowCollection(Collection<Borrow> borrowCollection) {
         this.borrowCollection = borrowCollection;
     }
-
+    
     @XmlTransient
     public Collection<Hold> getHoldCollection() {
         return holdCollection;
@@ -390,5 +390,13 @@ public class Book implements Serializable {
     public void setHoldCollection(Collection<Hold> holdCollection) {
         this.holdCollection = holdCollection;
     }
+    
+    public void renewBook(Account account) {
+      BookManager.renewBook(account.getUserName(), this.getIsbn(),account.getLendingPeriod());
+    }
+           
+      
+
+    
     
 }

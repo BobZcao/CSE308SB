@@ -111,6 +111,7 @@ public class memberProfileController {
             return "loginPage";
         }
         BookManager.removeFromRecommendList(isbn,account.getUserName());
+        model.addAttribute("recommendBookList", BookManager.searchRecommendBookList(account.getUserName()));
         
         return "memberRecommend";
     }
@@ -142,16 +143,16 @@ public class memberProfileController {
         return "borrowHistory";
     }
 
-    @RequestMapping(value = "renew.htm")
-    public String renewBook(Model model, @RequestParam("isbn") String isbn, @RequestParam("date") String date, HttpSession session) {
-        Account account = (Account) session.getAttribute("account");
-        if (account == null) {
-            return "loginPage";
-        }
-
-//        BookManager.renewBook(account,isbn,dates);
-        return "member_login";
-    }
+//    @RequestMapping(value = "renew.htm")
+//    public String renewBook(Model model, @RequestParam("isbn") String isbn, @RequestParam("date") String date, HttpSession session) {
+//        Account account = (Account) session.getAttribute("account");
+//        if (account == null) {
+//            return "loginPage";
+//        }
+//
+////        BookManager.renewBook(account,isbn,dates);
+//        return "member_login";
+//    }
     
     @RequestMapping(value = "read.htm")
     public String readBook(Model model, @RequestParam("isbn") String isbn, HttpSession session) {

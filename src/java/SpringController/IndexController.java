@@ -28,6 +28,11 @@ public class IndexController {
         subjectsList = BookManager.generateSubjectsList();
         model.addAttribute("searchBean", searchBean);
         BookManager.basicSearch("");
+        model.addAttribute("mostPopular", BookManager.searchBookByPopular());
+        model.addAttribute("newEBook",BookManager.searchBookByNewEBook());
+        model.addAttribute("NewAudioBook",BookManager.searchBookByNewAudioBook());
+        model.addAttribute("recommendation",BookManager.searchBookByRecommendations());
+       
         model.addAttribute("resultBookList",BookManager.searchBook(""));
         model.addAttribute("subjectsList", subjectsList);
         return "index";

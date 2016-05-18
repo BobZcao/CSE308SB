@@ -29,6 +29,13 @@ public class ReturnBookController {
         Book book = BookManager.getBookByIsbn(isbn);
         Account account = (Account) session.getAttribute("account");
         book.returnBook(account);
-        return "forward:/checkout.htm";
+        return "forward:checkout.htm";
+    }
+     @RequestMapping(value = "renew.htm")
+    public String renewBook(ModelMap map, @RequestParam("isbn") String isbn, HttpSession session) {
+        Book book = BookManager.getBookByIsbn(isbn);
+        Account account = (Account) session.getAttribute("account");
+        book.renewBook(account);
+        return "forward:checkout.htm";
     }
 }

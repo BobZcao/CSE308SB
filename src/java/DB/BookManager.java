@@ -664,6 +664,30 @@ public class BookManager {
         }
         return false;
     }
+    
+     public static void renewBook(String userName, String isbn,int d) {
+        EntityManager em = factory.createEntityManager();
+        em.setProperty("javax.persistence.cache.storeMode", "BYPASS");
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date = sdfDate.format(new Date());
+        String query = "select b from Borrow b where b.borrowPK.user = '" + userName + "' And b.borrowPK.book=" + isbn + " And b.dateReturn>'" + date + "'";
+        Borrow borrow = em.createQuery(query, Borrow.class).getSingleResult();
+         em.refresh(borrow);
+        em.close();
+        if (borrow != null) {
+            borrow.setDateReturn(new Date());
+            mergeBorrow(borrow);
+        
+      
+        Calendar cal = Calendar.getInstance(); // creates calendar
+        cal.setTime(borrow.getBorrowPK().getDateBorrow()); // sets calendar time/date
+        cal.add(Calendar.DAY_OF_YEAR, d); // adds one hour
+        borrow.setDateReturn(cal.getTime());
+        borrow.getBorrowPK().setDateBorrow(new Date());
+            persistBorrow(borrow);
+        
+    }
+     }
 
     public static void persistBorrow(Borrow borrow) {
         EntityManager em = factory.createEntityManager();
