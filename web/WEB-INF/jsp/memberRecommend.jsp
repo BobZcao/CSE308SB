@@ -59,7 +59,7 @@
 
         </div>
 
-        <c:import url="footer.html"/>
+         <c:import url="footer.jsp"/>
 
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
