@@ -10,6 +10,32 @@ and open the template in the editor.
 <html>
     <c:import url="header.html"/>
     <body>
+        <div id="fb-root"></div>
+        <script>(function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id))
+                    return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+
+        <script>!function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = p + '://platform.twitter.com/widgets.js';
+                    fjs.parentNode.insertBefore(js, fjs);
+                }
+            }(document, 'script', 'twitter-wjs');</script>
+
+        <script
+            type="text/javascript"
+            async defer
+            src="//assets.pinterest.com/js/pinit.js"
+        ></script>
 
         <c:import url="nav.jsp"/>
 
@@ -23,48 +49,55 @@ and open the template in the editor.
                     <h2>${book.title}</h2>
                     <p>By <a href="#">${book.author}</a></p>
                         <c:choose>
-                        
+
                         <c:when test="${not empty borrow}">
 
                             <button type="button" class="btn btn-warning btn-lg btn-block" onclick="location.href = 'return.htm?isbn=${book.isbn}';">Return</button>
                         </c:when>
-                            
-                         <c:when test="${not empty hold}">
+
+                        <c:when test="${not empty hold}">
                             <button type="button" class="btn btn-warning btn-lg btn-block" onclick="location.href = 'editHold.htm?isbn=${book.isbn}';">Edit Hold</button>
                         </c:when>
-                            
-                         <c:when test="${book.licenses==0}">
+
+                        <c:when test="${book.licenses==0}">
 
                             <button type="button" class="btn btn-warning btn-lg btn-block" onclick="location.href = 'addRecommend.htm?isbn=${book.isbn}';">Recommend</button>
                         </c:when>
-                            
+
                         <c:when test="${book.available==0}">
 
                             <button type="button" class="btn btn-warning btn-lg btn-block" onclick="location.href = 'hold.htm?isbn=${book.isbn}';">Hold</button>
                         </c:when>
-                        
-                       
-                        
+
+
+
                         <c:otherwise>
 
                             <button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href = 'borrow.htm?isbn=${book.isbn}';">Borrow</button>
                         </c:otherwise>
                     </c:choose>
-                        <c:if test="${empty wishBook}" >
-                    <button type="button" onclick="location.href = 'addWishList.htm?isbn=${book.isbn}'" class="btn btn-warning btn-lg btn-block"  >Add to Wish List</button>
-                        </c:if>
+                    <c:if test="${empty wishBook}" >
+                        <button type="button" onclick="location.href = 'addWishList.htm?isbn=${book.isbn}'" class="btn btn-warning btn-lg btn-block"  >Add to Wish List</button>
+                    </c:if>
                     <c:if test="${not empty wishBook}" >
-                    <button type="button" onclick="location.href = 'removeFromWishList.htm?isbn=${book.isbn}'" class="btn btn-warning btn-lg btn-block"  >Remove From Wish List</button>
-                        </c:if>
+                        <button type="button" onclick="location.href = 'removeFromWishList.htm?isbn=${book.isbn}'" class="btn btn-warning btn-lg btn-block"  >Remove From Wish List</button>
+                    </c:if>
                     <h4>Description</h4>
                     <p>${book.description}</p>
 
                 </div>
 
                 <div class="col-lg-4" style="margin-top:20px">
-                    <img class="icon pull-right" src="http://image005.flaticon.com/67/svg/69/69480.svg" alt="">
-                    <img class="icon pull-right" src="http://image005.flaticon.com/67/svg/69/69407.svg" alt="">
-                    <img class="icon pull-right" src="http://image005.flaticon.com/11/svg/9/9556.svg" alt="">
+                    <div class="fb-share-button" data-href="" data-layout="button" data-mobile-iframe="true"></div>
+                    <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+                    <a href="https://www.pinterest.com/pin/create/button/">
+                        <img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png" />
+                    </a>
+                    <a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com."
+                       title="Share by Email">
+                        <img src="https://cdn.shopify.com/s/files/1/0194/2989/t/3/assets/email-button.png?16850287810030628576">
+                    </a>
+
 
                     <div class="panel-group" id="accordion" style="margin-top:40px">
                         <div class="panel panel-default">

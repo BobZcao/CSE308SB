@@ -23,12 +23,12 @@ public class IndexController {
     @RequestMapping(value="/index")
     public String printHello(ModelMap model){
         SearchBean searchBean = new SearchBean();
-        //List<String> subjectsList = null;
+        List<String> subjectsList = null;
         //find all kinds of subjects in our book db
-        //subjectsList = BookManager.generateSubjectsList();
+        subjectsList = BookManager.generateSubjectsList();
         model.addAttribute("searchBean", searchBean);
         model.addAttribute("resultBookList",BookManager.searchBook(""));
-        //model.addAttribute("subjectsList", subjectsList);
+        model.addAttribute("subjectsList", subjectsList);
         return "index";
     }
 }
