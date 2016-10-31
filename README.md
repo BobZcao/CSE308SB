@@ -1,2 +1,1 @@
-# CSE308
-cse308 project
+An Complete E-book Lending System.
